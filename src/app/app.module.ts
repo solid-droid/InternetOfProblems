@@ -8,6 +8,10 @@ import { HeaderComponent } from './components/header/header.component';
 import { ZoomControlComponent } from './components/zoom-control/zoom-control.component';
 import { TimeControlComponent } from './components/time-control/time-control.component';
 import { SearchBarComponent } from './components/search-bar/search-bar.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+
+import {MatSliderModule} from '@angular/material/slider';
 
 @NgModule({
   declarations: [
@@ -19,8 +23,11 @@ import { SearchBarComponent } from './components/search-bar/search-bar.component
     SearchBarComponent
   ],
   imports: [
+    MatSliderModule,
+    
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
