@@ -72,10 +72,12 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "InternetOfProblems:build:production"
+              "browserTarget": "InternetOfProblems:build:production",
+              "ssl": true
             },
             "development": {
-              "browserTarget": "InternetOfProblems:build:development"
+              "browserTarget": "InternetOfProblems:build:development",
+              "ssl": true
             }
           },
           "defaultConfiguration": "development"
