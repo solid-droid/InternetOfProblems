@@ -10,6 +10,7 @@ export class TimeControlComponent implements OnInit {
   dateRange: Date[] = this.createDateRange();
   value: number = this.dateRange[0].getTime();
   options:any = {
+    showTicks: true,
     stepsArray: this.dateRange.map((date: Date) => {
       return { value: date.getTime() };
     }),

@@ -14,8 +14,7 @@
 ::ng-deep {
     .custom-slider .ngx-slider {
         .ngx-slider-bar {
-            background: #ffe4d1;
-            height: 2px;
+          visibility: hidden;
           }
           .ngx-slider-pointer {
             width:32px;

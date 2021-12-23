@@ -3,5 +3,12 @@
     height: calc(100vh - 5px);
     display: grid;
     grid-template-rows: 100px;
+    grid-gap: 5px;
     padding-left: 2px;
+}
+
+@media screen and (max-width: 700px){
+    .container{
+        grid-template-rows: 100px;
+    }
 }
