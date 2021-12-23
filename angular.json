@@ -34,10 +34,14 @@
               "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
               "src/styles.scss",
               "src/assets/ol.css",
+              "src/assets/leader-line.css",
               "node_modules/@fortawesome/fontawesome-free/css/all.min.css"
             ],
             "scripts": [
-              "src/assets/ol.js"
+              "src/assets/jquery-3.6.0.min.js",
+              "src/assets/ol.js",
+              "src/assets/panzoom.min.js",
+              "src/assets/leader-line.min.js"
             ]
           },
           "configurations": {

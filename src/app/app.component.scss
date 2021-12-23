@@ -6,6 +6,10 @@
     grid-gap: 5px;
     padding-left: 2px;
 }
+.header{
+    z-index: 2;
+    background: whitesmoke;
+}
 
 @media screen and (max-width: 700px){
     .container{

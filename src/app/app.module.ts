@@ -13,6 +13,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgxSliderModule } from '@angular-slider/ngx-slider';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {MatInputModule} from '@angular/material/input';
+import { MapComponent } from './screens/map/map.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import {MatInputModule} from '@angular/material/input';
     HeaderComponent,
     ZoomControlComponent,
     TimeControlComponent,
-    SearchBarComponent
+    SearchBarComponent,
+    MapComponent
   ],
   imports: [
     NgxSliderModule,
