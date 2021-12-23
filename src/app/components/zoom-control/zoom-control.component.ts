@@ -1,11 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { SharedDataService } from 'src/app/services/shared-data.service';
 
 @Component({
   selector: 'app-zoom-control',
   templateUrl: './zoom-control.component.html',
   styleUrls: ['./zoom-control.component.scss']
 })
-export class ZoomControlComponent implements OnInit {
+export class ZoomControlComponent implements OnInit, OnDestroy {
 
   value = 5;
   options = {
@@ -16,11 +17,21 @@ export class ZoomControlComponent implements OnInit {
     vertical: true,
     showTicksValues: true
   };
-  constructor() { }
+
+  $subscription1:any;
+
+  constructor(
+    private readonly sharedData : SharedDataService
+  ) { }
+
+  ngOnDestroy() {
+   this.$subscription1.destroy();
+  }
 
   ngOnInit(): void {
-
-
+    this.$subscription1 = this.sharedData.getZoomLevel.subscribe(zoomLevel => {
+      this.value = zoomLevel;
+    });
   }
 
 }
