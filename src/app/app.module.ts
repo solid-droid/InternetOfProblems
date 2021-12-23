@@ -11,6 +11,8 @@ import { SearchBarComponent } from './components/search-bar/search-bar.component
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { NgxSliderModule } from '@angular-slider/ngx-slider';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import {MatInputModule} from '@angular/material/input';
 
 @NgModule({
   declarations: [
@@ -23,7 +25,9 @@ import { NgxSliderModule } from '@angular-slider/ngx-slider';
   ],
   imports: [
     NgxSliderModule,
-
+    MatAutocompleteModule,
+    MatInputModule,
+    
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule

@@ -2,12 +2,33 @@
     display: grid;
     grid-template-rows: 60% 40%;
     height: 100%;
-    border: solid;
 }
 
 .topbar{
-    border:solid 1px;
+    height: 100%;
+    display: grid;
+    overflow: hidden;
+    grid-template-columns: 20% 60% 20%;
+    align-items: center;
+    .logo{
+        font-size: 27px;
+        padding-left: 5px;
+        display: flex;
+        align-items: center;
+    }
+    .search{
+
+    }
+    .menuBtns{
+        display: flex;
+        justify-content: right;
+        padding-right: 5px;
+
+    }
 }
 .timeline{
-    border:solid 1px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
 }
