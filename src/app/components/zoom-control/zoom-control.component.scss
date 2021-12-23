@@ -4,4 +4,52 @@
     width: 100%;
     justify-content: center;
     align-items: center;
+    .custom-slider{
+        height: 100%;
+        width: 100%;
+    }
 }
+
+// We need to use ::ng-deep to overcome view encapsulation
+::ng-deep {
+    .custom-slider .ngx-slider {
+        .ngx-slider-bar {
+            background: #ffe4d1;
+            height: 2px;
+          }
+          .ngx-slider-pointer {
+            width:32px;
+            height: 16px;
+            top: auto; /* to remove the default positioning */
+            bottom: 0;
+            background-color: rgb(87, 87, 87);
+            border-radius: 3px;
+          }
+          .ngx-slider-pointer:after {
+            display: none;
+          }
+          .ngx-slider-tick-value {
+            bottom: -15px;
+            font-size: 12px;
+            left: 30px!important;
+          }
+
+          .ngx-slider-tick {
+            width: 16px;
+            height: 1px;
+            margin-left: -3px!important;
+            border-radius: 0;
+            background: #707070;
+            top: -1px;
+          }
+
+    }
+    .custom-slider .ngx-slider.vertical .ngx-slider-model-value{
+        visibility: visible !important;
+        margin-bottom: -13px;
+        font-size: 13px;
+        color: black;
+        background-color: white;
+        left: 20px !important;
+    }
+  }

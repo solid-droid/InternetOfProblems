@@ -10,8 +10,7 @@ import { TimeControlComponent } from './components/time-control/time-control.com
 import { SearchBarComponent } from './components/search-bar/search-bar.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-
-import {MatSliderModule} from '@angular/material/slider';
+import { NgxSliderModule } from '@angular-slider/ngx-slider';
 
 @NgModule({
   declarations: [
@@ -23,8 +22,8 @@ import {MatSliderModule} from '@angular/material/slider';
     SearchBarComponent
   ],
   imports: [
-    MatSliderModule,
-    
+    NgxSliderModule,
+
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule

@@ -7,9 +7,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ZoomControlComponent implements OnInit {
 
+  value = 5;
+  options = {
+    floor: 0,
+    ceil: 5,
+    step: 1,
+    showTicks: true,
+    vertical: true,
+    showTicksValues: true
+  };
   constructor() { }
 
   ngOnInit(): void {
+
+
   }
 
 }

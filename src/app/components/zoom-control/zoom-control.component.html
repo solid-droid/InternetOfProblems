@@ -1,8 +1,11 @@
 <div class="container">
-    <mat-slider 
-    vertical="true" 
-    min="1" max="5" step="0.5" value="1.5"
-    style="height: 90%;"
-    ></mat-slider>
+    <div class="custom-slider">
+        <ngx-slider 
+        [(value)]="value" 
+        [options]="options"
+        style="height:90%"
+        ></ngx-slider>
+    </div>
+
 </div>
 
