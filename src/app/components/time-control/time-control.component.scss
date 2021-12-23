@@ -1,0 +1,39 @@
+.timeControl{
+
+    width: 75vw;
+    padding-top: 20px;
+}
+
+::ng-deep {
+    .timeControl .ngx-slider {
+        .ngx-slider-bar-wrapper{
+            top:-25px;
+        }
+        .ngx-slider-bar {
+            background: #ffe4d1;
+            height: 5px;
+          }
+          .ngx-slider-pointer {
+            width:15px;
+            height: 20px;
+            top: auto; /* to remove the default positioning */
+            bottom: 17px;
+            background-color: #d7d4d4;
+            box-shadow: inset -1px -3px 6px 1px #acacac;
+            border-radius: 6px;
+          }
+          .ngx-slider-active{
+            outline: none!important;
+          }
+          .ngx-slider-pointer:after {
+            display: none;
+          }
+
+
+          .ngx-slider-bubble{
+              font-size: 10px;
+              bottom: -3px;
+          }
+
+    }
+  }

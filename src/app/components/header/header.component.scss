@@ -2,6 +2,8 @@
     display: grid;
     grid-template-rows: 60% 40%;
     height: 100%;
+    padding-top: 5px;
+    overflow: hidden;
 }
 
 .topbar{
@@ -16,13 +18,27 @@
         display: flex;
         align-items: center;
     }
-    .search{
-
-    }
     .menuBtns{
         display: flex;
         justify-content: right;
-        padding-right: 5px;
+        padding-right: 15px;
+        .icon{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 7px;
+            margin-left: 20px;
+            width: 30px;
+            height: 30px;
+            font-size: 22px;
+            box-shadow: inset -1px -3px 7px 1px lightgrey;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: 0.5s;
+            &:hover{
+                box-shadow: inset 3px -3px 7px 1px rgb(190, 190, 190);
+             }
+        }
 
     }
 }
@@ -31,4 +47,5 @@
     justify-content: center;
     align-items: center;
     height: 100%;
+    overflow: hidden;
 }
