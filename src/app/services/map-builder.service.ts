@@ -16,7 +16,7 @@ export class MapBuilderService {
     [ 1, -1], [ 1,  0], [ 1,  1]
  ];
   //used for lazy loading
-  private mapGridSize = [1000 ,1000];
+  private mapGridSize = [100 ,100];
 
   private mapData:any = [];
   private mapUpdateCallbacks:any = [];
@@ -39,7 +39,6 @@ export class MapBuilderService {
           type: 'solution',
           text: 'Hello World',
           vote: 5,
-          connectFrom: [1],
           connectTo:[],
         }
       },
@@ -52,7 +51,6 @@ export class MapBuilderService {
           type: 'solution',
           text: 'Hello World',
           vote: 5,
-          connectFrom: [0],
           connectTo:[],
         }
       },
@@ -65,8 +63,7 @@ export class MapBuilderService {
           type: 'problem',
           text: 'Hello World Test',
           vote: 5,
-          connectFrom: [],
-          connectTo: [1]
+          connectTo: [7]
         }
       },
       {
@@ -78,7 +75,6 @@ export class MapBuilderService {
           type: 'problem',
           text: 'Hello World level4',
           vote: 5,
-          connectFrom: [],
           connectTo: []
         }
       },
@@ -91,7 +87,6 @@ export class MapBuilderService {
           type: 'problem',
           text: 'Hello World Test level4',
           vote: 5,
-          connectFrom: [],
           connectTo: []
         }
       }
@@ -135,7 +130,7 @@ export class MapBuilderService {
     this.mapUpdateCallbacks = this.mapUpdateCallbacks.filter((item:any) => item.name!==name);
   }
 
-  private updateMap() {
+  private async updateMap() {
     //when panned or zoomed or time changed
     const newMap = this.mapData.filter((item:any) => 
                    item.z===this.z && this.bufferMap.some((item2:any) => 
@@ -146,7 +141,8 @@ export class MapBuilderService {
     this.mapUpdateCallbacks.forEach((item:any) => item.callback(newMap , garbage))
 
     this.displayData = newMap;
-
+    
+    await new Promise(resolve => setTimeout(resolve, 10));
     this.afterMapUpdateCallbacks.forEach((item:any) => item.callback(newMap))
   }
 
