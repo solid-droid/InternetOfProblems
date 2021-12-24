@@ -14,4 +14,12 @@ export class SharedDataService {
   public setZoomLevel(zoomLevel: number) {
     this.Observable_zoomLevel.next(zoomLevel);
   }
+
+  private readonly Observable_orgin = new BehaviorSubject([0,0]);
+  getOrigin = this.Observable_orgin.asObservable();
+
+  public setOrigin(origin: [number, number]) {
+    this.Observable_orgin.next(origin);
+  }
+
 }

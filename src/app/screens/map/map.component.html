@@ -1,5 +1,18 @@
 <div class="mapContainer">
     <div id="mapContent">
-        test
+        
+        <div *ngFor="let item of mapBuilder.displayData" class="widgetContainer"
+        [style.left.px]="item.x"
+        [style.top.px]="item.y"
+        id = "{{item.content.id}}"
+        >
+        <div *ngIf="item.content.type == 'problem'" 
+             class="widgetProblem">
+             {{item.content.text}}
+        </div>
+        <div *ngIf="item.content.type == 'solution'" 
+        class="widgetSolution">
+        {{item.content.text}}
+   </div>
     </div>
 </div>

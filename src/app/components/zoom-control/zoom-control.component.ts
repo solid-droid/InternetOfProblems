@@ -25,13 +25,17 @@ export class ZoomControlComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnDestroy() {
-   this.$subscription1.destroy();
+   this.$subscription1.unsubscribe();
   }
 
   ngOnInit(): void {
     this.$subscription1 = this.sharedData.getZoomLevel.subscribe(zoomLevel => {
       this.value = zoomLevel;
     });
+  }
+
+  updateZoom(){
+    this.sharedData.setZoomLevel(this.value);
   }
 
 }
