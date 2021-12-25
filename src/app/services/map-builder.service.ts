@@ -108,7 +108,7 @@ export class MapBuilderService {
     this.sharedData.getOrigin.subscribe(origin => {
       this.x = Math.trunc(origin[0] / this.mapGridSize[0]);
       this.y = Math.trunc(origin[1] / this.mapGridSize[1]);
-      this.bufferMap = this.neighbours.map(([dx, dy]) => ({ x: this.x + dx, y: this.y + dy }));
+      this.bufferMap = this.neighbours.map(([dx, dy]) => ({ x: dx - this.x, y: dy - this.y }));
       this.updateMap();
     });
   }
