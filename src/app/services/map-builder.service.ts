@@ -37,9 +37,10 @@ export class MapBuilderService {
         content: {
           id: 0,
           type: 'solution',
-          text: 'Hello World',
+          text: 'Hello World2',
           vote: 5,
-          connectTo:[],
+          children:[1, 7],
+          parent:[]
         }
       },
       {
@@ -49,9 +50,10 @@ export class MapBuilderService {
         content: {
           id: 7,
           type: 'solution',
-          text: 'Hello World',
+          text: 'Hello World1',
           vote: 5,
-          connectTo:[],
+          children:[],
+          parent:[0, 1]
         }
       },
       {
@@ -63,7 +65,8 @@ export class MapBuilderService {
           type: 'problem',
           text: 'Hello World Test',
           vote: 5,
-          connectTo: [7]
+          children: [7],
+          parent: [0]
         }
       },
       {
@@ -75,7 +78,8 @@ export class MapBuilderService {
           type: 'problem',
           text: 'Hello World level4',
           vote: 5,
-          connectTo: []
+          children: [],
+          parent: []
         }
       },
       {
@@ -87,7 +91,8 @@ export class MapBuilderService {
           type: 'problem',
           text: 'Hello World Test level4',
           vote: 5,
-          connectTo: []
+          children: [],
+          parent: []
         }
       }
     ];
@@ -97,10 +102,9 @@ export class MapBuilderService {
       item['gridY'] = Math.trunc(item.y / this.mapGridSize[1]);
     });
   }
-  public init(){
+  public async init(){
 
     this.getMapData();
-
     this.sharedData.getZoomLevel.subscribe(zoomLevel => {
       this.z = zoomLevel
       this.updateMap();
@@ -136,14 +140,17 @@ export class MapBuilderService {
                    item.z===this.z && this.bufferMap.some((item2:any) => 
                    item2.x === item.gridX && item2.y=== item.gridY));
 
-    const garbage = this.displayData.filter((item:any) => !newMap.includes(item));
+    const oldNodes = this.displayData.filter((item:any) => !newMap.includes(item));
+    const newNodes = newMap.filter((item:any) => !this.displayData.includes(item));
 
-    this.mapUpdateCallbacks.forEach((item:any) => item.callback(newMap , garbage))
+    this.mapUpdateCallbacks.forEach((item:any) => item.callback(newMap , oldNodes, newNodes));
 
     this.displayData = newMap;
-    
     await new Promise(resolve => setTimeout(resolve, 10));
-    this.afterMapUpdateCallbacks.forEach((item:any) => item.callback(newMap))
+    if(oldNodes.length || newNodes.length){
+      this.afterMapUpdateCallbacks.forEach((item:any) => item.callback(newMap));
+    }
+
   }
 
 
