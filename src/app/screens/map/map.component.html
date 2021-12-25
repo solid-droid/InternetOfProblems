@@ -1,7 +1,7 @@
 <div class="mapContainer">
     <div id="mapContent">
         
-        <div *ngFor="let item of mapBuilder.displayData" class="widgetContainer"
+        <div *ngFor="let item of dataMap" class="widgetContainer"
         [style.left.px]="item.x"
         [style.top.px]="item.y"
         id = "{{item.content.id}}"

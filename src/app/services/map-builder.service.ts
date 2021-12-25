@@ -20,7 +20,6 @@ export class MapBuilderService {
 
   private mapData:any = [];
   private mapUpdateCallbacks:any = [];
-  private afterMapUpdateCallbacks:any = [];
 
   public displayData:any = [];
 
@@ -40,7 +39,7 @@ export class MapBuilderService {
           text: 'Hello World2',
           vote: 5,
           children:[1, 7],
-          parent:[]
+          parents:[]
         }
       },
       {
@@ -53,7 +52,7 @@ export class MapBuilderService {
           text: 'Hello World1',
           vote: 5,
           children:[],
-          parent:[0, 1]
+          parents:[0, 1]
         }
       },
       {
@@ -66,7 +65,7 @@ export class MapBuilderService {
           text: 'Hello World Test',
           vote: 5,
           children: [7],
-          parent: [0]
+          parents: [0]
         }
       },
       {
@@ -79,7 +78,7 @@ export class MapBuilderService {
           text: 'Hello World level4',
           vote: 5,
           children: [],
-          parent: []
+          parents: []
         }
       },
       {
@@ -92,7 +91,7 @@ export class MapBuilderService {
           text: 'Hello World Test level4',
           vote: 5,
           children: [],
-          parent: []
+          parents: []
         }
       }
     ];
@@ -103,7 +102,7 @@ export class MapBuilderService {
     });
   }
   public async init(){
-
+    await new Promise(r => setTimeout(r, 10));
     this.getMapData();
     this.sharedData.getZoomLevel.subscribe(zoomLevel => {
       this.z = zoomLevel
@@ -121,14 +120,7 @@ export class MapBuilderService {
     this.mapUpdateCallbacks.push({name,callback});
   }
 
-  public afterMapUpdate( name:string , callback:any){
-    this.afterMapUpdateCallbacks.push({name,callback});
-  }
 
-  public removeAfterMapUpdate( name:string){
-    this.afterMapUpdateCallbacks = this.afterMapUpdateCallbacks.filter((item:any) => item.name!==name);
-
-  }
 
   public removeBeforeMapUpdate(name:string){
     this.mapUpdateCallbacks = this.mapUpdateCallbacks.filter((item:any) => item.name!==name);
@@ -143,13 +135,11 @@ export class MapBuilderService {
     const oldNodes = this.displayData.filter((item:any) => !newMap.includes(item));
     const newNodes = newMap.filter((item:any) => !this.displayData.includes(item));
 
-    this.mapUpdateCallbacks.forEach((item:any) => item.callback(newMap , oldNodes, newNodes));
-
-    this.displayData = newMap;
-    await new Promise(resolve => setTimeout(resolve, 10));
-    if(oldNodes.length || newNodes.length){
-      this.afterMapUpdateCallbacks.forEach((item:any) => item.callback(newMap));
+    if(newNodes.length || oldNodes.length){
+      this.mapUpdateCallbacks.forEach((item:any) => item.callback(newMap , oldNodes, newNodes));
+      this.displayData = newMap;
     }
+
 
   }
 
