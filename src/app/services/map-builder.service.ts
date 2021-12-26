@@ -36,7 +36,7 @@ export class MapBuilderService {
         t: '01/07/2018',
         content: {
           id: 0,
-          type: 'solution',
+          type: 'problem',
           text: 'Hello World2',
           stats: {
             upVote: 0,
@@ -49,8 +49,8 @@ export class MapBuilderService {
         }
       },
       {
-        x : 500,
-        y : 300,
+        x : 300,
+        y : 200,
         z: 5,
         t: '01/07/2018',
         content: {
@@ -68,14 +68,20 @@ export class MapBuilderService {
         }
       },
       {
-        x: 500,
+        x: 300,
         y: 0,
         z: 5,
         t: '01/07/2018',
         content: {
           id: 1,
-          type: 'problem',
-          text: 'Hello World Test',
+          type: 'solution',
+          text: `Hello World Test jsdfj jkafhjk jshdjk asjkfhjk asfjhjsfhjshf 
+                  jsdfj jkafhjk jshdjk asjkfhjk asfjhjsfhjshf 
+                  sjafhjsahfjahfjkashfjak kasjfka jasfhjasf 
+                  Hello World Test jsdfj jkafhjk jshdjk asjkfhjk asfjhjsfhjshf 
+                  jsdfj jkafhjk jshdjk asjkfhjk asfjhjsfhjshf 
+                  sjafhjsahfjahfjkashfjak kasjfka jasfhjasf
+                  `,
           stats: {
             upVote: 0,
             downVote: 0,
