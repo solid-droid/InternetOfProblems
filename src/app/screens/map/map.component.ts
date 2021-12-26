@@ -135,6 +135,9 @@ export class MapComponent implements OnInit, OnDestroy {
     elmPath.classList.add('draw-effect');
   }
     
+  showEdit(item:any){
+    this.sharedData.setEditMenu({...item, show:true});
+  }
   addArc(pathData:any, radius:any) {
     var reL = /^L ?([\d.\-+]+) ([\d.\-+]+) ?/,
       newPathData:any, curXY:any, curDir:any, newXY:any, newDir:any,

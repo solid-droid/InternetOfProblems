@@ -13,7 +13,10 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgxSliderModule } from '@angular-slider/ngx-slider';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {MatInputModule} from '@angular/material/input';
+import {MatButtonToggleModule} from '@angular/material/button-toggle';
+
 import { MapComponent } from './screens/map/map.component';
+import { EditComponent } from './screens/edit/edit.component';
 
 @NgModule({
   declarations: [
@@ -23,12 +26,14 @@ import { MapComponent } from './screens/map/map.component';
     ZoomControlComponent,
     TimeControlComponent,
     SearchBarComponent,
-    MapComponent
+    MapComponent,
+    EditComponent
   ],
   imports: [
     NgxSliderModule,
     MatAutocompleteModule,
     MatInputModule,
+    MatButtonToggleModule,
     
     BrowserModule,
     AppRoutingModule,

@@ -36,7 +36,8 @@ export class MapBuilderService {
         t: '01/07/2018',
         content: {
           id: 0,
-          type: 'problem',
+          ver: '1.0',
+          type: 'Problem',
           summary: 'Hello World2',
           description:'This is a test',
           lastUpdate: 'John Doe',
@@ -53,12 +54,13 @@ export class MapBuilderService {
       },
       {
         x : 300,
-        y : 200,
+        y : 300,
         z: 5,
         t: '01/07/2018',
         content: {
           id: 7,
-          type: 'solution',
+          type: 'Solution',
+          ver: '1.0',
           summary: 'Hello World1',
           description:'This is a test',
           lastUpdate: 'John Doe',
@@ -80,7 +82,8 @@ export class MapBuilderService {
         t: '01/07/2018',
         content: {
           id: 1,
-          type: 'solution',
+          ver: '1.0',
+          type: 'Solution',
           summary: `Hello World Test jsdfj jkafhjk jshdjk asjkfhjk asfjhjsfhjshf 
                   jsdfj jkafhjk jshdjk asjkfhjk asfjhjsfhjshf 
                   sjafhjsahfjahfjkashfjak kasjfka jasfhjasf 
@@ -108,7 +111,8 @@ export class MapBuilderService {
         t: '01/07/2018',
         content: {
           id: 2,
-          type: 'problem',
+          ver: '1.0',
+          type: 'Problem',
           summary: 'Hello World level4',
           description:'This is a test',
           lastUpdate: 'John Doe',
@@ -130,7 +134,8 @@ export class MapBuilderService {
         t: '01/07/2018',
         content: {
           id: 3,
-          type: 'problem',
+          ver: '1.0',
+          type: 'Problem',
           summary: 'Hello World Test level4',
           description:'This is a test',
           lastUpdate: 'John Doe',

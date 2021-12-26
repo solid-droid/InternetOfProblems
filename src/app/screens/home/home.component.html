@@ -1,6 +1,7 @@
-<div class="zoomcontrol">
-    <app-zoom-control></app-zoom-control>
-</div>
 <div class="container">
     <app-map></app-map>
+    <app-edit *ngIf="showEdit" (showMenu)="updateShowMenu($event)" [selection]="selection"></app-edit>
+</div>
+<div class="zoomcontrol">
+    <app-zoom-control></app-zoom-control>
 </div>

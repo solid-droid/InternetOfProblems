@@ -5,11 +5,25 @@
         [style.left.px]="item.x"
         [style.top.px]="item.y"
         id = "{{item.content.id}}"
+        (click)="showEdit(item)"
         >
-        <div *ngIf="item.content.type == 'problem'" class="widgetContent">
+        <div class="fundAvailable">
+            <!-- <i class="fas fa-dollar-sign"></i> -->
+             Funded
+        </div>
+        <div class="verified">
+            <i class="fas fa-check-circle"></i>
+        </div>
+        <div class="addProblem">
+            <i class="fas fa-plus-circle"></i>
+        </div>
+        <div class="addSolution">
+            <i class="fas fa-plus-circle"></i>
+        </div>
+        <div *ngIf="item.content.type == 'Problem'" class="widgetContent">
              {{item.content.summary}}
         </div>
-        <div *ngIf="item.content.type == 'solution'" class="widgetContent">
+        <div *ngIf="item.content.type == 'Solution'" class="widgetContent">
             {{item.content.summary}}
         </div>
         <div *ngIf="item.content.stats" class="widgetStats">

@@ -4,8 +4,9 @@
     width: 100%;
     justify-content: center;
     align-items: center;
-    background: whitesmoke;
+    background: #ecebeb94;
     border-radius: 10px;
+    backdrop-filter: blur(3px);
     padding: 10px;
     .custom-slider{
         height: 100%;
