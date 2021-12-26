@@ -12,5 +12,23 @@
         <div *ngIf="item.content.type == 'solution'" class="widgetContent">
             {{item.content.summary}}
         </div>
+        <div *ngIf="item.content.stats" class="widgetStats">
+            <div class="tools">
+                <div *ngFor="let tag of item.content.tags" class="tag">
+                    {{tag}}
+                </div>
+            </div>
+            <div class="vote">
+                <div class="icon upvote">
+                    <i class="far fa-thumbs-up"></i>
+                    {{item.content.stats.upvote}}
+                </div>
+                <div class="icon downvote">
+                    <i class="far fa-thumbs-down"></i>
+                    {{item.content.stats.downvote}}
+                </div>
+            </div>
+            
+        </div>
     </div>
 </div>

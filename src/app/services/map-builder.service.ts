@@ -43,8 +43,8 @@ export class MapBuilderService {
           createdBy: 'John Doe',
           tags: ['test', 'test2'],
           stats: {
-            upVote: 0,
-            downVote: 0,
+            upvote: 0,
+            downvote: 0,
             comments: 0,
             countries: []
           },
@@ -64,10 +64,10 @@ export class MapBuilderService {
           description:'This is a test',
           lastUpdate: 'John Doe',
           createdBy: 'John Doe',
-          tags: ['test', 'test2'],
+          tags: ['tesasas', 'test2', 'tter', 'erer'],
           stats: {
-            upVote: 0,
-            downVote: 0,
+            upvote: 0,
+            downvote: 0,
             comments: 0,
             countries: []
           },
@@ -93,10 +93,10 @@ export class MapBuilderService {
           description:'This is a test',
           lastUpdate: 'John Doe',
           createdBy: 'John Doe',
-          tags: ['test', 'test2'],
+          tags: ['test sda s', 'testasdda2'],
           stats: {
-            upVote: 0,
-            downVote: 0,
+            upvote: '78k',
+            downvote: 0,
             comments: 0,
             countries: []
           },
@@ -118,8 +118,8 @@ export class MapBuilderService {
           createdBy: 'John Doe',
           tags: ['test', 'test2'],
           stats: {
-            upVote: 0,
-            downVote: 0,
+            upvote: 0,
+            downvote: 0,
             comments: 0,
             countries: []
           },
@@ -141,8 +141,8 @@ export class MapBuilderService {
           createdBy: 'John Doe',
           tags: ['test', 'test2'],
           stats: {
-            upVote: 0,
-            downVote: 0,
+            upvote: 0,
+            downvote: 0,
             comments: 0,
             countries: []
           },
