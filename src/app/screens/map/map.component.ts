@@ -42,7 +42,7 @@ export class MapComponent implements OnInit, OnDestroy {
       this.sharedData.setOrigin([transform.x, transform.y]);
       this.updateLinePosition();
     }).on('panend', async () => {
-      await new Promise(resolve => setTimeout(resolve, 20));
+      await new Promise(resolve => setTimeout(resolve, 100));
       this.updateLinePosition();
     });
     
@@ -83,6 +83,7 @@ export class MapComponent implements OnInit, OnDestroy {
     Object.values(this.lines).forEach((line:any) => {
       try{
         line.position();
+        this.makeGridCurve(line);
       } catch(e){
 
       }
@@ -108,14 +109,96 @@ export class MapComponent implements OnInit, OnDestroy {
     connections.forEach((line:any) => {
       const [start, end] = line.split('-');
       try{
-        this.lines[line] = new LeaderLine(getRef(start) , getRef(end));
+        this.lines[line] = new LeaderLine(getRef(start) , getRef(end), {
+          path: 'grid',
+          size: 3,
+          color: '#10b1e2',
+          endPlug: 'arrow3',
+          hide: true,
+        });
+        this.makeGridCurve(this.lines[line]);
+        this.showLine(this.lines[line]);
       } catch(e){
 
       }
 
     });
   }
+
+  async showLine(line:any){
+    line.show();
+  }
+
+  makeGridCurve(line:any){
+    let elmPath:any = document.getElementById(`leader-line-${line._id}-line-path`), pathLen;
+    elmPath.setAttribute('d', this.addArc(elmPath.getAttribute('d'), 10));
+    elmPath.classList.add('draw-effect');
+  }
     
+  addArc(pathData:any, radius:any) {
+    var reL = /^L ?([\d.\-+]+) ([\d.\-+]+) ?/,
+      newPathData:any, curXY:any, curDir:any, newXY:any, newDir:any,
+      sweepFlag:any, arcXY:any, arcStartXY:any;
+  
+    function getDir(xy1:any, xy2:any) {
+      if (xy1.x === xy2.x) {
+        return xy1.y < xy2.y ? 'd' : 'u';
+      } else if (xy1.y === xy2.y) {
+        return xy1.x < xy2.x ? 'r' : 'l';
+      }
+      throw new Error('Invalid data');
+    }
+  
+    function captureXY(s:any, x:any, y:any) {
+      newXY = {x: +x, y: +y};
+      return '';
+    }
+  
+    function offsetXY(xy:any, dir:any, offsetLen:any, toBack:any = false) {
+      return {
+        x: xy.x + (dir === 'l' ? -offsetLen : dir === 'r' ? offsetLen : 0) * (toBack ? -1 : 1),
+        y: xy.y + (dir === 'u' ? -offsetLen : dir === 'd' ? offsetLen : 0) * (toBack ? -1 : 1)
+      };
+    }
+  
+    pathData = pathData.trim().replace(/,/g, ' ').replace(/\s+/g, ' ')
+      .replace(/^M ?([\d.\-+]+) ([\d.\-+]+) ?/, function(s:any, x:any, y:any) {
+        curXY = {x: +x, y: +y};
+        return '';
+      });
+    if (!curXY) { throw new Error('Invalid data'); }
+    newPathData = 'M' + curXY.x + ' ' + curXY.y;
+  
+    while (pathData) {
+      newXY = null;
+      pathData = pathData.replace(reL, captureXY);
+      if (!newXY) { throw new Error('Invalid data'); }
+  
+      newDir = getDir(curXY, newXY);
+      if (curDir) {
+        arcStartXY = offsetXY(curXY, curDir, radius, true);
+        arcXY = offsetXY(curXY, newDir, radius);
+        sweepFlag =
+          curDir === 'l' && newDir === 'u' ? '1' :
+          curDir === 'l' && newDir === 'd' ? '0' :
+          curDir === 'r' && newDir === 'u' ? '0' :
+          curDir === 'r' && newDir === 'd' ? '1' :
+          curDir === 'u' && newDir === 'l' ? '0' :
+          curDir === 'u' && newDir === 'r' ? '1' :
+          curDir === 'd' && newDir === 'l' ? '1' :
+          curDir === 'd' && newDir === 'r' ? '0' :
+          null;
+        if (!sweepFlag) { throw new Error('Invalid data'); }
+        newPathData += 'L' + arcStartXY.x + ' ' + arcStartXY.y +
+          'A ' + radius + ' ' + radius + ' 0 0 ' + sweepFlag + ' ' + arcXY.x + ' ' + arcXY.y;
+      }
+  
+      curXY = newXY;
+      curDir = newDir;
+    }
+    newPathData += 'L' + curXY.x + ' ' + curXY.y;
+    return newPathData;
+  }
   updateZoomLevel(direction:number){
     this.zoomLevel = Math.min(Math.max(this.zoomLevel + direction, 0), 5);
     this.sharedData.setZoomLevel(this.zoomLevel);

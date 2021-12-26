@@ -16,7 +16,7 @@ export class MapBuilderService {
     [ 1, -1], [ 1,  0], [ 1,  1]
  ];
   //used for lazy loading
-  private mapGridSize = [100 ,100];
+  private mapGridSize = [1000 ,1000];
 
   private mapData:any = [];
   private mapUpdateCallbacks:any = [];
@@ -31,40 +31,58 @@ export class MapBuilderService {
     this.mapData = [
       {
         x : 0,
-        y : 0,
+        y : 100,
         z: 5,
+        t: '01/07/2018',
         content: {
           id: 0,
           type: 'solution',
           text: 'Hello World2',
-          vote: 5,
+          stats: {
+            upVote: 0,
+            downVote: 0,
+            comments: 0,
+            countries: []
+          },
           children:[1, 7],
           parents:[]
         }
       },
       {
-        x : 0,
-        y : 120,
+        x : 500,
+        y : 300,
         z: 5,
+        t: '01/07/2018',
         content: {
           id: 7,
           type: 'solution',
           text: 'Hello World1',
-          vote: 5,
+          stats: {
+            upVote: 0,
+            downVote: 0,
+            comments: 0,
+            countries: []
+          },
           children:[],
-          parents:[0, 1]
+          parents:[0]
         }
       },
       {
-        x: 150,
-        y: 110,
+        x: 500,
+        y: 0,
         z: 5,
+        t: '01/07/2018',
         content: {
           id: 1,
           type: 'problem',
           text: 'Hello World Test',
-          vote: 5,
-          children: [7],
+          stats: {
+            upVote: 0,
+            downVote: 0,
+            comments: 0,
+            countries: []
+          },
+          children: [],
           parents: [0]
         }
       },
@@ -72,11 +90,17 @@ export class MapBuilderService {
         x : 0,
         y : 0,
         z: 4,
+        t: '01/07/2018',
         content: {
           id: 2,
           type: 'problem',
           text: 'Hello World level4',
-          vote: 5,
+          stats: {
+            upVote: 0,
+            downVote: 0,
+            comments: 0,
+            countries: []
+          },
           children: [],
           parents: []
         }
@@ -85,11 +109,17 @@ export class MapBuilderService {
         x: 100,
         y: 100,
         z: 4,
+        t: '01/07/2018',
         content: {
           id: 3,
           type: 'problem',
           text: 'Hello World Test level4',
-          vote: 5,
+          stats: {
+            upVote: 0,
+            downVote: 0,
+            comments: 0,
+            countries: []
+          },
           children: [],
           parents: []
         }

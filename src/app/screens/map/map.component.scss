@@ -10,8 +10,22 @@
     // background-color: rgb(67, 84, 138);
     left:0;
     top:0;
+    .widgetContainer{
+      border: solid 1px;
+      min-width: 150px;
+      max-width: 250px;
+      min-height: 70px;
+    }
+    .problem{
+     
+    }
+
+    .solution{
+     
+    }
   }
 
   .widgetContainer{
     position: absolute;
   }
+  

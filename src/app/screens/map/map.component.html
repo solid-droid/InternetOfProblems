@@ -1,17 +1,17 @@
 <div class="mapContainer">
     <div id="mapContent">
         
-        <div *ngFor="let item of dataMap" class="widgetContainer"
+        <div *ngFor="let item of dataMap" class="widgetContainer {{item.content.type}}"
         [style.left.px]="item.x"
         [style.top.px]="item.y"
         id = "{{item.content.id}}"
         >
         <div *ngIf="item.content.type == 'problem'" 
-             class="widgetProblem">
+             class="widgetContent">
              {{item.content.text}}
         </div>
         <div *ngIf="item.content.type == 'solution'" 
-        class="widgetSolution">
+        class="widgetContent">
         {{item.content.text}}
    </div>
     </div>
