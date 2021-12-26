@@ -6,13 +6,11 @@
         [style.top.px]="item.y"
         id = "{{item.content.id}}"
         >
-        <div *ngIf="item.content.type == 'problem'" 
-             class="widgetContent">
-             {{item.content.text}}
+        <div *ngIf="item.content.type == 'problem'" class="widgetContent">
+             {{item.content.summary}}
         </div>
-        <div *ngIf="item.content.type == 'solution'" 
-        class="widgetContent">
-        {{item.content.text}}
-   </div>
+        <div *ngIf="item.content.type == 'solution'" class="widgetContent">
+            {{item.content.summary}}
+        </div>
     </div>
 </div>

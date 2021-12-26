@@ -37,7 +37,11 @@ export class MapBuilderService {
         content: {
           id: 0,
           type: 'problem',
-          text: 'Hello World2',
+          summary: 'Hello World2',
+          description:'This is a test',
+          lastUpdate: 'John Doe',
+          createdBy: 'John Doe',
+          tags: ['test', 'test2'],
           stats: {
             upVote: 0,
             downVote: 0,
@@ -56,7 +60,11 @@ export class MapBuilderService {
         content: {
           id: 7,
           type: 'solution',
-          text: 'Hello World1',
+          summary: 'Hello World1',
+          description:'This is a test',
+          lastUpdate: 'John Doe',
+          createdBy: 'John Doe',
+          tags: ['test', 'test2'],
           stats: {
             upVote: 0,
             downVote: 0,
@@ -75,13 +83,17 @@ export class MapBuilderService {
         content: {
           id: 1,
           type: 'solution',
-          text: `Hello World Test jsdfj jkafhjk jshdjk asjkfhjk asfjhjsfhjshf 
+          summary: `Hello World Test jsdfj jkafhjk jshdjk asjkfhjk asfjhjsfhjshf 
                   jsdfj jkafhjk jshdjk asjkfhjk asfjhjsfhjshf 
                   sjafhjsahfjahfjkashfjak kasjfka jasfhjasf 
                   Hello World Test jsdfj jkafhjk jshdjk asjkfhjk asfjhjsfhjshf 
                   jsdfj jkafhjk jshdjk asjkfhjk asfjhjsfhjshf 
                   sjafhjsahfjahfjkashfjak kasjfka jasfhjasf
                   `,
+          description:'This is a test',
+          lastUpdate: 'John Doe',
+          createdBy: 'John Doe',
+          tags: ['test', 'test2'],
           stats: {
             upVote: 0,
             downVote: 0,
@@ -100,7 +112,11 @@ export class MapBuilderService {
         content: {
           id: 2,
           type: 'problem',
-          text: 'Hello World level4',
+          summary: 'Hello World level4',
+          description:'This is a test',
+          lastUpdate: 'John Doe',
+          createdBy: 'John Doe',
+          tags: ['test', 'test2'],
           stats: {
             upVote: 0,
             downVote: 0,
@@ -119,7 +135,11 @@ export class MapBuilderService {
         content: {
           id: 3,
           type: 'problem',
-          text: 'Hello World Test level4',
+          summary: 'Hello World Test level4',
+          description:'This is a test',
+          lastUpdate: 'John Doe',
+          createdBy: 'John Doe',
+          tags: ['test', 'test2'],
           stats: {
             upVote: 0,
             downVote: 0,
