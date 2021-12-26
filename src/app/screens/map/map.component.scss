@@ -78,20 +78,24 @@
         justify-content: flex-end;
         display: flex;
         grid-gap: 10px;
+        height: 20px;
+        overflow: hidden;
         .icon{
            width: auto;
            display: flex;
            grid-gap:5px;
+           font-size: 25px;
            justify-content: right;
-           align-items: baseline;
         }
         .upvote{
+          margin-top: 2px;
           &:hover{
             cursor: pointer;
             color: rgb(35, 85, 35);
           }
         }
         .downvote{
+          margin-top: -9px;
           &:hover{
             cursor: pointer;
             color: #661b1b;
