@@ -37,13 +37,13 @@
                 </div>
             </div>
             <div class="vote">
-                <div class="icon upvote">
-                    <i class="fas fa-sort-up"></i>
+                <div class="icon upvote" >
+                    <i class="fas fa-sort-up" (click)="updateVote(item, 1)"></i>
                 </div>
                 <div class="voteCount"> 
-                    {{item.content.stats.vote}}
+                    {{item.content.stats.vote | counter}}
                 </div>
-                <div class="icon downvote">
+                <div class="icon downvote" (click)="updateVote(item, -1)">
                     <i class="fas fa-sort-down"></i>
                 </div>
 

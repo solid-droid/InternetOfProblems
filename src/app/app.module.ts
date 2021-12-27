@@ -17,6 +17,7 @@ import {MatButtonToggleModule} from '@angular/material/button-toggle';
 
 import { MapComponent } from './screens/map/map.component';
 import { EditComponent } from './screens/edit/edit.component';
+import { CounterPipe } from './pipes/counter.pipe';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { EditComponent } from './screens/edit/edit.component';
     TimeControlComponent,
     SearchBarComponent,
     MapComponent,
-    EditComponent
+    EditComponent,
+    CounterPipe
   ],
   imports: [
     NgxSliderModule,

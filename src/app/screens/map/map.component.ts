@@ -27,6 +27,7 @@ export class MapComponent implements OnInit, OnDestroy {
   dataMap:any = [];
   backgroundX:any = 0;
   backgroundY:any = 0;
+  updateData = false;
   constructor(
     private readonly sharedData : SharedDataService,
     public readonly mapBuilder : MapBuilderService
@@ -156,8 +157,11 @@ export class MapComponent implements OnInit, OnDestroy {
     elmPath.classList.add('draw-effect');
   }
     
-  showEdit(item:any){
-    this.sharedData.setEditMenu({...item, show:true});
+  async showEdit(item:any){
+    await new Promise(r => setTimeout(r, 10));
+    if(!this.updateData){
+      this.sharedData.setEditMenu({...item, show:true});
+    }
   }
   addArc(pathData:any, radius:any) {
     var reL = /^L ?([\d.\-+]+) ([\d.\-+]+) ?/,
@@ -226,6 +230,14 @@ export class MapComponent implements OnInit, OnDestroy {
   updateZoomLevel(direction:number){
     this.zoomLevel = Math.min(Math.max(this.zoomLevel + direction, 0), 5);
     this.sharedData.setZoomLevel(this.zoomLevel);
+  }
+
+  //Data updates
+  async updateVote(item:any, vote:number){
+    this.updateData = true;
+    
+    await new Promise(r => setTimeout(r, 15));
+    this.updateData = false;
   }
 
 }
