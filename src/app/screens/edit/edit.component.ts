@@ -75,17 +75,17 @@ export class EditComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   add(event: any): void {
-    const value = (event.value || '').trim();
+      const value = (event.value || '').trim();
 
-    // Add our fruit
-    if (value) {
-      this.fruits.push(value);
-    }
-
-    // Clear the input value
-    event.chipInput!.clear();
-
-    this.fruitCtrl.setValue(null);
+      // Add our fruit
+      if (value) {
+        this.fruits.push(value);
+      }
+  
+      // Clear the input value
+      event.chipInput!.clear();
+  
+      this.fruitCtrl.setValue(null);   
   }
 
   remove(fruit: string): void {

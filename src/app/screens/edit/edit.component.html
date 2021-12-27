@@ -38,9 +38,9 @@
         <div class="body">
             <div class="tags">
                 <div class="tagsContent">
-                    <mat-form-field class="tagData">
+                    <mat-form-field class="tagData" >
                         <mat-label></mat-label>
-                        <mat-chip-list #chipList aria-label="tag selection">
+                        <mat-chip-list #chipList aria-label="tag selection" [disabled] = "!allowEdit">
                           <mat-chip
                             *ngFor="let fruit of fruits"
                             (removed)="remove(fruit)">
@@ -50,7 +50,7 @@
                             </button>
                           </mat-chip>
                           <input
-                            placeholder="Add a tag..."
+                            placeholder="{{allowEdit ? 'Add a tag...' : ''}}"
                             #fruitInput
                             [matAutocomplete]="auto"
                             [matChipInputFor]="chipList"
