@@ -5,11 +5,26 @@
     padding: 0;
     margin: 0;
 }
+.background{
+    position: absolute;
+    margin-top:-10px;
+    width: 2100px;
+    height: 3000px;
+    background-image: repeating-linear-gradient(
+      90deg, 
+      rgb(158, 37, 37), rgb(158, 37, 37) 350px,
+      rgb(40, 173, 47) 350px, rgb(40, 173, 47) 700px
+      );
+    opacity: 0.05;
+}
 
 #mapContent {
     // background-color: rgb(67, 84, 138);
     left:0;
-    top:0;
+    top:0px;
+    margin-top: 50px;
+    width:300000px;
+    height:300000px;
     .widgetContainer{
       position: absolute;
       max-width: 250px;
@@ -76,20 +91,38 @@
     margin-bottom: -10px;
     color: rgb(45, 155, 45);
   }
+.addProblem.posSolution{
+  top:50%;
+  margin-top: -10px;
+}
+
+.addProblem.posProblem{
+  bottom:0;
+  margin-bottom: -10px;
+}
+
+  .addSolution.posSolution{
+    bottom:0;
+    margin-bottom: -10px;
+  }
+
+  .addSolution.posProblem{
+    bottom:50%;
+    margin-bottom: -10px;
+  }
+
   .addProblem{
-    top:0;
+
     right:0;
-    margin-right: -10px;
+    margin-right: -11px;
     color: rgb(182, 42, 42);
-    margin-top: -10px;
+
   }
 
   .addSolution{
-    bottom:0;
     right:0;
-    margin-right: -10px;
+    margin-right: -11px;
     color:rgb(45, 155, 45);
-    margin-bottom: -10px;
   }
 
     .widgetStats{

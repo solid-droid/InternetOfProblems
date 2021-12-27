@@ -1,6 +1,9 @@
 <div class="mapContainer">
+    <div class="background" 
+    [style.background-position-x]="backgroundX"
+    [style.background-position-y]="backgroundY"
+    ></div>
     <div id="mapContent">
-        
         <div *ngFor="let item of dataMap" class="widgetContainer {{item.content.type}}"
         [style.left.px]="item.x"
         [style.top.px]="item.y"
@@ -14,12 +17,13 @@
         <div class="verified">
             <i class="fas fa-check-circle"></i>
         </div>
-        <div class="addProblem">
+        <div id="{{item.content.type == 'Solution' ? 'start' : 'end' }}{{item.content.id}}" class="addProblem pos{{item.content.type}}">
             <i class="fas fa-plus-circle"></i>
         </div>
-        <div class="addSolution">
+        <div id="{{item.content.type == 'Problem' ? 'start' : 'end' }}{{item.content.id}}" class="addSolution pos{{item.content.type}}">
             <i class="fas fa-plus-circle"></i>
         </div>
+   
         <div *ngIf="item.content.type == 'Problem'" class="widgetContent">
              {{item.content.summary}}
         </div>

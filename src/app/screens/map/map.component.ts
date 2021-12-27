@@ -25,7 +25,8 @@ export class MapComponent implements OnInit, OnDestroy {
   $subscription1:any;
   lines:any = {};
   dataMap:any = [];
-
+  backgroundX:any = 0;
+  backgroundY:any = 0;
   constructor(
     private readonly sharedData : SharedDataService,
     public readonly mapBuilder : MapBuilderService
@@ -42,12 +43,20 @@ export class MapComponent implements OnInit, OnDestroy {
       initialX: 0,
       initialY: 0,
       initialZoom: 1,
+      bounds: {
+        top: 0,
+        right: 0,
+        bottom: 0,
+        left: 0,
+      },
       beforeWheel: (e:any) => {
         this.updateZoomLevel(e.deltaY > 0 ? 1 : -1);
         return true;
-      }
+      },
     }).on('pan', () => {
       const transform = this.map.getTransform();
+      this.backgroundX = transform.x+'px';
+      this.backgroundY = transform.y+'px';
       this.sharedData.setOrigin([transform.x, transform.y]);
       this.updateLinePosition();
     }).on('panend', async () => {
@@ -118,11 +127,14 @@ export class MapComponent implements OnInit, OnDestroy {
     connections.forEach((line:any) => {
       const [start, end] = line.split('-');
       try{
-        this.lines[line] = new LeaderLine(getRef(start) , getRef(end), {
+        this.lines[line] = new LeaderLine(getRef('start'+start) , getRef(end), {
           path: 'grid',
           size: 3,
-          color: '#10b1e2',
+          color: '#4079c9',
           endPlug: 'arrow3',
+          endPlugSize: 1.5,
+          startSocket: 'right',
+          endSocket: 'left',
           hide: true,
         });
         this.makeGridCurve(this.lines[line]);
