@@ -235,9 +235,23 @@ export class MapComponent implements OnInit, OnDestroy {
   //Data updates
   async updateVote(item:any, vote:number){
     this.updateData = true;
-    
+    item.content.stats.vote += vote;
     await new Promise(r => setTimeout(r, 15));
     this.updateData = false;
   }
+
+    async addConnection(item:any){
+      this.updateData = true;
+
+      await new Promise(r => setTimeout(r, 15));
+      this.updateData = false;
+    }
+
+    async addChild(item:any){
+      this.updateData = true;
+
+      await new Promise(r => setTimeout(r, 15));
+      this.updateData = false;
+    }
 
 }

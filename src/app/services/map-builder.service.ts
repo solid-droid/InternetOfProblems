@@ -44,7 +44,7 @@ export class MapBuilderService {
           createdBy: 'John Doe',
           tags: ['test', 'test2'],
           stats: {
-            vote: 70000,
+            vote: 999,
             comments: 0,
             countries: []
           },

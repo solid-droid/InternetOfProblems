@@ -17,10 +17,18 @@
         <div class="verified">
             <i class="fas fa-check-circle"></i>
         </div>
-        <div id="{{item.content.type == 'Solution' ? 'start' : 'end' }}{{item.content.id}}" class="addProblem pos{{item.content.type}}">
+        <div 
+        id="{{item.content.type == 'Solution' ? 'start' : 'end' }}{{item.content.id}}" 
+        class="addProblem pos{{item.content.type}}"
+        (click) = "item.content.type == 'Solution' ? addConnection(item) : addChild(item)"
+        >
             <i class="fas fa-plus-circle"></i>
         </div>
-        <div id="{{item.content.type == 'Problem' ? 'start' : 'end' }}{{item.content.id}}" class="addSolution pos{{item.content.type}}">
+        <div 
+        id="{{item.content.type == 'Problem' ? 'start' : 'end' }}{{item.content.id}}" 
+        class="addSolution pos{{item.content.type}}"
+        (click) = "item.content.type == 'Problem' ? addConnection(item) : addChild(item)"
+        >
             <i class="fas fa-plus-circle"></i>
         </div>
    
