@@ -2,8 +2,9 @@
     position: absolute;
     width: 500px;
     max-width: 500px;
-    height:calc(100% - 110px);
-    background: #eeeeeed6;
+    margin-top: -105px;
+    height:100%;
+    background: #eeeeeeec;
     z-index: 5;
     border-top-right-radius: 15px;
     backdrop-filter: blur(3px);
@@ -77,8 +78,8 @@
     border-top: solid 1px;
     padding-top: 5px;
     display: grid;
-    grid-template-rows: 7% 60% 30%;
-    height: calc(100% - 105px);
+    grid-template-rows: 6% 69% 25%;
+    height: calc(100% - 110px);
     .description{
         margin-top: 5px;
         overflow: hidden;

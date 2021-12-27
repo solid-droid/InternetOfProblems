@@ -18,6 +18,10 @@ export class EditComponent implements OnInit {
     this.showMenu.emit(false);
   }
 
+  expandMenu() {
+
+  }
+
   ngOnInit(): void {
   }
 

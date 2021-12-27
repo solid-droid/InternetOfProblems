@@ -30,7 +30,7 @@ export class MapBuilderService {
 
     this.mapData = [
       {
-        x : 20,
+        x : 400,
         y : 100,
         z: 5,
         t: '01/07/2018',
@@ -53,7 +53,7 @@ export class MapBuilderService {
         }
       },
       {
-        x : 400,
+        x : 750,
         y : 300,
         z: 5,
         t: '01/07/2018',
@@ -76,7 +76,7 @@ export class MapBuilderService {
         }
       },
       {
-        x: 400,
+        x: 750,
         y: 0,
         z: 5,
         t: '01/07/2018',
@@ -105,7 +105,7 @@ export class MapBuilderService {
         }
       },
       {
-        x : 20,
+        x : 400,
         y : 0,
         z: 4,
         t: '01/07/2018',
@@ -128,8 +128,8 @@ export class MapBuilderService {
         }
       },
       {
-        x: 220,
-        y: 100,
+        x: 400,
+        y: 300,
         z: 4,
         t: '01/07/2018',
         content: {
