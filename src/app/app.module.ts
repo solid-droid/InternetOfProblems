@@ -10,14 +10,18 @@ import { TimeControlComponent } from './components/time-control/time-control.com
 import { SearchBarComponent } from './components/search-bar/search-bar.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+import {MatChipsModule} from '@angular/material/chips';
+import { NgxEditorModule } from 'ngx-editor';
 import { NgxSliderModule } from '@angular-slider/ngx-slider';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {MatInputModule} from '@angular/material/input';
-import {MatButtonToggleModule} from '@angular/material/button-toggle';
+import {MatFormFieldModule} from '@angular/material/form-field';
+
 
 import { MapComponent } from './screens/map/map.component';
 import { EditComponent } from './screens/edit/edit.component';
 import { CounterPipe } from './pipes/counter.pipe';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -35,8 +39,10 @@ import { CounterPipe } from './pipes/counter.pipe';
     NgxSliderModule,
     MatAutocompleteModule,
     MatInputModule,
-    MatButtonToggleModule,
-    
+    NgxEditorModule,
+    MatChipsModule,
+    MatFormFieldModule,
+    FormsModule,
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule

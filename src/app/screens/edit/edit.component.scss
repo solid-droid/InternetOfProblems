@@ -1,10 +1,11 @@
 .container{
     position: absolute;
-    width: 500px;
-    max-width: 500px;
-    margin-top: -105px;
-    height:100%;
-    background: #eeeeeeec;
+    width: 560px;
+    max-width: 560px;
+    top: 0;
+    margin-top: 60px;
+    height: calc(100vh - 84px);
+    background: #fbfbfbec;
     z-index: 5;
     border-top-right-radius: 15px;
     backdrop-filter: blur(3px);
@@ -18,27 +19,44 @@
         grid-gap: 10px;
         height: 80px;
         overflow: hidden;
-        .menuBtns{
-            margin-left: 5px;
-            display:grid;
-            grid-gap:5px;
-        }
-        .close, .expand{
-            cursor: pointer;
-            height: 25px;
-            width: 25px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 20px;
-            border-radius: 50%;
-            transition:0.5s;
-            padding: 5px;
-            box-shadow: inset -1px -3px 7px 2px #cbcbcb;
-            &:hover{
-                box-shadow: inset 3px -3px 7px 1px rgb(190, 190, 190);
-            }
-        }
+    }
+}
+
+.menuBtns{
+    margin-left: 5px;
+    display:grid;
+    grid-gap:5px;
+}
+.fullMenuContainer{
+    position: absolute;
+    right: 10px;
+    top: 10px;
+}
+
+.close, .expand{
+    cursor: pointer;
+    height: 25px;
+    width: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+    border-radius: 50%;
+    transition:0.5s;
+    padding: 5px;
+    box-shadow: inset -1px -3px 7px 2px #cbcbcb;
+    &:hover{
+        box-shadow: inset 3px -3px 7px 1px rgb(190, 190, 190);
+    }
+}
+
+.fullContainer{
+    width: calc(100vw - 30px);
+    max-width: calc(100vw - 30px);
+    display: grid;
+    grid-template-columns: 560px 1fr;
+    .fullHead{
+        grid-template-columns: 1fr;
     }
 }
 
@@ -52,6 +70,7 @@
         font-weight: normal; 
         font-size: 10px;
         text-decoration: underline;
+        width: 50px;
         &:hover{
             cursor: pointer;
             color: blue;
@@ -76,30 +95,66 @@
 .body{
     margin-top: 10px;
     border-top: solid 1px;
+    border-color: gainsboro;
     padding-top: 5px;
     display: grid;
-    grid-template-rows: 6% 69% 25%;
-    height: calc(100% - 110px);
+    grid-template-rows: 10%;
+    height: calc(100vh - 180px);
     .description{
         margin-top: 5px;
         overflow: hidden;
         border-bottom: solid 1px;
+        border-color: gainsboro;
     }
 
     .tags{
         margin-top: 5px;
-        border-bottom: solid 1px;
+        display: flex;
+         .tagsContent{
+            overflow: hidden;
+            width: 100%;
+        }
     }
 
-    .footer{
-        display: grid;
+}
+
+::ng-deep{
+    .NgxEditor__Wrapper{
         margin-top: 5px;
-        grid-template-columns: 60% 40%;
-        .analytics{
-            border-right: solid 1px;
+        border-color: gainsboro!important;
+        height:500px;
+        overflow: hidden;
+        .NgxEditor__MenuBar {
+            flex-wrap: wrap;
         }
-        .hierarchy{
-            margin-left:5px;
+        .NgxEditor__Content {
+            overflow: auto;
+            height: 340px;
+        }
+    }
+    .readonly{
+        .NgxEditor{
+            background: #fff0;
+        }
+        .NgxEditor__MenuBar{
+            border-bottom: none!important;
+            background: #fff0;
+        }
+        .NgxEditor__Content {
+            overflow: auto;
+            -webkit-user-modify: read-only;
+            height: 400px!important;
+        }
+    }
+
+    .tagData{
+        width: 550px;
+        background: #0000;
+        .mat-form-field-infix {
+            padding: 0 ;
+            margin-top: 2px ;
+            border: none;
+            padding-bottom: 10px;
         }
     }
 }

@@ -25,6 +25,7 @@
             <i class="fas fa-plus-circle"></i>
         </div>
         <div 
+        *ngIf="item.content.type == 'Problem'"
         id="{{item.content.type == 'Problem' ? 'start' : 'end' }}{{item.content.id}}" 
         class="addSolution pos{{item.content.type}}"
         (click) = "item.content.type == 'Problem' ? addConnection(item) : addChild(item)"
@@ -48,7 +49,7 @@
                 <div class="icon upvote" >
                     <i class="fas fa-sort-up" (click)="updateVote(item, 1)"></i>
                 </div>
-                <div class="voteCount"> 
+                <div class="voteCount" [title]="item.content.stats.vote"> 
                     {{item.content.stats.vote | counter}}
                 </div>
                 <div class="icon downvote" (click)="updateVote(item, -1)">

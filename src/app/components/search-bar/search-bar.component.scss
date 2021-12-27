@@ -1,6 +1,7 @@
 .wrapper{
     display: grid;
-    grid-template-columns: 40px 1fr;
+    grid-template-columns: 40px auto;
+    padding-right: 25px;
     background-color: #f5f5f5;
     border-radius: 10px;
     box-shadow: 0 0 2px 2px #e2e2e2;
