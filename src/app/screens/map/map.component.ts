@@ -44,25 +44,30 @@ export class MapComponent implements OnInit, OnDestroy {
       initialX: 0,
       initialY: 0,
       initialZoom: 1,
-      bounds: {
-        top: 0,
-        right: 0,
-        bottom: 0,
-        left: 0,
-      },
+      minZoom: 0.3,
+      maxZoom: 1.3,
+      // bounds: {
+      //   top: 0,
+      //   right: 0,
+      //   bottom: 0,
+      //   left: 0,
+      // },
       beforeWheel: (e:any) => {
-        this.updateZoomLevel(e.deltaY > 0 ? 1 : -1);
-        return true;
+        // this.updateZoomLevel(e.deltaY > 0 ? 1 : -1);
+        // return true;
       },
+    }).on('zoom', async (e:any) => {
+      await new Promise(resolve => setTimeout(resolve, 10));
+      // this.updateLinePosition();
     }).on('pan', () => {
       const transform = this.map.getTransform();
       this.backgroundX = transform.x+'px';
       this.backgroundY = transform.y+'px';
       this.sharedData.setOrigin([transform.x, transform.y]);
-      this.updateLinePosition();
+      // this.updateLinePosition();
     }).on('panend', async () => {
       await new Promise(resolve => setTimeout(resolve, 100));
-      this.updateLinePosition();
+      // this.updateLinePosition();
     });
     
     this.$subscription1 = this.sharedData.getZoomLevel.subscribe(zoomLevel => this.zoomLevel = zoomLevel);

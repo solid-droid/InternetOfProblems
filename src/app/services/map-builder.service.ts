@@ -165,10 +165,10 @@ export class MapBuilderService {
       this.updateMap();
     });
     this.sharedData.getOrigin.subscribe(origin => {
-      this.x = Math.trunc(origin[0] / this.mapGridSize[0]);
-      this.y = Math.trunc(origin[1] / this.mapGridSize[1]);
-      this.bufferMap = this.neighbours.map(([dx, dy]) => ({ x: dx - this.x, y: dy - this.y }));
-      this.updateMap();
+      // this.x = Math.trunc(origin[0] / this.mapGridSize[0]);
+      // this.y = Math.trunc(origin[1] / this.mapGridSize[1]);
+      // this.bufferMap = this.neighbours.map(([dx, dy]) => ({ x: dx - this.x, y: dy - this.y }));
+      // this.updateMap();
     });
   }
 
@@ -184,10 +184,10 @@ export class MapBuilderService {
 
   private async updateMap() {
     //when panned or zoomed or time changed
-    const newMap = this.mapData.filter((item:any) => 
-                   item.z===this.z && this.bufferMap.some((item2:any) => 
-                   item2.x === item.gridX && item2.y=== item.gridY));
-
+    // const newMap = this.mapData.filter((item:any) => 
+    //                item.z===this.z && this.bufferMap.some((item2:any) => 
+    //                item2.x === item.gridX && item2.y=== item.gridY));
+    const newMap = this.mapData.filter((item:any) =>  item.z===this.z ); 
     const oldNodes = this.displayData.filter((item:any) => !newMap.includes(item));
     const newNodes = newMap.filter((item:any) => !this.displayData.includes(item));
 
