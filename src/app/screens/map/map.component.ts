@@ -283,9 +283,12 @@ export class MapComponent implements OnInit, OnDestroy {
       this.updateData = false;
     }
 
-    async openRelative(item:any){
+    async openRelative(rel:any){
       this.updateData = true;
-
+      const item:any = await this.mapBuilder.getItem(rel.id);
+      this.sharedData.setZoomLevel(item.z);
+      this.map.moveTo(item.x-500, item.y-200);
+      this.resume();
       await new Promise(r => setTimeout(r, 15));
       this.updateData = false;
 

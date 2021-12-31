@@ -34,6 +34,7 @@ export class MapBuilderService {
         y : 100,
         z: 5,
         t: '01/07/2018',
+        latest: true,
         content: {
           id: 0,
           ver: '1.0',
@@ -50,7 +51,7 @@ export class MapBuilderService {
             { id: 2, summary:'Hello World level4' },
             { id: 2, summary:`Hello World Test jsdfj jkafhjk jshdjk asjkfhjk asfjhjsfhjshf 
             jsdfj jkafhjk jshdjk asjkfhjk asfjhjsfhjshf `},
-            { id: 2, summary:'Hello World level4' },
+            { id: 3, summary:'Hello World level4' },
           ],
           stats: {
             vote: 999,
@@ -66,6 +67,7 @@ export class MapBuilderService {
         y : 300,
         z: 5,
         t: '01/07/2018',
+        latest: true,
         content: {
           id: 7,
           type: 'Solution',
@@ -89,6 +91,7 @@ export class MapBuilderService {
         y: 0,
         z: 5,
         t: '01/07/2018',
+        latest: true,
         content: {
           id: 1,
           ver: '1.0',
@@ -118,6 +121,7 @@ export class MapBuilderService {
         y : 0,
         z: 4,
         t: '01/07/2018',
+        latest: true,
         content: {
           id: 2,
           ver: '1.0',
@@ -141,6 +145,7 @@ export class MapBuilderService {
         y: 300,
         z: 4,
         t: '01/07/2018',
+        latest: true,
         content: {
           id: 3,
           ver: '1.0',
@@ -205,7 +210,12 @@ export class MapBuilderService {
       this.displayData = newMap;
     }
 
+    
 
+  }
+
+  async getItem(id: number) {
+    return this.mapData.find((item:any) => item.content.id === id);
   }
 
 
