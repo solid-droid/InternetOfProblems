@@ -305,5 +305,11 @@ export class MapComponent implements OnInit, OnDestroy {
     resume(){
       this.map.resume();
     }
+    
+    async disableMenu(){
+      this.updateData = true;
+      await new Promise(r => setTimeout(r, 15));
+      this.updateData = false;
+    }
 
 }

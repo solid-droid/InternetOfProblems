@@ -56,7 +56,7 @@
             </div>
             
         </div>
-        <div *ngIf="item.content.related && item.content.related.length" class="relatedList">
+        <div *ngIf="item.content.related && item.content.related.length" class="relatedList" (click)="disableMenu()">
             <div class="relatedHead">
                <div> Related problems : </div>
                <div class="icon" (click)="toggleRelativeList(item.content.controls)">
