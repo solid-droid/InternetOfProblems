@@ -283,4 +283,27 @@ export class MapComponent implements OnInit, OnDestroy {
       this.updateData = false;
     }
 
+    async openRelative(item:any){
+      this.updateData = true;
+
+      await new Promise(r => setTimeout(r, 15));
+      this.updateData = false;
+
+    }
+
+    async toggleRelativeList(control:any){
+      this.updateData = true;
+      control.relatedOpen  = !control.relatedOpen;
+      await new Promise(r => setTimeout(r, 15));
+      this.updateData = false;
+    }
+
+    pause(){
+      this.map.pause();
+    }
+
+    resume(){
+      this.map.resume();
+    }
+
 }

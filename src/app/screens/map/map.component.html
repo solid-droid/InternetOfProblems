@@ -1,8 +1,5 @@
 <div class="mapContainer">
-    <div class="background" 
-    [style.background-position-x]="backgroundX"
-    [style.background-position-y]="backgroundY"
-    ></div>
+    <!-- <div class="background"  [style.background-position-x]="backgroundX"  [style.background-position-y]="backgroundY" ></div> -->
     <div id="mapContent">
         <div *ngFor="let item of dataMap" class="widgetContainer {{item.content.type}}"
         [style.left.px]="item.x"
@@ -58,6 +55,22 @@
 
             </div>
             
+        </div>
+        <div *ngIf="item.content.related && item.content.related.length" class="relatedList">
+            <div class="relatedHead">
+               <div> Related problems : </div>
+               <div class="icon" (click)="toggleRelativeList(item.content.controls)">
+                    <i  *ngIf="item.content.controls.relatedOpen" class="fas fa-chevron-up"></i> 
+                    <i  *ngIf="!item.content.controls.relatedOpen" class="fas fa-chevron-down"></i> 
+               </div>
+            </div>
+            <div class="relatedList_wrapper" *ngIf="item.content.controls.relatedOpen" (mouseenter)="pause()" (mouseleave)="resume()">
+                <div *ngFor="let rel of item.content.related" class="relatedItem" (click)="openRelative(rel)">
+                    <div>
+                        {{rel.summary}}
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>

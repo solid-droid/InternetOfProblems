@@ -43,6 +43,15 @@ export class MapBuilderService {
           lastUpdate: 'John Doe',
           createdBy: 'John Doe',
           tags: ['test', 'test2'],
+          controls:{
+            relatedOpen: false,
+          },
+          related: [
+            { id: 2, summary:'Hello World level4' },
+            { id: 2, summary:`Hello World Test jsdfj jkafhjk jshdjk asjkfhjk asfjhjsfhjshf 
+            jsdfj jkafhjk jshdjk asjkfhjk asfjhjsfhjshf `},
+            { id: 2, summary:'Hello World level4' },
+          ],
           stats: {
             vote: 999,
             comments: 0,

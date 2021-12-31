@@ -9,8 +9,9 @@
                     <div *ngIf="!allowEdit" class="edit" (click) = "allowEdit=true">
                         edit
                     </div>
-                    <div *ngIf="allowEdit" class="edit" (click) = "allowEdit=false">
-                        save
+                    <div *ngIf="allowEdit" style="display:flex;width: 60px;" >
+                        <div class="edit" (click) = "allowEdit=false">save</div>
+                        <div class="edit" (click) = "allowEdit=false">cancel</div>
                     </div>
     
                     <div class="entryDetails">
