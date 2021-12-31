@@ -33,10 +33,10 @@
             <i class="fas fa-plus-circle"></i>
         </div>
    
-        <div *ngIf="item.content.type == 'Problem'" class="widgetContent">
+        <div [title]="item.content.summary" *ngIf="item.content.type == 'Problem'" class="widgetContent">
              {{item.content.summary}}
         </div>
-        <div *ngIf="item.content.type == 'Solution'" class="widgetContent">
+        <div [title]="item.content.summary" *ngIf="item.content.type == 'Solution'" class="widgetContent">
             {{item.content.summary}}
         </div>
         <div *ngIf="item.content.stats" class="widgetStats">

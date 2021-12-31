@@ -4,7 +4,7 @@ import { MapBuilderService } from 'src/app/services/map-builder.service';
 import { SharedDataService } from 'src/app/services/shared-data.service';
 declare const panzoom:any;
 declare const LeaderLine:any;
-
+declare const $:any;
 
 @Component({
   selector: 'app-map',
@@ -56,26 +56,23 @@ export class MapComponent implements OnInit, OnDestroy {
         // this.updateZoomLevel(e.deltaY > 0 ? 1 : -1);
         // return true;
       },
-    }).on('zoom', async (e:any) => {
-      await new Promise(resolve => setTimeout(resolve, 10));
-      // this.updateLinePosition();
     }).on('pan', () => {
       const transform = this.map.getTransform();
       this.backgroundX = transform.x+'px';
       this.backgroundY = transform.y+'px';
       this.sharedData.setOrigin([transform.x, transform.y]);
-      // this.updateLinePosition();
-    }).on('panend', async () => {
-      await new Promise(resolve => setTimeout(resolve, 100));
-      // this.updateLinePosition();
     });
     
     this.$subscription1 = this.sharedData.getZoomLevel.subscribe(zoomLevel => this.zoomLevel = zoomLevel);
     this.mapBuilder.beforeMapUpdate('mapScreen',(mapData:any, oldNodes:any, newNodes:any) => this.beforeMapUpdate(mapData, oldNodes, newNodes));
   }
 
-  beforeMapUpdate(mapData:any , oldNodes:any , newNodes:any){
-
+  async beforeMapUpdate(mapData:any , oldNodes:any , newNodes:any){
+      const topMap = this.map.getTransform().y;
+      const leftMap = this.map.getTransform().x;
+      const scale = this.map.getTransform().scale;
+      this.map.zoomAbs(0, 0, 1);
+      
       const oldConnections = new Set();
       const newConnections = new Set();
 
@@ -98,10 +95,37 @@ export class MapComponent implements OnInit, OnDestroy {
         });
 
       });
-      this.removeOldConnections([...oldConnections]);
+      if([...oldConnections].length){
+        this.removeOldConnections([...oldConnections]);
+        //remove existing svg lines
+        $('.leader-line').remove();
+        }
       this.dataMap = mapData;
-      this.drawNewConnections([...newConnections]);
+      if([...newConnections].length){
+        await this.drawNewConnections([...newConnections]);
+        //append new connections as svg
+        await new Promise(r => setTimeout(r, 10));
+        this.makeLinesAsStaticSVGs();
+      }
+
+      this.map.zoomAbs(0, 0, scale);
+      this.map.moveTo(leftMap, topMap);
   }
+
+  makeLinesAsStaticSVGs(){
+    $('.leader-line').appendTo('#mapContent');
+    const topMap = this.map.getTransform().y;
+    const leftMap = this.map.getTransform().x;
+    for (const x of $('.leader-line')) {
+			const leftArrow = parseFloat($(x).css('left').split('px')[0]);
+			const topArrow = parseFloat($(x).css('top').split('px')[0]);
+			$(x).css({
+				top: String(topArrow - topMap - 155) + 'px',
+				left: String(leftArrow - leftMap) + 'px'
+			});
+		}
+  }
+
 
   updateLinePosition(){
     Object.values(this.lines).forEach((line:any) => {
