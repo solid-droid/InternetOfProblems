@@ -9,13 +9,17 @@ import { SharedDataService } from 'src/app/services/shared-data.service';
 export class ZoomControlComponent implements OnInit, OnDestroy {
 
   value = 5;
+  TypeList = ['General', 'Design' , 'Science', 'Hardware', 'Software' , 'Ethical'].reverse();
   options = {
     floor: 0,
     ceil: 5,
     step: 1,
     showTicks: true,
     vertical: true,
-    showTicksValues: true
+    showTicksValues: true,
+    translate: (value: number): string => {
+      return this.TypeList[value];
+    }
   };
 
   $subscription1:any;
