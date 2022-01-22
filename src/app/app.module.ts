@@ -10,18 +10,19 @@ import { TimeControlComponent } from './components/time-control/time-control.com
 import { SearchBarComponent } from './components/search-bar/search-bar.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import {MatChipsModule} from '@angular/material/chips';
-import { NgxEditorModule } from 'ngx-editor';
 import { NgxSliderModule } from '@angular-slider/ngx-slider';
-import {MatAutocompleteModule} from '@angular/material/autocomplete';
-import {MatInputModule} from '@angular/material/input';
-import {MatFormFieldModule} from '@angular/material/form-field';
 
+//primeNG
+import {EditorModule} from 'primeng/editor';
+import {InputTextareaModule} from 'primeng/inputtextarea';
+import {AutoCompleteModule} from 'primeng/autocomplete';
 
 import { MapComponent } from './screens/map/map.component';
 import { EditComponent } from './screens/edit/edit.component';
 import { CounterPipe } from './pipes/counter.pipe';
-import { FormsModule } from '@angular/forms';
+import { FormsModule,ReactiveFormsModule } from '@angular/forms';
+import { CreateProblemComponent } from './screens/create-problem/create-problem.component';
+import { CreateSolutionComponent } from './screens/create-solution/create-solution.component';
 
 @NgModule({
   declarations: [
@@ -33,19 +34,20 @@ import { FormsModule } from '@angular/forms';
     SearchBarComponent,
     MapComponent,
     EditComponent,
-    CounterPipe
+    CounterPipe,
+    CreateProblemComponent,
+    CreateSolutionComponent
   ],
   imports: [
     NgxSliderModule,
-    MatAutocompleteModule,
-    MatInputModule,
-    NgxEditorModule,
-    MatChipsModule,
-    MatFormFieldModule,
     FormsModule,
     BrowserModule,
     AppRoutingModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    ReactiveFormsModule,
+    EditorModule,
+    InputTextareaModule,
+    AutoCompleteModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -9,6 +9,8 @@ import { SharedDataService } from 'src/app/services/shared-data.service';
 })
 export class HomeComponent implements OnInit {
   showEdit = false;
+  showProblemPopup = false;
+  showSolutionPopup = false;
   selection = {};
   constructor(
     private readonly mapBuilder : MapBuilderService,
@@ -19,7 +21,27 @@ export class HomeComponent implements OnInit {
     this.mapBuilder.init();
     this.sharedData.getEditMenu.subscribe(editOptions => {
       this.selection = editOptions;
-      this.showEdit = editOptions.show
+      this.showEdit = editOptions.show;
+      if(this.showEdit){
+        this.sharedData.setProblemPopup({show: false , content:{}});
+        this.sharedData.setSolutionPopup({show: false , content:{}});
+      }
+    });
+
+    this.sharedData.getProblemPopup.subscribe(options => {
+      this.showProblemPopup = options.show;
+      if(this.showProblemPopup){
+        this.showSolutionPopup = false;
+        this.sharedData.setEditMenu({show: false , content:{}});
+      }
+    });
+
+    this.sharedData.getSolutionPopup.subscribe(options => {
+      this.showSolutionPopup = options.show;
+      if( this.showSolutionPopup){
+        this.showProblemPopup = false;
+        this.sharedData.setEditMenu({show: false , content:{}});
+      }
     });
 
   }

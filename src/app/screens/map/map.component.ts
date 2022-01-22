@@ -46,16 +46,7 @@ export class MapComponent implements OnInit, OnDestroy {
       initialZoom: 1,
       minZoom: 0.3,
       maxZoom: 1.3,
-      // bounds: {
-      //   top: 0,
-      //   right: 0,
-      //   bottom: 0,
-      //   left: 0,
-      // },
-      beforeWheel: (e:any) => {
-        // this.updateZoomLevel(e.deltaY > 0 ? 1 : -1);
-        // return true;
-      },
+      bounds: true,
     }).on('pan', () => {
       const transform = this.map.getTransform();
       this.backgroundX = transform.x+'px';
@@ -270,15 +261,22 @@ export class MapComponent implements OnInit, OnDestroy {
   }
 
     async addConnection(item:any){
+      //add solution or problem
       this.updateData = true;
-
+      if(item.content.type === 'Problem'){
+        this.sharedData.setSolutionPopup({content:{item}, show:true});
+      }else{
+        this.sharedData.setProblemPopup({content:{new:false ,item}, show:true});
+      }
       await new Promise(r => setTimeout(r, 15));
       this.updateData = false;
     }
 
     async addChild(item:any){
+      //add problem
       this.updateData = true;
-
+      console.log('test');
+      this.sharedData.setProblemPopup({content:{new:false,item}, show:true});
       await new Promise(r => setTimeout(r, 15));
       this.updateData = false;
     }

@@ -24,7 +24,16 @@
                     </div>
                 </div>
                 <div class="summaryContent">
-                    {{selection.content.summary}}
+                    <textarea pInputTextarea 
+                    style="
+                    width: 500px;
+                    height: 52px;
+                    resize: none;
+                    font-size: 13px;
+                    "
+                    [(ngModel)]="selection.content.summary"
+                    [disabled]="!allowEdit"
+                    ></textarea>
                 </div>
             </div>
             <div *ngIf="!expand" class="menuBtns">
@@ -39,31 +48,17 @@
         <div class="body">
             <div class="tags">
                 <div class="tagsContent">
-                    <mat-form-field class="tagData" >
-                        <mat-label></mat-label>
-                        <mat-chip-list #chipList aria-label="tag selection" [disabled] = "!allowEdit">
-                          <mat-chip
-                            *ngFor="let fruit of fruits"
-                            (removed)="remove(fruit)">
-                            {{fruit}}
-                            <button matChipRemove>
-                                <i class="fas fa-times-circle"></i>
-                            </button>
-                          </mat-chip>
-                          <input
-                            placeholder="{{allowEdit ? 'Add a tag...' : ''}}"
-                            #fruitInput
-                            [matAutocomplete]="auto"
-                            [matChipInputFor]="chipList"
-                            [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-                            (matChipInputTokenEnd)="add($event)">
-                        </mat-chip-list>
-                        <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
-                          <mat-option *ngFor="let fruit of filteredFruits | async" [value]="fruit">
-                            {{fruit}}
-                          </mat-option>
-                        </mat-autocomplete>
-                      </mat-form-field>
+                    <p-autoComplete 
+                    [(ngModel)]="selectedTags" 
+                    [suggestions]="filteredTags" 
+                    (completeMethod)="filterTag($event)" 
+                    field="name" 
+                    [multiple]="true"
+                    [forceSelection]="true"
+                    [unique]="true"
+                    [placeholder]="'Add tags'"
+                    >
+                    </p-autoComplete>
                 </div>
             </div>
             <div class="description">
@@ -72,17 +67,11 @@
                         Description :
                     </div>
                 </div>
-                    <!-- <div *ngIf="!allowEdit" [innerHTML]="html"></div> -->
-                    <div class="NgxEditor__Wrapper {{!allowEdit ? 'readonly' : ''}}">
-                        <ngx-editor-menu [editor]="editor" [toolbar]="allowEdit ? toolbar : []"> </ngx-editor-menu>
-                        <ngx-editor
-                          [editor]="editor"
-                          [ngModel]="html"
-                          [disabled]="false"
-                          [placeholder]="'Type here...'"
-                          (ngModelChange)="onChange($event)"
-                        ></ngx-editor>
-                      </div>
+                <div style="height: calc(100% - 20px);">
+                    <p-editor [(ngModel)]="description" 
+                    [readonly]="!allowEdit" 
+                    [styleClass]="!allowEdit ? 'removeToolbar':''"></p-editor>
+                </div>
             </div>
         </div>
     </div>

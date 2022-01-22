@@ -1,0 +1,62 @@
+<div class="mask">
+    <div class="container">
+        <div class="header">
+            <div class="buffer"> </div>
+            <div class="popupHeader">
+                Create Problem
+            </div>
+            <div class="close" (click)="closePopup()">
+                <i class="fas fa-times"></i>
+            </div>
+        </div>
+        <div class="body">
+            <div class="left">
+                <div class="summary">
+                    <div class="sectionHead">
+                        <div>
+                            Summary :
+                        </div>
+                    </div>
+                    <textarea class="summaryText"></textarea>
+                </div>
+                <div class="tags">
+                    <div class="sectionHead">
+                        <div>
+                            Tags :
+                        </div>
+                    </div>
+                    <div class="tagsContent">
+
+                    </div>
+                </div>
+                <div class="description">
+                    <div class="sectionHead">
+                        <div>
+                            Description :
+                        </div>
+                    </div>
+                    <div>
+                        <p-editor [(ngModel)]="description"></p-editor>
+                    </div>
+                </div>
+            </div>
+            <div class="right">
+                <div>
+                    <div>Catagory:</div>
+                    <div>
+                    </div>
+                </div>
+                <div>
+                    <div>Link relavent problems:</div>
+                    <div></div>
+                </div>
+            </div>
+        </div>
+        <div class="footer">
+            <div class="save">
+                CREATE
+            </div>
+        </div>
+    </div>
+</div>
+

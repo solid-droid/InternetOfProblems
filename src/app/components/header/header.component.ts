@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { SharedDataService } from 'src/app/services/shared-data.service';
 
 @Component({
   selector: 'app-header',
@@ -7,9 +8,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private readonly sharedData : SharedDataService
+  ) { }
 
   ngOnInit(): void {
   }
 
+  createProblem(){
+    this.sharedData.setProblemPopup({show: true , content:{
+      new:true
+    }})
+  }
 }
