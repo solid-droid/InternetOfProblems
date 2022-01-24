@@ -1,4 +1,6 @@
-# InternetOfProblems
+# InternetOfProblems _work in progress_
+
+![image](https://user-images.githubusercontent.com/32586986/150763056-e0fe09ce-5b2d-485b-b98f-6a3eb2224218.png)
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.1.2.
 
