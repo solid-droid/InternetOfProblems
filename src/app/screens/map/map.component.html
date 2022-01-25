@@ -1,10 +1,10 @@
 <div class="mapContainer">
     <!-- <div class="background"  [style.background-position-x]="backgroundX"  [style.background-position-y]="backgroundY" ></div> -->
     <div id="mapContent">
-        <div *ngFor="let item of dataMap" class="widgetContainer {{item.content.type}}"
+        <div *ngFor="let item of dataMap" class="widgetContainer {{item.type}}"
         [style.left.px]="item.x"
         [style.top.px]="item.y"
-        id = "{{item.content.id}}"
+        id = "{{item.refID}}"
         (touchend)="showEdit(item)"
         (click)="showEdit(item)"
         @fadeIn>
@@ -16,32 +16,32 @@
             <i class="fas fa-check-circle"></i>
         </div>
         <div 
-        id="{{item.content.type == 'Solution' ? 'start' : 'end' }}{{item.content.id}}" 
-        class="addProblem pos{{item.content.type}}"
-        (click) = "item.content.type == 'Solution' ? addConnection(item) : addChild(item)"
-        (touchend)= "item.content.type == 'Solution' ? addConnection(item) : addChild(item)"
+        id="{{item.type == 'Solution' ? 'start' : 'end' }}{{item.refID}}" 
+        class="addProblem pos{{item.type}}"
+        (click) = "item.type == 'Solution' ? addConnection(item) : addChild(item)"
+        (touchend)= "item.type == 'Solution' ? addConnection(item) : addChild(item)"
         >
             <i class="fas fa-plus-circle"></i>
         </div>
         <div 
-        *ngIf="item.content.type == 'Problem'"
-        id="{{item.content.type == 'Problem' ? 'start' : 'end' }}{{item.content.id}}" 
-        class="addSolution pos{{item.content.type}}"
-        (click) = "item.content.type == 'Problem' ? addConnection(item) : addChild(item)"
-        (touchend)= "item.content.type == 'Problem' ? addConnection(item) : addChild(item)"
+        *ngIf="item.type == 'Problem'"
+        id="{{item.type == 'Problem' ? 'start' : 'end' }}{{item.refID}}" 
+        class="addSolution pos{{item.type}}"
+        (click) = "item.type == 'Problem' ? addConnection(item) : addChild(item)"
+        (touchend)= "item.type == 'Problem' ? addConnection(item) : addChild(item)"
         >
             <i class="fas fa-plus-circle"></i>
         </div>
    
-        <div [title]="item.content.summary" *ngIf="item.content.type == 'Problem'" class="widgetContent">
-             {{item.content.summary}}
+        <div [title]="item.summary" *ngIf="item.type == 'Problem'" class="widgetContent">
+             {{item.summary}}
         </div>
-        <div [title]="item.content.summary" *ngIf="item.content.type == 'Solution'" class="widgetContent">
-            {{item.content.summary}}
+        <div [title]="item.summary" *ngIf="item.type == 'Solution'" class="widgetContent">
+            {{item.summary}}
         </div>
-        <div *ngIf="item.content.stats" class="widgetStats">
+        <div *ngIf="item.stats" class="widgetStats">
             <div class="tools">
-                <div *ngFor="let tag of item.content.tags" class="tag">
+                <div *ngFor="let tag of item.tags" class="tag">
                     {{tag}}
                 </div>
             </div>
@@ -49,8 +49,8 @@
                 <div class="icon upvote" >
                     <i class="fas fa-sort-up" (touchend)="updateVote(item, 1)" (click)="updateVote(item, 1)"></i>
                 </div>
-                <div class="voteCount" [title]="item.content.stats.vote"> 
-                    {{item.content.stats.vote | counter}}
+                <div class="voteCount" [title]="item.stats.vote"> 
+                    {{item.stats.vote | counter}}
                 </div>
                 <div class="icon downvote" (touchend)="updateVote(item,-1)" (click)="updateVote(item, -1)">
                     <i class="fas fa-sort-down"></i>
@@ -59,16 +59,16 @@
             </div>
             
         </div>
-        <div *ngIf="item.content.related && item.content.related.length" class="relatedList" (touchend)="disableMenu()" (click)="disableMenu()">
+        <div *ngIf="item.related && item.related.length" class="relatedList" (touchend)="disableMenu()" (click)="disableMenu()">
             <div class="relatedHead">
                <div> Related problems : </div>
-               <div class="icon" (click)="toggleRelativeList(item.content.controls)" (touchend)="toggleRelativeList(item.content.controls)">
-                    <i  *ngIf="item.content.controls.relatedOpen" class="fas fa-chevron-up"></i> 
-                    <i  *ngIf="!item.content.controls.relatedOpen" class="fas fa-chevron-down"></i> 
+               <div class="icon" (click)="toggleRelativeList(item.controls)" (touchend)="toggleRelativeList(item.controls)">
+                    <i  *ngIf="item.controls.relatedOpen" class="fas fa-chevron-up"></i> 
+                    <i  *ngIf="!item.controls.relatedOpen" class="fas fa-chevron-down"></i> 
                </div>
             </div>
-            <div class="relatedList_wrapper" *ngIf="item.content.controls.relatedOpen" (mouseenter)="pause()" (mouseleave)="resume()">
-                <div *ngFor="let rel of item.content.related" class="relatedItem" (click)="openRelative(rel)" (touchend)="openRelative(rel)">
+            <div class="relatedList_wrapper" *ngIf="item.controls.relatedOpen" (mouseenter)="pause()" (mouseleave)="resume()">
+                <div *ngFor="let rel of item.related" class="relatedItem" (click)="openRelative(rel)" (touchend)="openRelative(rel)">
                     <div>
                         {{rel.summary}}
                     </div>

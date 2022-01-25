@@ -68,21 +68,21 @@ export class MapComponent implements OnInit, OnDestroy {
       const newConnections = new Set();
 
       oldNodes.forEach((node:any) => {
-          node.content.parents.forEach((id:number) => {
-            oldConnections.add(`${id}-${node.content.id}`);
+          node.parents.forEach((id:number) => {
+            oldConnections.add(`${id}-${node.refID}`);
           });
-          node.content.children.forEach((id:number) => {
-            oldConnections.add(`${node.content.id}-${id}`);
+          node.children.forEach((id:number) => {
+            oldConnections.add(`${node.refID}-${id}`);
           });
       });
 
 
       newNodes.forEach((node:any) => {
-        node.content.parents.forEach((id:number) => {
-          newConnections.add(`${id}-${node.content.id}`);
+        node.parents.forEach((id:number) => {
+          newConnections.add(`${id}-${node.refID}`);
         });
-        node.content.children.forEach((id:number) => {
-          newConnections.add(`${node.content.id}-${id}`);
+        node.children.forEach((id:number) => {
+          newConnections.add(`${node.refID}-${id}`);
         });
 
       });
@@ -255,7 +255,7 @@ export class MapComponent implements OnInit, OnDestroy {
   //Data updates
   async updateVote(item:any, vote:number){
     this.updateData = true;
-    item.content.stats.vote += vote;
+    item.stats.vote += vote;
     await new Promise(r => setTimeout(r, 15));
     this.updateData = false;
   }
@@ -263,27 +263,26 @@ export class MapComponent implements OnInit, OnDestroy {
     async addConnection(item:any){
       //add solution or problem
       this.updateData = true;
-      if(item.content.type === 'Problem'){
+      if(item.type === 'Problem'){
         this.sharedData.setSolutionPopup({content:{item}, show:true});
       }else{
         this.sharedData.setProblemPopup({content:{new:false ,item}, show:true});
       }
-      await new Promise(r => setTimeout(r, 15));
+      await new Promise(r => setTimeout(r, 100));
       this.updateData = false;
     }
 
     async addChild(item:any){
       //add problem
       this.updateData = true;
-      console.log('test');
       this.sharedData.setProblemPopup({content:{new:false,item}, show:true});
-      await new Promise(r => setTimeout(r, 15));
+      await new Promise(r => setTimeout(r, 100));
       this.updateData = false;
     }
 
     async openRelative(rel:any){
       this.updateData = true;
-      const item:any = await this.mapBuilder.getItem(rel.id);
+      const item:any = await this.mapBuilder.getItem(rel.refID);
       this.sharedData.setZoomLevel(item.z);
       this.map.moveTo(item.x-500, item.y-200);
       this.resume();

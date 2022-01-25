@@ -60,7 +60,7 @@ $medium: 900px;
     width: 100%;
     height: calc(100% - 100px);
     display: grid;
-    grid-template-columns: 50% 50%;
+    grid-template-columns: 50% 47%;
     grid-gap:10px;
     overflow: hidden;
     @media screen and (max-width: $small) {
@@ -71,19 +71,7 @@ $medium: 900px;
     .left{
         display: grid ;
         grid-gap:0;
-        grid-template-rows: 20% 13% 65%;
-        // div{
-        //     border:solid 1px;
-        // }
-        .summary{
-            textarea{
-                resize: none;
-                width: calc(100% - 5px);
-                height: calc(100% - 30px);
-                outline: none;
-            }
-        }
-    
+        grid-template-rows: 14% 10% 67%;   
         .description{
             overflow: hidden;
             border-bottom: solid 1px;
@@ -94,8 +82,8 @@ $medium: 900px;
             display: grid;
              .tagsContent{
                 overflow: hidden;
-                width: 100%;
                 margin-top: 5px;
+                height: 300px;
             }
         }
     }
@@ -105,7 +93,7 @@ $medium: 900px;
         padding-left: 10px;
         display: grid;
         grid-gap:15px;
-        grid-template-rows: 13% 40%;
+        grid-template-rows: 10% 40%;
         // div{
         //     border:solid 1px;
         // }
@@ -140,12 +128,12 @@ $medium: 900px;
 }
 
 ::ng-deep{
-    .p-editor-content{
-        height: calc(70vh - 200px);
+    
+    .createTagClass .p-autocomplete-multiple-container {
+        width: calc(50vw - 110px);
     }
-    .tagData{
-        width: 100%;
-        background: #0000;
-      
+
+    .createEditorClass .p-editor-content{
+        height: calc(70vh - 280px);
     }
 }

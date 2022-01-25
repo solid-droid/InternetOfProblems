@@ -17,7 +17,16 @@
                             Summary :
                         </div>
                     </div>
-                    <textarea class="summaryText"></textarea>
+                    <textarea pInputTextarea 
+                    style="
+                    width: calc(100% - 27px);
+                    height: calc(100% - 50px);
+                    resize: none;
+                    font-size: 13px;
+                    "
+                    [(ngModel)]="summary"
+                    [disabled]="!allowEdit"
+                    ></textarea>
                 </div>
                 <div class="tags">
                     <div class="sectionHead">
@@ -26,7 +35,18 @@
                         </div>
                     </div>
                     <div class="tagsContent">
-
+                        <p-autoComplete 
+                        [(ngModel)]="selectedTags" 
+                        [suggestions]="filteredTags" 
+                        (completeMethod)="filterTag($event)" 
+                        field="name" 
+                        [multiple]="true"
+                        [forceSelection]="true"
+                        [unique]="true"
+                        [placeholder]="'Add tags'"
+                        styleClass="createTagClass"
+                        >
+                        </p-autoComplete>
                     </div>
                 </div>
                 <div class="description">
@@ -36,7 +56,7 @@
                         </div>
                     </div>
                     <div>
-                        <p-editor [(ngModel)]="description"></p-editor>
+                        <p-editor [(ngModel)]="description" styleClass="createEditorClass"></p-editor>
                     </div>
                 </div>
             </div>
@@ -44,11 +64,64 @@
                 <div>
                     <div>Catagory:</div>
                     <div>
+                        <p-dropdown 
+                        [options]="catagoryList" 
+                        [(ngModel)]="selectedCatagory" 
+                        [style]="{'width':'90%', 'margin-top':'10px'}"
+                        optionLabel="name"
+                        scrollHeight="300px"
+                        ></p-dropdown>
                     </div>
                 </div>
                 <div>
                     <div>Link relavent problems:</div>
-                    <div></div>
+                    <div>
+                        <div style="
+                            display: grid; 
+                            width: 100%;
+                            grid-template-columns: 1fr 40px;
+                            grid-gap: 10px;
+                            padding-top: 10px;
+                            padding-bottom: 10px;
+                            align-items: center;
+                            ">
+                            <input type="text" pInputText placeholder="Enter ID of a problem" [(ngModel)]="linkID"/>
+                            <div class="close">
+                                <!-- + icon -->
+                                <i class="fas fa-plus"></i>
+                            </div>
+                        </div>
+
+                        <p-listbox 
+                        [options]="linkedItems" 
+                        [readonly]="true" 
+                        optionLabel="id"
+                        emptyMessage="No linked problems"
+                        >
+                            <ng-template let-entry pTemplate="item">
+                                <div style="
+                                        display: grid;
+                                        width: 100%;
+                                        grid-template-columns: 20px 1fr 100px 20px;
+                                        border-bottom: solid 1px #e0e0e0;
+                                    ">
+                                    <div>
+                                        <i class="fas fa-link"></i>
+                                    </div>
+                                    <div style="padding-left:10px;">
+                                        {{entry.refID}}
+                                    </div>
+                                    <div style="font-size: 14px;">
+                                        {{entry.catagory}}
+                                    </div>
+                                    <div>
+                                        <!-- bin icon -->
+                                        <i class="fas fa-trash"></i>
+                                    </div>
+                                </div>
+                            </ng-template>
+                        </p-listbox>
+                    </div>
                 </div>
             </div>
         </div>

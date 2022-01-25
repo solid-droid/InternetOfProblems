@@ -35,8 +35,8 @@ export class MapBuilderService {
         z: 5,
         t: '01/07/2018',
         latest: true,
-        content: {
-          id: 0,
+       
+          refID: 0,
           ver: '1.0',
           type: 'Problem',
           summary: 'Hello World2',
@@ -48,10 +48,10 @@ export class MapBuilderService {
             relatedOpen: false,
           },
           related: [
-            { id: 2, summary:'Hello World level4' },
-            { id: 2, summary:`Hello World Test jsdfj jkafhjk jshdjk asjkfhjk asfjhjsfhjshf 
+            { refID: 2, summary:'Hello World level4' },
+            { refID: 2, summary:`Hello World Test jsdfj jkafhjk jshdjk asjkfhjk asfjhjsfhjshf 
             jsdfj jkafhjk jshdjk asjkfhjk asfjhjsfhjshf `},
-            { id: 3, summary:'Hello World level4' },
+            { refID: 3, summary:'Hello World level4' },
           ],
           stats: {
             vote: 999,
@@ -60,7 +60,6 @@ export class MapBuilderService {
           },
           children:[1, 7],
           parents:[]
-        }
       },
       {
         x : 750,
@@ -68,8 +67,8 @@ export class MapBuilderService {
         z: 5,
         t: '01/07/2018',
         latest: true,
-        content: {
-          id: 7,
+       
+          refID: 7,
           type: 'Solution',
           ver: '1.0',
           summary: 'Hello World1',
@@ -84,7 +83,6 @@ export class MapBuilderService {
           },
           children:[],
           parents:[0]
-        }
       },
       {
         x: 750,
@@ -92,8 +90,7 @@ export class MapBuilderService {
         z: 5,
         t: '01/07/2018',
         latest: true,
-        content: {
-          id: 1,
+          refID: 1,
           ver: '1.0',
           type: 'Solution',
           summary: `Hello World Test jsdfj jkafhjk jshdjk asjkfhjk asfjhjsfhjshf 
@@ -114,7 +111,6 @@ export class MapBuilderService {
           },
           children: [],
           parents: [0]
-        }
       },
       {
         x : 400,
@@ -122,8 +118,8 @@ export class MapBuilderService {
         z: 4,
         t: '01/07/2018',
         latest: true,
-        content: {
-          id: 2,
+       
+          refID: 2,
           ver: '1.0',
           type: 'Problem',
           summary: 'Hello World level4',
@@ -138,7 +134,6 @@ export class MapBuilderService {
           },
           children: [],
           parents: []
-        }
       },
       {
         x: 400,
@@ -146,8 +141,8 @@ export class MapBuilderService {
         z: 4,
         t: '01/07/2018',
         latest: true,
-        content: {
-          id: 3,
+       
+          refID: 3,
           ver: '1.0',
           type: 'Problem',
           summary: 'Hello World Test level4',
@@ -162,7 +157,6 @@ export class MapBuilderService {
           },
           children: [],
           parents: []
-        }
       }
     ];
 
@@ -214,8 +208,8 @@ export class MapBuilderService {
 
   }
 
-  async getItem(id: number) {
-    return this.mapData.find((item:any) => item.content.id === id);
+  async getItem(refID: number) {
+    return this.mapData.find((item:any) => item.refID === refID);
   }
 
 

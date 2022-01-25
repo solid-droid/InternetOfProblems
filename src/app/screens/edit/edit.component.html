@@ -4,7 +4,7 @@
             <div class="summary">
                 <div class="sectionHead"> 
                     <div>
-                        {{selection.content.type}} Summary :
+                        {{selection.type}} Summary :
                     </div> 
                     <div *ngIf="!allowEdit" class="edit" (click) = "allowEdit=true">
                         edit
@@ -16,10 +16,10 @@
     
                     <div class="entryDetails">
                         <div class="id">
-                            ID: {{selection.content.id}}
+                            ID: {{selection.refID}}
                         </div>
                         <div class="version">
-                            Ver: {{selection.content.ver}}
+                            Ver: {{selection.ver}}
                         </div>
                     </div>
                 </div>
@@ -27,11 +27,11 @@
                     <textarea pInputTextarea 
                     style="
                     width: 500px;
-                    height: 52px;
+                    height: 30px;
                     resize: none;
                     font-size: 13px;
                     "
-                    [(ngModel)]="selection.content.summary"
+                    [(ngModel)]="selection.summary"
                     [disabled]="!allowEdit"
                     ></textarea>
                 </div>
@@ -56,7 +56,9 @@
                     [multiple]="true"
                     [forceSelection]="true"
                     [unique]="true"
+                    [readonly]="!allowEdit" 
                     [placeholder]="'Add tags'"
+                    styleClass="tagClass"
                     >
                     </p-autoComplete>
                 </div>
@@ -70,7 +72,7 @@
                 <div style="height: calc(100% - 20px);">
                     <p-editor [(ngModel)]="description" 
                     [readonly]="!allowEdit" 
-                    [styleClass]="!allowEdit ? 'removeToolbar':''"></p-editor>
+                    [styleClass]="!allowEdit ? 'removeToolbar':'editorClass'"></p-editor>
                 </div>
             </div>
         </div>

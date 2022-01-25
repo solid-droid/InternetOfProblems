@@ -15,7 +15,10 @@ import { NgxSliderModule } from '@angular-slider/ngx-slider';
 //primeNG
 import {EditorModule} from 'primeng/editor';
 import {InputTextareaModule} from 'primeng/inputtextarea';
+import {InputTextModule} from 'primeng/inputtext';
 import {AutoCompleteModule} from 'primeng/autocomplete';
+import {DropdownModule} from 'primeng/dropdown';
+import {ListboxModule} from 'primeng/listbox';
 
 import { MapComponent } from './screens/map/map.component';
 import { EditComponent } from './screens/edit/edit.component';
@@ -47,7 +50,10 @@ import { CreateSolutionComponent } from './screens/create-solution/create-soluti
     ReactiveFormsModule,
     EditorModule,
     InputTextareaModule,
-    AutoCompleteModule
+    AutoCompleteModule,
+    DropdownModule,
+    ListboxModule,
+    InputTextModule
   ],
   providers: [],
   bootstrap: [AppComponent]

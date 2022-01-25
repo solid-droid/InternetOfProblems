@@ -22,7 +22,7 @@ export class EditComponent implements OnInit, OnDestroy, OnChanges {
   ) { }
   ngOnChanges(changes: any) {
     if (changes.selection.currentValue) {
-      this.description = changes.selection.currentValue.content.description;
+      this.description = changes.selection.currentValue.description;
       this.allowEdit = false;
     }
   }

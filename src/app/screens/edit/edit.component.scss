@@ -120,19 +120,29 @@
 }
 
 ::ng-deep{
-    .p-editor-content{
-        height: calc(70vh - 100px);
+    .editorClass{
+        .p-editor-content{
+            height: calc(70vh - 40px);
+        }
+        // .p-editor-container 
+        .p-editor-toolbar.ql-snow .ql-picker.ql-expanded .ql-picker-options .ql-picker-item {
+            width: 20px!important;
+            height: 17px!important;
+        }
     }
+
     .ql-snow .ql-color-picker .ql-picker-options {
         width: 132px!important;
     }
-    .p-editor-container .p-editor-toolbar.ql-snow .ql-picker.ql-expanded .ql-picker-options .ql-picker-item {
-        width: 20px!important;
-        height: 17px!important;
+
+    .tagClass{
+        .p-autocomplete-multiple-container {
+            width: 540px;
+        }
     }
 
-    .p-autocomplete .p-autocomplete-multiple-container {
-        width: 540px;
+    .p-disabled, .p-component:disabled {
+        opacity: 1;
     }
     .removeToolbar{
         .p-editor-toolbar{
