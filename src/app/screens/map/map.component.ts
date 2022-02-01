@@ -46,7 +46,7 @@ export class MapComponent implements OnInit, OnDestroy {
       initialZoom: 1,
       minZoom: 0.3,
       maxZoom: 1.3,
-      bounds: true,
+      // bounds: true,
     }).on('pan', () => {
       const transform = this.map.getTransform();
       this.backgroundX = transform.x+'px';
@@ -286,7 +286,7 @@ export class MapComponent implements OnInit, OnDestroy {
       this.sharedData.setZoomLevel(item.z);
       this.map.moveTo(item.x-500, item.y-200);
       this.resume();
-      await new Promise(r => setTimeout(r, 15));
+      await new Promise(r => setTimeout(r, 100));
       this.updateData = false;
 
     }
@@ -294,7 +294,7 @@ export class MapComponent implements OnInit, OnDestroy {
     async toggleRelativeList(control:any){
       this.updateData = true;
       control.relatedOpen  = !control.relatedOpen;
-      await new Promise(r => setTimeout(r, 15));
+      await new Promise(r => setTimeout(r, 100));
       this.updateData = false;
     }
 
