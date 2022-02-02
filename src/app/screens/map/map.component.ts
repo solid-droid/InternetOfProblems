@@ -28,6 +28,9 @@ export class MapComponent implements OnInit, OnDestroy {
   backgroundX:any = 0;
   backgroundY:any = 0;
   updateData = false;
+  oldconnections:any = [];
+  newconnections:any = [];
+  resizeTimer = performance.now();
   constructor(
     private readonly sharedData : SharedDataService,
     public readonly mapBuilder : MapBuilderService
@@ -38,6 +41,13 @@ export class MapComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    $( window ).resize(async () => {
+      this.resizeTimer = performance.now();
+      await new Promise(r => setTimeout(r, 200));
+      if(performance.now() - this.resizeTimer > 200){
+        this.redrawLines();
+      }
+    });
     const container = document.querySelector('#mapContent');
     this.map = panzoom(container, {
 			zoomDoubleClickSpeed: 1,
@@ -45,7 +55,7 @@ export class MapComponent implements OnInit, OnDestroy {
       initialY: 0,
       initialZoom: 1,
       minZoom: 0.3,
-      maxZoom: 1.3,
+      maxZoom: 1,
       // bounds: true,
     }).on('pan', () => {
       const transform = this.map.getTransform();
@@ -54,8 +64,12 @@ export class MapComponent implements OnInit, OnDestroy {
       this.sharedData.setOrigin([transform.x, transform.y]);
     });
     
-    this.$subscription1 = this.sharedData.getZoomLevel.subscribe(zoomLevel => this.zoomLevel = zoomLevel);
-    this.mapBuilder.beforeMapUpdate('mapScreen',(mapData:any, oldNodes:any, newNodes:any) => this.beforeMapUpdate(mapData, oldNodes, newNodes));
+    this.$subscription1 = this.sharedData.getZoomLevel.subscribe(zoomLevel =>{
+    this.zoomLevel = zoomLevel
+  });
+    this.mapBuilder.beforeMapUpdate('mapScreen',(mapData:any, oldNodes:any, newNodes:any) => {
+      this.beforeMapUpdate(mapData, oldNodes, newNodes)
+    });
   }
 
   async beforeMapUpdate(mapData:any , oldNodes:any , newNodes:any){
@@ -86,6 +100,10 @@ export class MapComponent implements OnInit, OnDestroy {
         });
 
       });
+      
+      this.oldconnections = [...oldConnections];
+      this.newconnections = [...newConnections];
+
       if([...oldConnections].length){
         this.removeOldConnections([...oldConnections]);
         //remove existing svg lines
@@ -111,8 +129,8 @@ export class MapComponent implements OnInit, OnDestroy {
 			const leftArrow = parseFloat($(x).css('left').split('px')[0]);
 			const topArrow = parseFloat($(x).css('top').split('px')[0]);
 			$(x).css({
-				top: String(topArrow - topMap - 155) + 'px',
-				left: String(leftArrow - leftMap) + 'px'
+				top: String((topArrow - topMap - 155)) + 'px',
+				left: String((leftArrow - leftMap)) + 'px'
 			});
 		}
   }
@@ -128,6 +146,21 @@ export class MapComponent implements OnInit, OnDestroy {
       }
 
     });
+  }
+
+  async redrawLines(){
+    const topMap = this.map.getTransform().y;
+    const leftMap = this.map.getTransform().x;
+    const scale = this.map.getTransform().scale;
+    this.map.zoomAbs(0, 0, 1);
+    await new Promise(r => setTimeout(r, 10));
+    this.removeOldConnections(this.newconnections);
+    $('.leader-line').remove();
+    await this.drawNewConnections(this.newconnections);
+    await new Promise(r => setTimeout(r, 10));
+    this.makeLinesAsStaticSVGs();
+    this.map.zoomAbs(0, 0, scale);
+    this.map.moveTo(leftMap, topMap);
   }
 
   removeOldConnections(connections:any){
