@@ -16,7 +16,7 @@ export class CreateProblemComponent implements OnInit {
   tagList: any = [{name:'test'},{name:'test2'},{name:'test3'}];
   filteredTags: any[] = [];
   linkedItems: any[] = [
-    // {id:'test' , catagory:'General'},{id:'test2', catagory:'Software'},{id:'test3', catagory:'Hardware'}
+    // {refID:'test' , catagory:'General'},{refID:'test2', catagory:'Software'},{refID:'test3', catagory:'Hardware'}
   ];
   catagoryList = [
     {name:'General'},
@@ -43,6 +43,17 @@ export class CreateProblemComponent implements OnInit {
 
   ngOnDestroy(): void {
 
+  }
+
+  linkProblem() {
+    if(this.linkID && !this.linkedItems.find(item => item.refID === this.linkID)) {
+      this.linkedItems= [ ... this.linkedItems,{refID:this.linkID, catagory:'loading...'}];
+      this.linkID = '';
+    }
+  }
+
+  removeLink(item:any) {
+    this.linkedItems = this.linkedItems.filter(linkedItem => linkedItem.refID !== item.refID);
   }
 
   filterTag(event:any) {

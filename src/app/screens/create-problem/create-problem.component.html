@@ -14,7 +14,7 @@
                 <div class="summary">
                     <div class="sectionHead">
                         <div>
-                            Summary :
+                            TLDR :
                         </div>
                     </div>
                     <textarea pInputTextarea 
@@ -73,7 +73,7 @@
                         ></p-dropdown>
                     </div>
                 </div>
-                <div>
+                <div style="overflow: hidden;">
                     <div>Link relavent problems:</div>
                     <div>
                         <div style="
@@ -86,7 +86,7 @@
                             align-items: center;
                             ">
                             <input type="text" pInputText placeholder="Enter ID of a problem" [(ngModel)]="linkID"/>
-                            <div class="close">
+                            <div class="close" (click)="linkProblem()">
                                 <!-- + icon -->
                                 <i class="fas fa-plus"></i>
                             </div>
@@ -95,7 +95,7 @@
                         <p-listbox 
                         [options]="linkedItems" 
                         [readonly]="true" 
-                        optionLabel="id"
+                        optionLabel="refID"
                         emptyMessage="No linked problems"
                         >
                             <ng-template let-entry pTemplate="item">
@@ -114,7 +114,7 @@
                                     <div style="font-size: 14px;">
                                         {{entry.catagory}}
                                     </div>
-                                    <div>
+                                    <div (click)="removeLink(entry)">
                                         <!-- bin icon -->
                                         <i class="fas fa-trash"></i>
                                     </div>

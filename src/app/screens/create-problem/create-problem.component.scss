@@ -136,4 +136,9 @@ $medium: 900px;
     .createEditorClass .p-editor-content{
         height: calc(70vh - 280px);
     }
+
+    .p-listbox{
+        max-height: 189px;
+        overflow: auto;
+    }
 }
