@@ -1,4 +1,5 @@
 import { Component, OnInit} from '@angular/core';
+import { ApiCallsService } from 'src/app/services/api-calls.service';
 import { SharedDataService } from 'src/app/services/shared-data.service';
 
 
@@ -11,7 +12,7 @@ export class CreateProblemComponent implements OnInit {
 
   allowEdit = true;
   description = '';
-  summary = '';
+  tldr = '';
   selectedTags: any[] = [];
   tagList: any = [{name:'test'},{name:'test2'},{name:'test3'}];
   filteredTags: any[] = [];
@@ -30,6 +31,7 @@ export class CreateProblemComponent implements OnInit {
   selectedCatagory : any;
   constructor(
     private readonly sharedData : SharedDataService,
+    private readonly apiService : ApiCallsService
   ) {}
 
   closePopup() {
@@ -71,6 +73,15 @@ export class CreateProblemComponent implements OnInit {
     this.filteredTags = filtered;
 }
 
-  
- 
+addProblem(){
+  this.apiService.addRecord({
+    description: this.description,
+    tldr: this.tldr,
+    tags: this.selectedTags,
+    linkedItems: this.linkedItems,
+    catagory : this.selectedCatagory.name,
+    type: 'Problem',
+    author: null
+  });
+  }
 }

@@ -24,7 +24,7 @@
                     resize: none;
                     font-size: 13px;
                     "
-                    [(ngModel)]="summary"
+                    [(ngModel)]="tldr"
                     [disabled]="!allowEdit"
                     ></textarea>
                 </div>
@@ -126,7 +126,7 @@
             </div>
         </div>
         <div class="footer">
-            <div class="save">
+            <div class="save" (click)="addProblem()">
                 CREATE
             </div>
         </div>

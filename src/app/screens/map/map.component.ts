@@ -129,7 +129,7 @@ export class MapComponent implements OnInit, OnDestroy {
 			const leftArrow = parseFloat($(x).css('left').split('px')[0]);
 			const topArrow = parseFloat($(x).css('top').split('px')[0]);
 			$(x).css({
-				top: String((topArrow - topMap - 155)) + 'px',
+				top: String((topArrow - topMap - 115)) + 'px',
 				left: String((leftArrow - leftMap)) + 'px'
 			});
 		}
