@@ -3,7 +3,14 @@
         <div class="searchBtn">
             <i class="fas fa-search"></i>
         </div>
-        <input matInput placeholder="Search..." value="">    
+        <p-autoComplete 
+        [(ngModel)]="searchText" 
+        [showEmptyMessage]="true" 
+        [suggestions]="searchSuggestions" 
+        (completeMethod)="getSuggestions($event)" 
+        field="name" 
+        [minLength]="1">
+    </p-autoComplete>   
     </div>
 </div>
 

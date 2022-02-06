@@ -125,11 +125,19 @@ export class MapComponent implements OnInit, OnDestroy {
     $('.leader-line').appendTo('#mapContent');
     const topMap = this.map.getTransform().y;
     const leftMap = this.map.getTransform().x;
+    let headerOffset = 115;
     for (const x of $('.leader-line')) {
 			const leftArrow = parseFloat($(x).css('left').split('px')[0]);
 			const topArrow = parseFloat($(x).css('top').split('px')[0]);
+      if( 
+        (window.innerWidth < 400 && window.innerHeight < 700)
+        ||
+        (window.innerWidth < 700 && window.innerHeight < 400)
+        ){
+          headerOffset = 155;
+      }
 			$(x).css({
-				top: String((topArrow - topMap - 115)) + 'px',
+				top: String((topArrow - topMap - headerOffset)) + 'px',
 				left: String((leftArrow - leftMap)) + 'px'
 			});
 		}
