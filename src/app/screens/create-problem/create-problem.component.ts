@@ -78,7 +78,7 @@ addProblem(){
     description: this.description,
     tldr: this.tldr,
     tags: this.selectedTags,
-    linkedItems: this.linkedItems,
+    related: this.linkedItems,
     catagory : this.selectedCatagory.name,
     type: 'Problem',
     author: null

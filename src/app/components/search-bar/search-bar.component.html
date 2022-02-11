@@ -7,6 +7,7 @@
         [(ngModel)]="searchText" 
         [showEmptyMessage]="true" 
         [suggestions]="searchSuggestions" 
+        styleClass="searchInput"
         (completeMethod)="getSuggestions($event)" 
         field="name" 
         [minLength]="1">

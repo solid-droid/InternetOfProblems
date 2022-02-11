@@ -18,32 +18,33 @@
 
 
 ::ng-deep{
-    .p-autocomplete-panel .p-autocomplete-items:not(.p-autocomplete-virtualscroll) {
-        position: fixed;
-        background: #f4f4f4;
-        width: calc( 68% - 50px );
-        margin-top: 3px;
-        border-bottom-right-radius: 10px;
-        border-bottom-left-radius: 10px;
-        box-shadow: 0 6px 8px 0px #d6d6d6;
-    }
-    .p-autocomplete {
+    .searchInput{
         width: 100%;
+        .p-autocomplete-panel .p-autocomplete-items:not(.p-autocomplete-virtualscroll) {
+            position: fixed;
+            background: #f4f4f4;
+            width: calc( 68% - 50px );
+            margin-top: 3px;
+            border-bottom-right-radius: 10px;
+            border-bottom-left-radius: 10px;
+            box-shadow: 0 6px 8px 0px #d6d6d6;
+        }
+        
+        .p-inputtext {
+            width: 100%;
+            border-radius: 0;
+            border: none;
+            background: whitesmoke;
+        }
+    
+        .p-inputtext:enabled:focus {
+            outline: 0 none;
+            outline-offset: 0;
+            box-shadow: none;
+            border-color: none;
+        }
     }
     
-    .p-inputtext {
-        width: 100%;
-        border-radius: 0;
-        border: none;
-        background: whitesmoke;
-    }
-
-    .p-inputtext:enabled:focus {
-        outline: 0 none;
-        outline-offset: 0;
-        box-shadow: none;
-        border-color: none;
-    }
 }
 
 @media screen and (max-width: 700px){
