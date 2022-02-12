@@ -7,6 +7,8 @@
         id = "{{item.refID}}"
         (touchend)="showEdit(item)"
         (click)="showEdit(item)"
+        (mouseenter)="highlightLine(item)"
+        (mouseleave)="unHighlightLine(item)"
         @fadeIn>
         <div class="fundAvailable">
             <!-- <i class="fas fa-dollar-sign"></i> -->

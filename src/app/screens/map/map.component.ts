@@ -24,13 +24,16 @@ export class MapComponent implements OnInit, OnDestroy {
   zoomLevel = 5;
   $subscription1:any;
   lines:any = {};
+  currentHighlighted:any = {
+    refId:null,
+    lines:[]
+  };
   dataMap:any = [];
   backgroundX:any = 0;
   backgroundY:any = 0;
   updateData = false;
   oldconnections:any = [];
   newconnections:any = [];
-  lineColor:any = {};
   resizeTimer = performance.now();
   constructor(
     private readonly sharedData : SharedDataService,
@@ -149,7 +152,7 @@ export class MapComponent implements OnInit, OnDestroy {
     Object.values(this.lines).forEach((line:any) => {
       try{
         line.position();
-        this.makeGridCurve(line);
+        // this.makeGridCurve(line);
       } catch(e){
 
       }
@@ -194,32 +197,66 @@ export class MapComponent implements OnInit, OnDestroy {
   async drawNewConnections(connections:any){
     await new Promise(r => setTimeout(r, 10));
     const getRef = (id:string) => document.getElementById(id);
-    this.lineColor = {};
     connections.forEach((line:any) => {
     const [start, end] = line.split('-');
-    if(!this.lineColor[start])
-    {
-      this.lineColor[start] = this.getRandomColor();
-      // this.lineColor[start] = '#4079c9';
-    }
     try{
         this.lines[line] = new LeaderLine(getRef('start'+start) , getRef(end), {
           path: 'grid',
           size: 3,
-          color: this.lineColor[start],
+          color: '#4079c9',
           endPlug: 'arrow3',
           endPlugSize: 1.5,
           startSocket: 'right',
           endSocket: 'left',
           hide: true,
         });
-        this.makeGridCurve(this.lines[line]);
+        for(let i =0; i< $('.leader-line').length; ++i){
+         const id = $('.leader-line').eq(i).attr('id');
+          if(!id){
+            $('.leader-line').eq(i).attr('id', line);
+            break;
+          }
+        };
+        // this.makeGridCurve(this.lines[line]);
         this.showLine(this.lines[line]);
     } catch(e){
 
     }
 
     });
+  }
+
+  async highlightLine(node:any){
+    // const mapOBJ = this.mapBuilder.filteredMapData[this.zoomLevel].mapObjectData;
+    if(!this.currentHighlighted.refId){
+      this.currentHighlighted.refId = node.refId;
+      const lines:any = []; 
+      node.parents.forEach((id:number) => {
+        lines.push(`${id}-${node.refID}`);
+      });
+      node.children.forEach((id:number) => {
+        lines.push(`${node.refID}-${id}`);
+      });
+      this.currentHighlighted.lines = lines;
+      Object.keys(this.lines).forEach((line:any) => {
+        $(`#${line}`).css({opacity: 0.2});
+      });
+      this.currentHighlighted.lines.forEach((line:any) => {
+        $(`#${line}`).css({opacity: 1});
+        $(`#${line} > g > use`).css({stroke: 'red'});
+      });
+    }
+  }
+
+
+  async unHighlightLine(node:any){
+    Object.keys(this.lines).forEach((line:any) => {
+      $(`#${line}`).css({opacity: 1});
+    });
+    this.currentHighlighted.lines.forEach((line:any) => {
+      $(`#${line} > g > use`).css({stroke: '#4079c9'});
+    });
+    this.currentHighlighted.refId = null;
   }
 
   async showLine(line:any){

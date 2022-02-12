@@ -17,11 +17,10 @@ export class MapBuilderService {
  ];
   //used for lazy loading
   private mapGridSize = [1000 ,1000];
-  private parentCounter:any = {};
+  public filteredMapData:any = {};
   private mapData:any = [];
-  private mapObjectData:any = {};
   private mapUpdateCallbacks:any = [];
-
+ 
   public displayData:any = [];
 
   constructor(
@@ -80,7 +79,7 @@ export class MapBuilderService {
             comments: 0,
             countries: []
           },
-          children:[24],
+          children:[24, 25],
           parents:[0]
       },
       {
@@ -256,7 +255,7 @@ export class MapBuilderService {
       },
       {
         z: 4,
-        x:2,
+        x:1,
         t: '01/07/2018',
         latest: true,
        
@@ -278,7 +277,7 @@ export class MapBuilderService {
       },
       {
         z: 4,
-        x:2,
+        x:1,
         t: '01/07/2018',
         latest: true,
        
@@ -324,6 +323,38 @@ export class MapBuilderService {
     { 
       z: 5,
       x:3,
+      refID: 25,
+      type: 'Problem',
+      summary: 'Hello World2',
+      tags: ['test', 'test2'],
+      controls:{
+        relatedOpen: false,
+      },
+      related: [
+        { refID: 2, summary:'Hello World level4' },
+        { refID: 2, summary:`Hello World`},
+        { refID: 3, summary:'Hello World level4' },
+        { refID: 2, summary:'Hello World level4' },
+        { refID: 2, summary:`Hello World`},
+        { refID: 3, summary:'Hello World level4' },
+        { refID: 2, summary:'Hello World level4' },
+        { refID: 2, summary:`Hello World`},
+        { refID: 3, summary:'Hello World level4' },
+        { refID: 2, summary:'Hello World level4' },
+        { refID: 2, summary:`Hello World`},
+        { refID: 3, summary:'Hello World level4' },
+      ],
+      stats: {
+        vote: 999,
+        comments: 0,
+        countries: []
+      },
+      children:[],
+      parents:[1]
+  },
+    { 
+      z: 5,
+      x:3,
       refID: 24,
       type: 'Problem',
       summary: 'Hello World2',
@@ -347,15 +378,16 @@ export class MapBuilderService {
     ];
   
     this.mapData.forEach((item:any) => {
-        this.mapObjectData[item.refID] = item;
-    });
-
-    this.mapData = this.createMap(this.mapData);
-
-    this.mapData.forEach((item:any) => {
       item['gridX'] = Math.trunc(item.x / this.mapGridSize[0]);
       item['gridY'] = Math.trunc(item.y / this.mapGridSize[1]);
+      if(!this.filteredMapData[item.z]){
+        this.filteredMapData[item.z] = {mapData:[], mapObjectData : {}, mapTree:[]};
+      }
+      this.filteredMapData[item.z].mapData.push(item);
+      this.filteredMapData[item.z].mapObjectData[item.refID] = item;
     });
+    this.createMapTree();
+    this.createWidgetPosition();
   }
   public async init(){
     await new Promise(r => setTimeout(r, 10));
@@ -372,68 +404,47 @@ export class MapBuilderService {
     });
   }
 
-  private updateParentCount(refID:number, x:number, parents:any[] , begin = true){
-    if(begin && parents.length){
-      if(!this.parentCounter[refID]){
-        this.parentCounter[refID] = {};
-      }
-      this.parentCounter[refID][x] = parents.length;
-    }
-    parents.forEach((parent:any) => {
-      if(this.mapObjectData[parent].parents.length){
-        this.parentCounter[refID][x-1] = this.mapObjectData[parent].parents.length;
-      }
-      this.updateParentCount(refID, x-1, this.mapObjectData[parent].parents, false);
+
+  private createMapTree(){
+    Object.keys(this.filteredMapData).forEach((z:any) => {
+      Object.keys(this.filteredMapData[z].mapObjectData).forEach((key:any) => {
+        this.filteredMapData[z].mapObjectData[key].next = [];
+        this.filteredMapData[z].mapObjectData[key].prev = [];
+        if(this.filteredMapData[z].mapObjectData[key].x === 1){
+          this.filteredMapData[z].mapTree.push(this.filteredMapData[z].mapObjectData[key]);
+        }
+        this.filteredMapData[z].mapObjectData[key].children.forEach((child:any) => {
+          this.filteredMapData[z].mapObjectData[key].next.push(this.filteredMapData[z].mapObjectData[child]);
+        });
+        this.filteredMapData[z].mapObjectData[key].parents.forEach((parent:any) => {
+          this.filteredMapData[z].mapObjectData[key].prev.push(this.filteredMapData[z].mapObjectData[parent]);
+        });
+    });
     });
   }
 
-  private createMap(data:any[]){
+  private createWidgetPosition(){
     let connections:any = {};
-    data.sort((a, b)  => {
-      let n = b.x - a.x;
-      if (n !== 0) {
-          return n;
-      }
-      const arefID = Math.min(...a.parents);
-      const brefID = Math.min(...b.parents);
-      return brefID - arefID;
-  });
-  console.log(data);
-    let currParent = data[0].parents[0];
-    let counter = 0;
-    data.forEach((item,i) =>{
-      const x = item.x;
-      const z = item.z;
-      const count = item.children.length;
-      const parent = item.parents[0];
-      const siblings = parent ? this.mapObjectData[parent].children.length : 0;
-      // const refId = item.refID;
-      // this.updateParentCount(refId,x, item.parents);
-      if(!connections[z]){
+    Object.keys(this.filteredMapData).forEach((z:any) => {
+      this.traverseTree(connections, this.filteredMapData[z].mapTree, z);
+    });
+  }
+
+  traverseTree(connections:any, tree:any , z:number){
+    tree.forEach((item:any) => {
+        const x = item.x;
+        const count = item.children.length;
+        if(!connections[z]){
           connections[z] = {};
         }
-      if(!connections[z][x]){
+        if(!connections[z][x]){
           connections[z][x] = 0;
       }
-      counter += count;
-      if(currParent && currParent !== data[i].parents[0]){
-        currParent = data[i].parents[0];
-        connections[z][x]+= counter + count ? count : 1; 
-        item.y = connections[z][x] - 1;
-       } else {
-         if(x === 1){
-          connections[z][x]+= count ? count : 1; 
-          item.y = connections[z][x] - 1;
-         } else {
-          connections[z][x]+= 1; 
-          item.y = connections[z][x] - 1;
-         }
-       }
-    });
-    return data;
-    
+      connections[z][x]+= count ? count : 1; 
+      item.y = connections[z][x];
+      this.traverseTree(connections, item.next , z+1);
+    });   
   }
-
 
   public beforeMapUpdate( name:string , callback:any){
     this.mapUpdateCallbacks.push({name,callback});
@@ -447,11 +458,9 @@ export class MapBuilderService {
 
   private async updateMap() {
     // when panned or zoomed or time changed
-    const newMap = this.mapData
-                  .filter((item:any) => 
-                    item.z===this.z && this.bufferMap.some((item2:any) => 
-                    item2.x === item.gridX && item2.y=== item.gridY));
-    // const newMap = this.mapData.filter((item:any) =>  item.z===this.z ); 
+    let newMap = this.filteredMapData[this.z].mapData
+                  // .filter((item:any) => this.bufferMap.some((item2:any) => 
+                  //   item2.x === item.gridX && item2.y=== item.gridY));
     const oldNodes = this.displayData.filter((item:any) => !newMap.includes(item));
     const newNodes = newMap.filter((item:any) => !this.displayData.includes(item));
 
