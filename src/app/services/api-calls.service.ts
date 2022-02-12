@@ -24,7 +24,6 @@ export class ApiCallsService {
   async getRecords(x = null, y = null, z = null) {
       const params  = `${x ? `/${x}` : 'null'}${y ? `/${y}` : 'null'}${z ? `/${z}` : 'null'}`;
       const responce = (await (await fetch(this.url + 'getRecords' + params)).json());
-      console.log(responce);
       return responce;
   }
 }

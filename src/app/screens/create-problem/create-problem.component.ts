@@ -1,6 +1,7 @@
 import { Component, OnInit} from '@angular/core';
 import { ApiCallsService } from 'src/app/services/api-calls.service';
 import { SharedDataService } from 'src/app/services/shared-data.service';
+import { UtilsService } from 'src/app/services/utils.service';
 
 
 @Component({
@@ -31,7 +32,8 @@ export class CreateProblemComponent implements OnInit {
   selectedCatagory : any;
   constructor(
     private readonly sharedData : SharedDataService,
-    private readonly apiService : ApiCallsService
+    private readonly apiService : ApiCallsService,
+    private readonly utils: UtilsService,
   ) {}
 
   closePopup() {
@@ -74,6 +76,7 @@ export class CreateProblemComponent implements OnInit {
 }
 
 addProblem(){
+  const {x,y}  = this.utils.getNextProblemLocation();
   this.apiService.addRecord({
     description: this.description,
     tldr: this.tldr,

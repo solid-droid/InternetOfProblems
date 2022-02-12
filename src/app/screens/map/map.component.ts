@@ -30,6 +30,7 @@ export class MapComponent implements OnInit, OnDestroy {
   updateData = false;
   oldconnections:any = [];
   newconnections:any = [];
+  lineColor:any = {};
   resizeTimer = performance.now();
   constructor(
     private readonly sharedData : SharedDataService,
@@ -183,16 +184,29 @@ export class MapComponent implements OnInit, OnDestroy {
 
   }
 
+  getRandomColor(){
+    let color = '#';
+    for (var i = 0; i < 6; i++) {
+        color += Math.floor(Math.random() * 10);
+    }
+    return color;
+  }
   async drawNewConnections(connections:any){
     await new Promise(r => setTimeout(r, 10));
     const getRef = (id:string) => document.getElementById(id);
+    this.lineColor = {};
     connections.forEach((line:any) => {
-      const [start, end] = line.split('-');
-      try{
+    const [start, end] = line.split('-');
+    if(!this.lineColor[start])
+    {
+      this.lineColor[start] = this.getRandomColor();
+      // this.lineColor[start] = '#4079c9';
+    }
+    try{
         this.lines[line] = new LeaderLine(getRef('start'+start) , getRef(end), {
           path: 'grid',
           size: 3,
-          color: '#4079c9',
+          color: this.lineColor[start],
           endPlug: 'arrow3',
           endPlugSize: 1.5,
           startSocket: 'right',
@@ -201,9 +215,9 @@ export class MapComponent implements OnInit, OnDestroy {
         });
         this.makeGridCurve(this.lines[line]);
         this.showLine(this.lines[line]);
-      } catch(e){
+    } catch(e){
 
-      }
+    }
 
     });
   }
