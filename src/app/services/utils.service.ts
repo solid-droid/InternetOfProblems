@@ -1,21 +1,25 @@
 import { Injectable } from '@angular/core';
+import { config } from 'process';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UtilsService {
 
+  validUser = false;
+
   constructor() { }
 
-  getNextProblemLocation(fromConnection : any = null){
-    let x = 0, y =0;
-
-    return {x,y};
-  }
-
-  getNextSolutionLocation(fromConnection:any = null){
-    let x = 0, y =0;
-
-    return {x,y};
+  async googleSignIn() {
+    const url = 'https://identitytoolkit.googleapis.com/v1/accounts:signInWithIdp?key='
+    const responce = await(await fetch(url+environment.googleLogin, {
+      body: "{'returnSecureToken':true}",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      method: "POST"
+    })).json();
+    return responce;
   }
 }

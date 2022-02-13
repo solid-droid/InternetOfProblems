@@ -26,6 +26,12 @@ import { CounterPipe } from './pipes/counter.pipe';
 import { FormsModule,ReactiveFormsModule } from '@angular/forms';
 import { CreateProblemComponent } from './screens/create-problem/create-problem.component';
 import { CreateSolutionComponent } from './screens/create-solution/create-solution.component';
+import { LoginComponent } from './screens/login/login.component';
+import { SocialLoginModule, SocialAuthServiceConfig } from 'angularx-social-login';
+import {
+  GoogleLoginProvider,
+  // FacebookLoginProvider
+} from 'angularx-social-login';
 
 @NgModule({
   declarations: [
@@ -39,7 +45,8 @@ import { CreateSolutionComponent } from './screens/create-solution/create-soluti
     EditComponent,
     CounterPipe,
     CreateProblemComponent,
-    CreateSolutionComponent
+    CreateSolutionComponent,
+    LoginComponent
   ],
   imports: [
     NgxSliderModule,
@@ -53,9 +60,27 @@ import { CreateSolutionComponent } from './screens/create-solution/create-soluti
     AutoCompleteModule,
     DropdownModule,
     ListboxModule,
-    InputTextModule
+    InputTextModule,
+    SocialLoginModule
   ],
-  providers: [],
+  providers: [ {
+    provide: 'SocialAuthServiceConfig',
+    useValue: {
+      autoLogin: false,
+      providers: [
+        {
+          id: GoogleLoginProvider.PROVIDER_ID,
+          provider: new GoogleLoginProvider(
+            'clientId'
+          )
+        },
+        // {
+        //   id: FacebookLoginProvider.PROVIDER_ID,
+        //   provider: new FacebookLoginProvider('clientId')
+        // }
+      ]
+    } as SocialAuthServiceConfig,
+  }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -17,13 +17,21 @@ export class ApiCallsService {
       },
       body: JSON.stringify(record)  
     })).json();
-    console.log(responce);
     return responce;
   }
 
-  async getRecords(x = null, y = null, z = null) {
-      const params  = `${x ? `/${x}` : 'null'}${y ? `/${y}` : 'null'}${z ? `/${z}` : 'null'}`;
-      const responce = (await (await fetch(this.url + 'getRecords' + params)).json());
-      return responce;
+  async updateRecord(record: any) {
+    const responce = await (await fetch(this.url + 'updateRecord', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(record)  
+    })).json();
+    return responce;
+  }
+
+  async getRecords(z = null) {
+    return (await (await fetch(this.url + 'getRecords' + (z ? '/' + z : ''))).json());
   }
 }

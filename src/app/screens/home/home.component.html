@@ -9,5 +9,6 @@
 (showMenu)="updateShowMenu($event)" 
 [selection]="selection"
 ></app-edit>
-<app-create-problem *ngIf="showProblemPopup"></app-create-problem>
-<app-create-solution *ngIf="showSolutionPopup"></app-create-solution>
+<app-create-problem [solution]="solution" *ngIf="showProblemPopup"></app-create-problem>
+<app-create-solution [problem]="problem" *ngIf="showSolutionPopup"></app-create-solution>
+<app-login *ngIf="showLogin"></app-login>

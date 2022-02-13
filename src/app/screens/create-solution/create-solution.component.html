@@ -3,14 +3,85 @@
         <div class="header">
             <div class="buffer"> </div>
             <div class="popupHeader">
-                Create Solution
+                Add a Solution
             </div>
             <div class="close" (click)="closePopup()">
                 <i class="fas fa-times"></i>
             </div>
         </div>
         <div class="body">
-            test
+            <div class="left">
+                <div>
+                    Problem you are solving:
+                </div>
+                <div class="tldr_prob">
+                    <div>TLDR :</div>
+                    <div>
+                        {{problem.tldr}}
+                    </div>
+                </div>
+                <div class="desc_prob">
+                    <div>Description :</div>
+                    <div>
+                        {{problem.desc}}
+                    </div>
+                </div>
+            </div>
+            <div class="right">
+                <div class="summary">
+                    <div class="sectionHead">
+                        <div>
+                            TLDR :
+                        </div>
+                    </div>
+                    <textarea pInputTextarea 
+                    style="
+                    width: calc(100% - 27px);
+                    height: calc(100% - 50px);
+                    resize: none;
+                    font-size: 13px;
+                    "
+                    [(ngModel)]="tldr"
+                    [disabled]="!allowEdit"
+                    ></textarea>
+                </div>
+                <div class="tags">
+                    <div class="sectionHead">
+                        <div>
+                            Tags :
+                        </div>
+                    </div>
+                    <div class="tagsContent">
+                        <p-autoComplete 
+                        [(ngModel)]="selectedTags" 
+                        [suggestions]="filteredTags" 
+                        (completeMethod)="filterTag($event)" 
+                        field="name" 
+                        [multiple]="true"
+                        [forceSelection]="true"
+                        [unique]="true"
+                        [placeholder]="'Add tags'"
+                        styleClass="createTagClass"
+                        >
+                        </p-autoComplete>
+                    </div>
+                </div>
+                <div class="description">
+                    <div class="sectionHead">
+                        <div>
+                            Description :
+                        </div>
+                    </div>
+                    <div>
+                        <p-editor [(ngModel)]="description" styleClass="createEditorClass"></p-editor>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer">
+            <div class="save" (click)="addSolution()">
+                CREATE
+            </div>
         </div>
     </div>
 </div>

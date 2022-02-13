@@ -35,16 +35,16 @@
             <i class="fas fa-plus-circle"></i>
         </div>
    
-        <div [title]="item.summary" *ngIf="item.type == 'Problem'" class="widgetContent">
-             {{item.summary}}
+        <div [title]="item.tldr" *ngIf="item.type == 'Problem'" class="widgetContent">
+             {{item.tldr}}
         </div>
-        <div [title]="item.summary" *ngIf="item.type == 'Solution'" class="widgetContent">
-            {{item.summary}}
+        <div [title]="item.tldr" *ngIf="item.type == 'Solution'" class="widgetContent">
+            {{item.tldr}}
         </div>
         <div *ngIf="item.stats" class="widgetStats">
             <div class="tools">
                 <div *ngFor="let tag of item.tags" class="tag">
-                    {{tag}}
+                    {{tag.name}}
                 </div>
             </div>
             <div class="vote">
@@ -72,7 +72,7 @@
             <div class="relatedList_wrapper" *ngIf="item.controls.relatedOpen" (mouseenter)="pause()" (mouseleave)="resume()">
                 <div *ngFor="let rel of item.related" class="relatedItem" (click)="openRelative(rel)" (touchend)="openRelative(rel)">
                     <div>
-                        {{rel.summary}}
+                        {{rel.tldr}}
                     </div>
                 </div>
             </div>
