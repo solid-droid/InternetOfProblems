@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { ApiCallsService } from './api-calls.service';
 import { SharedDataService } from './shared-data.service';
 
 @Injectable({
@@ -6,178 +7,87 @@ import { SharedDataService } from './shared-data.service';
 })
 export class MapBuilderService {
   private z = 5;
-  private x = 0;
-  private y = 0;
 
-  private bufferMap:any = []
-  private neighbours = [
-    [-1, -1], [-1,  0], [-1,  1],
-    [ 0, -1], [ 0,  0], [ 0,  1], 
-    [ 1, -1], [ 1,  0], [ 1,  1]
- ];
-  //used for lazy loading
-  private mapGridSize = [1000 ,1000];
-
+  public filteredMapData:any = {};
   private mapData:any = [];
   private mapUpdateCallbacks:any = [];
-
+ 
   public displayData:any = [];
 
   constructor(
-    private readonly sharedData : SharedDataService
+    private readonly sharedData : SharedDataService,
+    private readonly apiService: ApiCallsService,
   ) {}
-  private getMapData() {
-
-    this.mapData = [
-      {
-        x : 400,
-        y : 100,
-        z: 5,
-        t: '01/07/2018',
-        latest: true,
-       
-          refID: 0,
-          ver: '1.0',
-          type: 'Problem',
-          summary: 'Hello World2',
-          description:'This is a testfgdg',
-          lastUpdate: 'John Doe',
-          createdBy: 'John Doe',
-          tags: ['test', 'test2'],
-          controls:{
-            relatedOpen: false,
-          },
-          related: [
-            { refID: 2, summary:'Hello World level4' },
-            { refID: 2, summary:`Hello World Test jsdfj jkafhjk jshdjk asjkfhjk asfjhjsfhjshf 
-            jsdfj jkafhjk jshdjk asjkfhjk asfjhjsfhjshf `},
-            { refID: 3, summary:'Hello World level4' },
-          ],
-          stats: {
-            vote: 999,
-            comments: 0,
-            countries: []
-          },
-          children:[1, 7],
-          parents:[]
-      },
-      {
-        x : 750,
-        y : 300,
-        z: 5,
-        t: '01/07/2018',
-        latest: true,
-       
-          refID: 7,
-          type: 'Solution',
-          ver: '1.0',
-          summary: 'Hello World1',
-          description:'This is a test43534',
-          lastUpdate: 'John Doe',
-          createdBy: 'John Doe',
-          tags: ['tesasas', 'test2', 'tter', 'erer'],
-          stats: {
-            vote: 7800,
-            comments: 0,
-            countries: []
-          },
-          children:[],
-          parents:[0]
-      },
-      {
-        x: 750,
-        y: 0,
-        z: 5,
-        t: '01/07/2018',
-        latest: true,
-          refID: 1,
-          ver: '1.0',
-          type: 'Solution',
-          summary: `Hello World Test jsdfj jkafhjk jshdjk asjkfhjk asfjhjsfhjshf 
-                  jsdfj jkafhjk jshdjk asjkfhjk asfjhjsfhjshf 
-                  sjafhjsahfjahfjkashfjak kasjfka jasfhjasf 
-                  Hello World Test jsdfj jkafhjk jshdjk asjkfhjk asfjhjsfhjshf 
-                  jsdfj jkafhjk jshdjk asjkfhjk asfjhjsfhjshf 
-                  sjafhjsahfjahfjkashfjak kasjfka jasfhjasf
-                  `,
-          description:'This is a test55',
-          lastUpdate: 'John Doe',
-          createdBy: 'John Doe',
-          tags: ['test sda s', 'testasdda2'],
-          stats: {
-            vote: 7800,
-            comments: 0,
-            countries: []
-          },
-          children: [],
-          parents: [0]
-      },
-      {
-        x : 400,
-        y : 0,
-        z: 4,
-        t: '01/07/2018',
-        latest: true,
-       
-          refID: 2,
-          ver: '1.0',
-          type: 'Problem',
-          summary: 'Hello World level4',
-          description:'This is a test',
-          lastUpdate: 'John Doe',
-          createdBy: 'John Doe',
-          tags: ['test', 'test2'],
-          stats: {
-            vote: 7800,
-            comments: 0,
-            countries: []
-          },
-          children: [],
-          parents: []
-      },
-      {
-        x: 400,
-        y: 300,
-        z: 4,
-        t: '01/07/2018',
-        latest: true,
-       
-          refID: 3,
-          ver: '1.0',
-          type: 'Problem',
-          summary: 'Hello World Test level4',
-          description:'This is a test2',
-          lastUpdate: 'John Doe',
-          createdBy: 'John Doe',
-          tags: ['test', 'test2'],
-          stats: {
-            vote: 7800,
-            comments: 0,
-            countries: []
-          },
-          children: [],
-          parents: []
-      }
-    ];
-
-    this.mapData.forEach((item:any) => {
-      item['gridX'] = Math.trunc(item.x / this.mapGridSize[0]);
-      item['gridY'] = Math.trunc(item.y / this.mapGridSize[1]);
-    });
+  public async getMapData() {
+    this.filteredMapData = {};
+    this.mapData = {};
+    const responce = await this.apiService.getRecords();
+    if(responce.success){
+      this.mapData = responce.data;
+    }
+    if(this.mapData){
+      this.mapData.forEach((item:any) => {
+        if(!this.filteredMapData[item.z]){
+          this.filteredMapData[item.z] = {mapData:[], mapObjectData : {}, mapTree:[]};
+        }
+        this.filteredMapData[item.z].mapData.push(item);
+        this.filteredMapData[item.z].mapObjectData[item.refID] = item;
+      });
+      this.createMapTree();
+      this.createWidgetPosition();
+    }
   }
   public async init(){
     await new Promise(r => setTimeout(r, 10));
-    this.getMapData();
+    await this.getMapData();
     this.sharedData.getZoomLevel.subscribe(zoomLevel => {
       this.z = zoomLevel
       this.updateMap();
     });
     this.sharedData.getOrigin.subscribe(origin => {
-      this.x = Math.trunc(origin[0] / this.mapGridSize[0]);
-      this.y = Math.trunc(origin[1] / this.mapGridSize[1]);
-      this.bufferMap = this.neighbours.map(([dx, dy]) => ({ x: dx - this.x, y: dy - this.y }));
-      this.updateMap();
     });
+  }
+
+
+  private createMapTree(){
+    Object.keys(this.filteredMapData).forEach((z:any) => {
+      Object.keys(this.filteredMapData[z].mapObjectData).forEach((key:any) => {
+        this.filteredMapData[z].mapObjectData[key].next = [];
+        this.filteredMapData[z].mapObjectData[key].prev = [];
+        if(this.filteredMapData[z].mapObjectData[key].x === 1){
+          this.filteredMapData[z].mapTree.push(this.filteredMapData[z].mapObjectData[key]);
+        }
+        this.filteredMapData[z].mapObjectData[key].children.forEach((child:any) => {
+          this.filteredMapData[z].mapObjectData[key].next.push(this.filteredMapData[z].mapObjectData[child]);
+        });
+        this.filteredMapData[z].mapObjectData[key].parents.forEach((parent:any) => {
+          this.filteredMapData[z].mapObjectData[key].prev.push(this.filteredMapData[z].mapObjectData[parent]);
+        });
+    });
+    });
+  }
+
+  private createWidgetPosition(){
+    let connections:any = {};
+    Object.keys(this.filteredMapData).forEach((z:any) => {
+      this.traverseTree(connections, this.filteredMapData[z].mapTree, z);
+    });
+  }
+
+  traverseTree(connections:any, tree:any , z:number){
+    tree.forEach((item:any) => {
+        const x = item.x;
+        const count = item.children.length;
+        if(!connections[z]){
+          connections[z] = {};
+        }
+        if(!connections[z][x]){
+          connections[z][x] = 0;
+      }
+      connections[z][x]+= count ? count : 1; 
+      item.y = connections[z][x];
+      this.traverseTree(connections, item.next , z+1);
+    });   
   }
 
   public beforeMapUpdate( name:string , callback:any){
@@ -190,12 +100,14 @@ export class MapBuilderService {
     this.mapUpdateCallbacks = this.mapUpdateCallbacks.filter((item:any) => item.name!==name);
   }
 
-  private async updateMap() {
+  public async updateMap(overide = false) {
     // when panned or zoomed or time changed
-    const newMap = this.mapData.filter((item:any) => 
-                   item.z===this.z && this.bufferMap.some((item2:any) => 
-                   item2.x === item.gridX && item2.y=== item.gridY));
-    // const newMap = this.mapData.filter((item:any) =>  item.z===this.z ); 
+    let newMap:any = [];
+    if(!overide){
+      newMap = this.filteredMapData[this.z]?.mapData || [];
+    }
+                  // .filter((item:any) => this.bufferMap.some((item2:any) => 
+                  //   item2.x === item.gridX && item2.y=== item.gridY));
     const oldNodes = this.displayData.filter((item:any) => !newMap.includes(item));
     const newNodes = newMap.filter((item:any) => !this.displayData.includes(item));
 
@@ -203,9 +115,9 @@ export class MapBuilderService {
       this.mapUpdateCallbacks.forEach((item:any) => item.callback(newMap , oldNodes, newNodes));
       this.displayData = newMap;
     }
-
-    
-
+  }
+  public clearMap(){
+    this.updateMap(true);
   }
 
   async getItem(refID: number) {

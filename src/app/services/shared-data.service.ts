@@ -7,6 +7,8 @@ import { BehaviorSubject } from 'rxjs';
 export class SharedDataService {
 
   constructor() { }
+  private readonly Observable_loginPopup = new BehaviorSubject(false);
+  getLoginPopup = this.Observable_loginPopup.asObservable();
 
   private readonly Observable_zoomLevel = new BehaviorSubject(5);
   getZoomLevel = this.Observable_zoomLevel.asObservable();
@@ -26,6 +28,11 @@ export class SharedDataService {
   public setZoomLevel(zoomLevel: number) {
     this.Observable_zoomLevel.next(zoomLevel);
   }
+
+  public setLoginPopup(show:boolean) {
+    this.Observable_loginPopup.next(show);
+  }
+
 
   public setEditMenu(editOptions: any) {
     this.Observable_editMenu.next(editOptions);

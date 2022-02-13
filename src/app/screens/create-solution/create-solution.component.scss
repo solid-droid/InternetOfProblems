@@ -1,5 +1,5 @@
 
-$small: 300px;
+$small: 400px;
 $medium: 900px;
 
 .mask{
@@ -19,8 +19,8 @@ $medium: 900px;
         height: calc(100vh - 100px);
         background: whitesmoke;
         border-radius: 22px;
-        padding: 10px;
-        padding-top: 7px;
+        padding: 15px;
+        padding-top: 10px;
         @media screen and (max-width: $small) {
             height: calc(100vh - 100px);
         }
@@ -28,7 +28,10 @@ $medium: 900px;
             display: grid;
             grid-template-columns: 30px 1fr 30px;
             .popupHeader{
-                text-align: center;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 25px;
             }
         }
     }
@@ -52,8 +55,97 @@ $medium: 900px;
 }
 
 .body{
-    border:solid 1px;
+    // border:solid 1px;
+    padding-top:10px;
     width: 100%;
-    height: calc(100% - 40px);
+    height: calc(100% - 100px);
+    display: grid;
+    grid-template-columns: 50% 47%;
+    grid-gap:10px;
+    overflow: hidden;
+    @media screen and (max-width: $small) {
+        grid-template-rows: 1fr;
+        grid-template-columns: 1fr;
+        overflow-y: auto;
+    }
+    .right{
+        border-left: solid 1px rgb(143, 143, 143);
+        display: grid ;
+        grid-gap:0;
+        grid-template-rows: 14% 10% 67%;   
+        padding-left: 10px;
+        .description{
+            overflow: hidden;
+            border-bottom: solid 1px;
+            border-color: gainsboro;
+        }
+    
+        .tags{
+            display: grid;
+             .tagsContent{
+                overflow: hidden;
+                margin-top: 5px;
+                height: 300px;
+            }
+        }
+    }
+    .left{
+        display: grid;
+        grid-template-rows: 20px 20% 70%;
+        grid-gap: 10px;
+        height: calc(100% - 200px);
+        .tldr_prob{
+            background: #dedede;
+            border-radius: 10px;
+            padding: 10px;
+        }
+        .desc_prob{
+            background: #dedede;
+            border-radius: 10px;
+            padding: 10px;
+        }
+    }
+}
 
+.footer{
+    // border:solid 1px;
+    height: 60px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: right;
+    div{
+        cursor: pointer;
+        width: 200px;
+        height: 50px;
+        background: rgb(21, 99, 189);
+        color: white;
+        font-size: 20px;
+        border-radius: 10px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: 0.3;
+        margin-right: 10px;
+        &:hover{
+            box-shadow: inset -1px -3px 7px 2px #cbcbcb3d;
+            background: rgb(39, 123, 219);
+        }
+    }
+}
+
+::ng-deep{
+    
+    .createTagClass .p-autocomplete-multiple-container {
+       width: calc(50vw - 160px);
+    }
+
+    .createEditorClass .p-editor-content{
+        height: calc(70vh - 280px);
+    }
+
+    .p-listbox{
+        max-height: 189px;
+        overflow: auto;
+    }
 }

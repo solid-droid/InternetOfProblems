@@ -3,7 +3,7 @@
         <div class="header">
             <div class="buffer"> </div>
             <div class="popupHeader">
-                Create Problem
+                Add a Problem
             </div>
             <div class="close" (click)="closePopup()">
                 <i class="fas fa-times"></i>
@@ -68,13 +68,14 @@
                         [options]="catagoryList" 
                         [(ngModel)]="selectedCatagory" 
                         [style]="{'width':'90%', 'margin-top':'10px'}"
+                        [disabled]="disableCatagory"
                         optionLabel="name"
                         scrollHeight="300px"
                         ></p-dropdown>
                     </div>
                 </div>
                 <div style="overflow: hidden;">
-                    <div>Link relavent problems:</div>
+                    <div>Link related problems/solutions:</div>
                     <div>
                         <div style="
                             display: grid; 

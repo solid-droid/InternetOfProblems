@@ -1,6 +1,9 @@
-import { Component, OnInit} from '@angular/core';
+import { Component, Input, OnInit} from '@angular/core';
 import { ApiCallsService } from 'src/app/services/api-calls.service';
+import { MapBuilderService } from 'src/app/services/map-builder.service';
+import { OAuthService } from 'src/app/services/oauth.service';
 import { SharedDataService } from 'src/app/services/shared-data.service';
+import { UtilsService } from 'src/app/services/utils.service';
 
 
 @Component({
@@ -13,12 +16,12 @@ export class CreateProblemComponent implements OnInit {
   allowEdit = true;
   description = '';
   tldr = '';
+  disableCatagory = false;
+  solutionX = 0;
   selectedTags: any[] = [];
   tagList: any = [{name:'test'},{name:'test2'},{name:'test3'}];
   filteredTags: any[] = [];
-  linkedItems: any[] = [
-    // {refID:'test' , catagory:'General'},{refID:'test2', catagory:'Software'},{refID:'test3', catagory:'Hardware'}
-  ];
+  linkedItems: any[] = [];
   catagoryList = [
     {name:'General'},
     {name:'Design'},
@@ -28,10 +31,15 @@ export class CreateProblemComponent implements OnInit {
     {name: 'Ethics'},
   ];
   linkID = '';
-  selectedCatagory : any;
+  selectedCatagory : any = {name: 'General'};
+
+  @Input() solution: any;
+
   constructor(
     private readonly sharedData : SharedDataService,
-    private readonly apiService : ApiCallsService
+    private readonly apiService : ApiCallsService,
+    private readonly OAuth: OAuthService,
+    private readonly mapBuilder: MapBuilderService
   ) {}
 
   closePopup() {
@@ -40,7 +48,10 @@ export class CreateProblemComponent implements OnInit {
 
 
   ngOnInit(): void {
-
+    if(this.solution && this.solution.type === 'Solution') {
+      this.selectedCatagory = {name: this.solution.catagory};
+      this.disableCatagory = true;
+    }
   }
 
   ngOnDestroy(): void {
@@ -59,7 +70,6 @@ export class CreateProblemComponent implements OnInit {
   }
 
   filterTag(event:any) {
-    //in a real application, make a request to a remote url with the query and return filtered results, for demo we filter at client side
     let filtered : any[] = [];
     let query = event.query;
 
@@ -73,15 +83,33 @@ export class CreateProblemComponent implements OnInit {
     this.filteredTags = filtered;
 }
 
-addProblem(){
-  this.apiService.addRecord({
+async addProblem(){
+
+  const problem ={
     description: this.description,
     tldr: this.tldr,
     tags: this.selectedTags,
     related: this.linkedItems,
     catagory : this.selectedCatagory.name,
+    x: this.solution ? this.solution.x + 1 : 1,
+    z: this.catagoryList.reverse().findIndex(x => x.name === this.selectedCatagory.name),
+    parents: this.solution ? [this.solution.refID] : [],
     type: 'Problem',
-    author: null
-  });
+    author: this.OAuth.userDetails.email,
+  }
+  const responce = await this.apiService.addRecord(problem);
+
+  if(this.solution){
+  const parent = this.mapBuilder.filteredMapData[problem.z]
+                                .mapObjectData[problem.parents[0]];
+  parent.children.push(parseInt(responce.data.refID));
+  delete parent.next;
+  delete parent.prev;
+  await this.apiService.updateRecord(parent);
+  }
+
+  this.mapBuilder.clearMap();
+  await this.mapBuilder.getMapData();
+  this.mapBuilder.updateMap();
   }
 }

@@ -28,6 +28,8 @@
   padding-top: 7px;
   padding-bottom: 5px;
   border: solid 2px #ff6565;
+  z-index: 10;
+  background: whitesmoke;
   .relatedList_wrapper{
     max-height: 100px;
     overflow-y: auto;
@@ -76,6 +78,8 @@
     .widgetContainer{
       position: absolute;
       max-width: 250px;
+      height: 180px;
+      max-height: 180px;
       border-radius: 10px;
       padding: 5px;
       background: #f5f5f5;
@@ -91,10 +95,10 @@
         max-width: 250px;
         padding: 5px;
         margin-bottom: 10px;
-        max-height: 130px;
+        height: 130px;
         overflow: hidden;
-        align-items: flex-start;
-        justify-content: center;
+        align-items: center;
+        justify-content: left;
         text-overflow: ellipsis;
       }
     }
