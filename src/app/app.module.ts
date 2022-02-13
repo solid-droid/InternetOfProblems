@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { environment } from 'src/environments/environment';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -28,10 +29,7 @@ import { CreateProblemComponent } from './screens/create-problem/create-problem.
 import { CreateSolutionComponent } from './screens/create-solution/create-solution.component';
 import { LoginComponent } from './screens/login/login.component';
 import { SocialLoginModule, SocialAuthServiceConfig } from 'angularx-social-login';
-import {
-  GoogleLoginProvider,
-  // FacebookLoginProvider
-} from 'angularx-social-login';
+import { GoogleLoginProvider} from 'angularx-social-login';
 
 @NgModule({
   declarations: [
@@ -71,13 +69,9 @@ import {
         {
           id: GoogleLoginProvider.PROVIDER_ID,
           provider: new GoogleLoginProvider(
-            'clientId'
+            environment.googleLogin
           )
         },
-        // {
-        //   id: FacebookLoginProvider.PROVIDER_ID,
-        //   provider: new FacebookLoginProvider('clientId')
-        // }
       ]
     } as SocialAuthServiceConfig,
   }],

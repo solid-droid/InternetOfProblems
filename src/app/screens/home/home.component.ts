@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MapBuilderService } from 'src/app/services/map-builder.service';
+import { OAuthService } from 'src/app/services/oauth.service';
 import { SharedDataService } from 'src/app/services/shared-data.service';
-import { UtilsService } from 'src/app/services/utils.service';
 
 @Component({
   selector: 'app-home',
@@ -19,7 +19,7 @@ export class HomeComponent implements OnInit {
   constructor(
     private readonly mapBuilder : MapBuilderService,
     private readonly sharedData : SharedDataService,
-    private readonly utils : UtilsService
+    private readonly OAuth : OAuthService
   ) { }
 
  async ngOnInit() {
@@ -38,7 +38,7 @@ export class HomeComponent implements OnInit {
     });
 
     this.sharedData.getProblemPopup.subscribe((options:any) => {
-      if(this.utils.validUser){
+      if(this.OAuth.validUser){
         this.showProblemPopup = options.show;
         if(this.showProblemPopup){
           this.showSolutionPopup = false;
@@ -51,7 +51,7 @@ export class HomeComponent implements OnInit {
     });
 
     this.sharedData.getSolutionPopup.subscribe((options:any) => {
-      if(this.utils.validUser){
+      if(this.OAuth.validUser){
           this.showSolutionPopup = options.show;
           if( this.showSolutionPopup){
             this.problem = options.content.item;

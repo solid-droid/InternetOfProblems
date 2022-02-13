@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ApiCallsService } from 'src/app/services/api-calls.service';
 import { MapBuilderService } from 'src/app/services/map-builder.service';
+import { OAuthService } from 'src/app/services/oauth.service';
 import { SharedDataService } from 'src/app/services/shared-data.service';
 
 @Component({
@@ -30,7 +31,8 @@ export class CreateSolutionComponent implements OnInit {
   constructor(
     private readonly sharedData : SharedDataService,
     private readonly apiService : ApiCallsService,
-    private readonly mapBuilder : MapBuilderService
+    private readonly mapBuilder : MapBuilderService,
+    private readonly OAuth: OAuthService,
   ) {}
 
   closePopup() {
@@ -69,7 +71,7 @@ async addSolution(){
     x: this.problem.x + 1,
     z: this.catagoryList.reverse().findIndex(x => x.name === this.problem.catagory),
     type: 'Solution',
-    author: null,
+    author: this.OAuth.userDetails.email,
     parents: [this.problem.refID],
   };
   //saving solution

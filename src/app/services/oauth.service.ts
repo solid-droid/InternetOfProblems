@@ -1,11 +1,10 @@
 import { Injectable } from '@angular/core';
 
-
 @Injectable({
   providedIn: 'root'
 })
-export class UtilsService {
-
+export class OAuthService {
+  validUser = false;
+  userDetails:any = {};
   constructor() { }
-
 }

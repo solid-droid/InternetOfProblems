@@ -1,6 +1,7 @@
 import { Component, Input, OnInit} from '@angular/core';
 import { ApiCallsService } from 'src/app/services/api-calls.service';
 import { MapBuilderService } from 'src/app/services/map-builder.service';
+import { OAuthService } from 'src/app/services/oauth.service';
 import { SharedDataService } from 'src/app/services/shared-data.service';
 import { UtilsService } from 'src/app/services/utils.service';
 
@@ -37,7 +38,7 @@ export class CreateProblemComponent implements OnInit {
   constructor(
     private readonly sharedData : SharedDataService,
     private readonly apiService : ApiCallsService,
-    private readonly utils: UtilsService,
+    private readonly OAuth: OAuthService,
     private readonly mapBuilder: MapBuilderService
   ) {}
 
@@ -94,7 +95,7 @@ async addProblem(){
     z: this.catagoryList.reverse().findIndex(x => x.name === this.selectedCatagory.name),
     parents: this.solution ? [this.solution.refID] : [],
     type: 'Problem',
-    author: null
+    author: this.OAuth.userDetails.email,
   }
   const responce = await this.apiService.addRecord(problem);
 
