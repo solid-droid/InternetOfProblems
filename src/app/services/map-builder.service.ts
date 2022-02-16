@@ -72,7 +72,9 @@ export class MapBuilderService {
     Object.keys(this.filteredMapData).forEach((z:any) => {
       this.traverseTree(connections, this.filteredMapData[z].mapTree, z);
     });
+    console.log(connections);
   }
+  
 
   traverseTree(connections:any, tree:any , z:number){
     tree.forEach((item:any) => {
@@ -86,7 +88,7 @@ export class MapBuilderService {
       }
       connections[z][x]+= count ? count : 1; 
       item.y = connections[z][x];
-      this.traverseTree(connections, item.next , z+1);
+      this.traverseTree(connections, item.next , z);
     });   
   }
 
