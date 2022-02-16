@@ -72,22 +72,19 @@ export class MapBuilderService {
     Object.keys(this.filteredMapData).forEach((z:any) => {
       this.traverseTree(connections, this.filteredMapData[z].mapTree, z);
     });
-    console.log(connections);
   }
   
 
   traverseTree(connections:any, tree:any , z:number){
     tree.forEach((item:any) => {
         const x = item.x;
-        const count = item.children.length;
         if(!connections[z]){
           connections[z] = {};
         }
         if(!connections[z][x]){
           connections[z][x] = 0;
       }
-      connections[z][x]+= count ? count : 1; 
-      item.y = connections[z][x];
+      item.y = connections[z][x]++ ;
       this.traverseTree(connections, item.next , z);
     });   
   }
