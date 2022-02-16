@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output } from '@angular/core';
+import { ApiCallsService } from 'src/app/services/api-calls.service';
 
 
 @Component({
@@ -18,11 +19,12 @@ export class EditComponent implements OnInit, OnDestroy, OnChanges {
 
   @Output() showMenu = new EventEmitter<boolean>();
   constructor(
-    
+    private readonly apiService : ApiCallsService
   ) { }
-  ngOnChanges(changes: any) {
+  async ngOnChanges(changes: any) {
     if (changes.selection.currentValue) {
-      this.description = changes.selection.currentValue.description;
+      const data = (await this.apiService.getDetails(changes.selection.currentValue.refID)).data;
+      this.description = data.description;
       this.allowEdit = false;
     }
   }
@@ -41,7 +43,7 @@ export class EditComponent implements OnInit, OnDestroy, OnChanges {
   }
   
  ngOnInit() {
-   
+
   }
 
   ngOnDestroy(): void {
@@ -49,7 +51,6 @@ export class EditComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   filterTag(event:any) {
-    //in a real application, make a request to a remote url with the query and return filtered results, for demo we filter at client side
     let filtered : any[] = [];
     let query = event.query;
 

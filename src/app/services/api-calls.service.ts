@@ -34,4 +34,8 @@ export class ApiCallsService {
   async getRecords(z = null) {
     return (await (await fetch(this.url + 'getRecords' + (z ? '/' + z : ''))).json());
   }
+
+  async getDetails(refID: string) {
+    return (await (await fetch(this.url + 'getDetails/' + refID)).json());
+  }
 }
