@@ -10,8 +10,8 @@
                         edit
                     </div>
                     <div *ngIf="allowEdit" style="display:flex;width: 60px;" >
-                        <div class="edit" (click) = "allowEdit=false">save</div>
-                        <div class="edit" (click) = "allowEdit=false">cancel</div>
+                        <div class="edit" (click) = "save()">save</div>
+                        <div class="edit" (click) = "discard()">cancel</div>
                     </div>
     
                     <div class="entryDetails">
@@ -31,7 +31,7 @@
                     resize: none;
                     font-size: 13px;
                     "
-                    [(ngModel)]="selection.tldr"
+                    [(ngModel)]="tldr"
                     [disabled]="!allowEdit"
                     ></textarea>
                 </div>

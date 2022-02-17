@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output } from '@angular/core';
 import { ApiCallsService } from 'src/app/services/api-calls.service';
+import { MapBuilderService } from 'src/app/services/map-builder.service';
 
 
 @Component({
@@ -11,20 +12,27 @@ export class EditComponent implements OnInit, OnDestroy, OnChanges {
 
   allowEdit = false;
   expand = false;
+  tldr = '';
   description: string = `Hello World!`;
   selectedTags: any[] = [];
   tagList: any = [{name:'test'},{name:'test2'},{name:'test3'}];
   filteredTags: any[] = [];
+  data:any = {};
+  record:any = {};
   @Input() selection: any;
 
   @Output() showMenu = new EventEmitter<boolean>();
   constructor(
-    private readonly apiService : ApiCallsService
+    private readonly apiService : ApiCallsService,
+    private readonly mapBuilder : MapBuilderService
   ) { }
   async ngOnChanges(changes: any) {
     if (changes.selection.currentValue) {
-      const data = (await this.apiService.getDetails(changes.selection.currentValue.refID)).data;
-      this.description = data.description;
+      this.record = changes.selection.currentValue;
+      this.data = (await this.apiService.getDetails(changes.selection.currentValue.refID)).data[0];
+      this.description = this.data.desc;
+      this.tldr = this.data.tldr;
+      this.selectedTags = this.data.tags;
       this.allowEdit = false;
     }
   }
@@ -48,6 +56,25 @@ export class EditComponent implements OnInit, OnDestroy, OnChanges {
 
   ngOnDestroy(): void {
 
+  }
+
+  async save(){
+    this.data.desc = this.description;
+    this.data.tldr = this.tldr;
+    this.data.tags = this.selectedTags;
+    this.record.tldr = this.tldr;
+    this.record.tags = this.selectedTags;
+    await this.apiService.updateRecord(this.data);
+    await this.mapBuilder.getMapData();
+    this.mapBuilder.updateMap();
+    this.allowEdit = false;
+  }
+
+  discard(){
+    this.tldr = this.data.tldr;
+    this.description = this.data.desc;
+    this.selectedTags = this.data.tags;
+    this.allowEdit = false;
   }
 
   filterTag(event:any) {

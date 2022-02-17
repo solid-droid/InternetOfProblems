@@ -152,7 +152,7 @@ export class MapComponent implements OnInit, OnDestroy {
     Object.values(this.lines).forEach((line:any) => {
       try{
         line.position();
-        // this.makeGridCurve(line);
+        this.makeGridCurve(line);
       } catch(e){
 
       }
@@ -217,7 +217,7 @@ export class MapComponent implements OnInit, OnDestroy {
             break;
           }
         };
-        // this.makeGridCurve(this.lines[line]);
+        this.makeGridCurve(this.lines[line]);
         this.showLine(this.lines[line]);
     } catch(e){
 
