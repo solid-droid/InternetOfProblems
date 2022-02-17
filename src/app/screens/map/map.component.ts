@@ -378,7 +378,6 @@ export class MapComponent implements OnInit, OnDestroy {
       const {x,y, scale} = this.map.getTransform();
       this.map.zoomAbs(0, 0, 1);
       this.sharedData.setZoomLevel(item.z);
-      console.log(item.x);
       this.map.moveTo(100-(item.x*400), -(item.y*300));
       this.resume();
       await new Promise(r => setTimeout(r, 100));
