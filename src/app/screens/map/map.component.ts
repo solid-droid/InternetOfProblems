@@ -57,7 +57,7 @@ export class MapComponent implements OnInit, OnDestroy {
 			zoomDoubleClickSpeed: 1,
       initialX: 0,
       initialY: 0,
-      initialZoom: 1,
+      initialZoom: 0.7,
       minZoom: 0.3,
       maxZoom: 1,
       // bounds: true,
