@@ -38,4 +38,8 @@ export class ApiCallsService {
   async getDetails(refID: string) {
     return (await (await fetch(this.url + 'getDetails/' + refID)).json());
   }
+
+  async getSummary(refID: string) {
+    return (await (await fetch(this.url + 'getSummary/' + refID)).json());
+  }
 }

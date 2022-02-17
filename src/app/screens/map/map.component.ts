@@ -375,8 +375,11 @@ export class MapComponent implements OnInit, OnDestroy {
     async openRelative(rel:any){
       this.updateData = true;
       const item:any = await this.mapBuilder.getItem(rel.refID);
+      const {x,y, scale} = this.map.getTransform();
+      this.map.zoomAbs(0, 0, 1);
       this.sharedData.setZoomLevel(item.z);
-      this.map.moveTo(item.x-500, item.y-200);
+      console.log(item.x);
+      this.map.moveTo(100-(item.x*400), -(item.y*300));
       this.resume();
       await new Promise(r => setTimeout(r, 100));
       this.updateData = false;

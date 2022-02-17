@@ -58,12 +58,22 @@ export class CreateProblemComponent implements OnInit {
 
   }
 
-  linkProblem() {
-    if(this.linkID && !this.linkedItems.find(item => item.refID === this.linkID)) {
-      this.linkedItems= [ ... this.linkedItems,{refID:this.linkID, catagory:'loading...'}];
-      this.linkID = '';
+  async linkProblem() {
+    const data = await this.apiService.getSummary(this.linkID);
+    if(data.data.valid){
+      if(this.linkID && !this.linkedItems.find(item => item.refID === this.linkID)) {
+        this.linkedItems= [ ... this.linkedItems,{
+          refID:this.linkID, 
+          catagory:data.data.catagory, 
+          tldr : data.data.tldr,
+          type: data.data.type,
+        }];
+        this.linkID = '';
+      }
     }
+ 
   }
+
 
   removeLink(item:any) {
     this.linkedItems = this.linkedItems.filter(linkedItem => linkedItem.refID !== item.refID);
@@ -84,7 +94,6 @@ export class CreateProblemComponent implements OnInit {
 }
 
 async addProblem(){
-
   const problem ={
     description: this.description,
     tldr: this.tldr,
