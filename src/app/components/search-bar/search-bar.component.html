@@ -9,7 +9,10 @@
         [suggestions]="searchSuggestions" 
         styleClass="searchInput"
         (completeMethod)="getSuggestions($event)" 
-        field="name" 
+        field="name"
+        [autoHighlight]="true" 
+        (onSelect)="loadRecord(null, $event)"
+        (onKeyUp)="loadRecord($event)"
         [minLength]="1">
     </p-autoComplete>   
     </div>

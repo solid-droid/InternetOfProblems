@@ -7,7 +7,8 @@ export class ApiCallsService {
 
   constructor() { }
 
-  url = 'http://localhost:9000/.netlify/functions/api/';
+  url = 'https://internet-of-problems-backend.herokuapp.com/';
+  // url = 'http://localhost:9000/'
 
   async addRecord(record: any) {
     const responce = await (await fetch(this.url + 'addRecord', {
@@ -49,5 +50,9 @@ export class ApiCallsService {
 
   async searchTLDR(query: string) {
     return (await (await fetch(this.url + 'searchRecords/' + query)).json());
+  }
+
+  async searchDetails(query: string) {
+    return (await (await fetch(this.url + 'searchDetails/' + query)).json());
   }
 }

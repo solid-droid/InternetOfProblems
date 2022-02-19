@@ -2,7 +2,7 @@
     <!-- <div class="background"  [style.background-position-x]="backgroundX"  [style.background-position-y]="backgroundY" ></div> -->
     <div id="mapContent">
         <div *ngFor="let item of dataMap" class="widgetContainer {{item.type}}"
-        [style.left.px]="item.x * 400"
+        [style.left.px]="item.x * 420"
         [style.top.px]="item.y * 300"
         id = "{{item.refID}}"
         (touchend)="showEdit(item)"
