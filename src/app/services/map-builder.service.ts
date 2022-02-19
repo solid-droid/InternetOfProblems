@@ -34,7 +34,7 @@ export class MapBuilderService {
         this.filteredMapData[item.z].mapObjectData[item.refID] = item;
       });
       this.createMapTree();
-      this.createWidgetPosition();
+      // this.createWidgetPosition();
     }
   }
   public async init(){

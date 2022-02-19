@@ -35,11 +35,19 @@ export class ApiCallsService {
     return (await (await fetch(this.url + 'getRecords' + (z ? '/' + z : ''))).json());
   }
 
+  async getRecordById(refID: string) {
+    return (await (await fetch(this.url + 'getRecordById/' + refID)).json());
+  }
+
   async getDetails(refID: string) {
     return (await (await fetch(this.url + 'getDetails/' + refID)).json());
   }
 
   async getSummary(refID: string) {
     return (await (await fetch(this.url + 'getSummary/' + refID)).json());
+  }
+
+  async searchTLDR(query: string) {
+    return (await (await fetch(this.url + 'searchRecords/' + query)).json());
   }
 }

@@ -9,8 +9,9 @@
     height: 100%;
     display: grid;
     overflow: hidden;
-    grid-template-columns: 12% 68% 20%;
+    grid-template-columns: 150px auto 270px;
     align-items: center;
+    overflow: hidden;
     .logo{
         display: grid;
         font-size: 25px;
@@ -78,7 +79,7 @@ display: none;
 
 @media screen and (max-width: 1165px){
     .topbar{
-        grid-template-columns: 15% 55% 30%;
+        // grid-template-columns: 15% 55% 30%;
         .logo{
             font-size:20px;
             padding-left: 5px;

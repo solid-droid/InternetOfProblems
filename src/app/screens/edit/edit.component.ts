@@ -1,6 +1,8 @@
 import { Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output } from '@angular/core';
+import { Router } from '@angular/router';
 import { ApiCallsService } from 'src/app/services/api-calls.service';
 import { MapBuilderService } from 'src/app/services/map-builder.service';
+import { UtilsService } from 'src/app/services/utils.service';
 
 
 @Component({
@@ -24,11 +26,18 @@ export class EditComponent implements OnInit, OnDestroy, OnChanges {
   @Output() showMenu = new EventEmitter<boolean>();
   constructor(
     private readonly apiService : ApiCallsService,
-    private readonly mapBuilder : MapBuilderService
+    private readonly mapBuilder : MapBuilderService,
+    private readonly router : Router,
+    private readonly utils: UtilsService
   ) { }
   async ngOnChanges(changes: any) {
     if (changes.selection.currentValue) {
-      this.record = changes.selection.currentValue;
+      if(!changes.selection.currentValue.router){
+        this.record = changes.selection.currentValue;
+      } else {
+        this.expand = true;
+        this.record = (await this.apiService.getRecordById(changes.selection.currentValue.refID)).data;
+      }
       this.data = (await this.apiService.getDetails(changes.selection.currentValue.refID)).data[0];
       this.description = this.data.desc;
       this.tldr = this.data.tldr;
@@ -38,8 +47,10 @@ export class EditComponent implements OnInit, OnDestroy, OnChanges {
   }
 
 
-  closeEditMenu() {
+  async closeEditMenu() {
     this.showMenu.emit(false);
+    this.utils.internalRoute = true;
+    this.router.navigate(['/']);
   }
 
   expandMenu() {

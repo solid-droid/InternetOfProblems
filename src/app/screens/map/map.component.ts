@@ -1,7 +1,9 @@
 import { animate, style, transition, trigger } from '@angular/animations';
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { MapBuilderService } from 'src/app/services/map-builder.service';
 import { SharedDataService } from 'src/app/services/shared-data.service';
+import { UtilsService } from 'src/app/services/utils.service';
 declare const panzoom:any;
 declare const LeaderLine:any;
 declare const $:any;
@@ -37,14 +39,17 @@ export class MapComponent implements OnInit, OnDestroy {
   resizeTimer = performance.now();
   constructor(
     private readonly sharedData : SharedDataService,
-    public readonly mapBuilder : MapBuilderService
+    public readonly mapBuilder : MapBuilderService,
+    private readonly router : Router,
+    private readonly utils : UtilsService
   ) { }
   ngOnDestroy() {
     this.$subscription1.unsubscribe();
     this.mapBuilder.removeBeforeMapUpdate('mapScreen');
   }
 
-  ngOnInit(): void {
+  async ngOnInit(){
+    await new Promise(r => setTimeout(r, 10));
     $( window ).resize(async () => {
       this.resizeTimer = performance.now();
       await new Promise(r => setTimeout(r, 200));
@@ -67,7 +72,6 @@ export class MapComponent implements OnInit, OnDestroy {
       this.backgroundY = transform.y+'px';
       this.sharedData.setOrigin([transform.x, transform.y]);
     });
-    
     this.$subscription1 = this.sharedData.getZoomLevel.subscribe(zoomLevel =>{
     this.zoomLevel = zoomLevel
   });
@@ -129,7 +133,7 @@ export class MapComponent implements OnInit, OnDestroy {
     $('.leader-line').appendTo('#mapContent');
     const topMap = this.map.getTransform().y;
     const leftMap = this.map.getTransform().x;
-    let headerOffset = 115;
+    let headerOffset = 125;
     for (const x of $('.leader-line')) {
 			const leftArrow = parseFloat($(x).css('left').split('px')[0]);
 			const topArrow = parseFloat($(x).css('top').split('px')[0]);
@@ -273,6 +277,8 @@ export class MapComponent implements OnInit, OnDestroy {
     await new Promise(r => setTimeout(r, 10));
     if(!this.updateData){
       this.sharedData.setEditMenu({...item, show:true});
+      this.utils.internalRoute = true;
+      this.router.navigate(['/record', item.refID]);
     }
   }
   addArc(pathData:any, radius:any) {

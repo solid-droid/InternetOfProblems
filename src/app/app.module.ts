@@ -30,6 +30,7 @@ import { CreateSolutionComponent } from './screens/create-solution/create-soluti
 import { LoginComponent } from './screens/login/login.component';
 import { SocialLoginModule, SocialAuthServiceConfig } from 'angularx-social-login';
 import { GoogleLoginProvider} from 'angularx-social-login';
+import { RoutingComponent } from './components/routing/routing.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,8 @@ import { GoogleLoginProvider} from 'angularx-social-login';
     CounterPipe,
     CreateProblemComponent,
     CreateSolutionComponent,
-    LoginComponent
+    LoginComponent,
+    RoutingComponent
   ],
   imports: [
     NgxSliderModule,

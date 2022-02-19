@@ -10,7 +10,7 @@
         (mouseenter)="highlightLine(item)"
         (mouseleave)="unHighlightLine(item)"
         @fadeIn>
-        <div class="fundAvailable">
+        <div class="fundAvailable" *ngIf="item.funded">
             <!-- <i class="fas fa-dollar-sign"></i> -->
              Funded
         </div>

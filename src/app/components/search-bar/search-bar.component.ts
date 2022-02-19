@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ApiCallsService } from 'src/app/services/api-calls.service';
 
 @Component({
   selector: 'app-search-bar',
@@ -7,18 +8,31 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SearchBarComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private readonly apiService: ApiCallsService
+  ) { }
+  filters = [
+    {name: 'TLDR'},
+    {name: 'Author'},
+    {name: 'Tags'},
+    {name: 'Details'},
+    {name: 'Custom'},
+  ];
+  selectedFilter:any = this.filters[0];
   searchText:any;
   searchSuggestions:any[] = [];
   ngOnInit(): void {
   }
 
-  getSuggestions(event:any) {
-    let filtered : any[] = [{name:'test'},{name:'test2'},{name:'test3'}];
-    let query = event.query;
-
-    console.log(query);
-    this.searchSuggestions = filtered;
+  async getSuggestions(event:any) {
+    const data = (await this.apiService.searchTLDR(event.query)).data;
+    this.searchSuggestions = data.map((item:any) => ({
+      refID: item.refID, 
+      name: item.tldr, 
+      type: item.type,
+      author: item.author,
+      catagory: item.catagory,
+    }));
 }
 
 }

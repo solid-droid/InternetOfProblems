@@ -13,5 +13,11 @@
         [minLength]="1">
     </p-autoComplete>   
     </div>
+    <p-dropdown 
+    [options]="filters" 
+    [(ngModel)]="selectedFilter" 
+    styleClass="filterDropdown"
+    optionLabel="name">
+   </p-dropdown>
 </div>
 
