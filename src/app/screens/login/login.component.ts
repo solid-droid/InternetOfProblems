@@ -29,6 +29,7 @@ export class LoginComponent implements OnInit {
       if(res.email && res.email.includes('@')){
         this.OAuth.userDetails = res;
         this.OAuth.validUser = true;
+        this.hidePopup();
       }
     })
   }

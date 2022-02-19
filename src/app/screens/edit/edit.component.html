@@ -6,7 +6,7 @@
                     <div>
                         {{selection.type}} TLDR :
                     </div> 
-                    <div *ngIf="!allowEdit" class="edit" (click) = "allowEdit=true">
+                    <div *ngIf="!allowEdit" class="edit" (click) = "enableEdit()">
                         edit
                     </div>
                     <div *ngIf="allowEdit" style="display:flex;width: 60px;" >
