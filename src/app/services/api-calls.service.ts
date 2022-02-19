@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -7,8 +8,7 @@ export class ApiCallsService {
 
   constructor() { }
 
-  url = 'https://internet-of-problems-backend.herokuapp.com/';
-  // url = 'http://localhost:9000/'
+  url = environment.backendUrl;
 
   async addRecord(record: any) {
     const responce = await (await fetch(this.url + 'addRecord', {
