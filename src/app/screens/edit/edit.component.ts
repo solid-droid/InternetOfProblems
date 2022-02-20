@@ -14,6 +14,7 @@ import { UtilsService } from 'src/app/services/utils.service';
 })
 export class EditComponent implements OnInit, OnDestroy, OnChanges {
 
+  milestones:any = []
   allowEdit = false;
   expand = false;
   tldr = '';
@@ -76,7 +77,12 @@ export class EditComponent implements OnInit, OnDestroy, OnChanges {
   }
   
  ngOnInit() {
-
+    this.milestones = [
+      {status: 'Process 1', date: '15/10/2020 10:30', },
+      {status: 'Process 2', date: '15/10/2020 14:00', },
+      {status: 'Process 3', date: '15/10/2020 16:15', },
+      {status: 'Process 4', date: '16/10/2020 10:00', }
+  ];
   }
 
   ngOnDestroy(): void {

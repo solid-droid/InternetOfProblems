@@ -78,8 +78,63 @@
         </div>
     </div>
     <div class="desktop" *ngIf="expand">
-        <div>
-            extra stuff
+        <div style ="
+            padding-left: 20px;
+            padding-right: 10px;
+            padding-top: 31px;
+        ">
+            <p-tabView>
+                <p-tabPanel header="About">
+                    <div>
+                        <div 
+                        class="section"
+                        style="
+                        display:flex;
+                        grid-gap: 10px;
+                        ">
+                          <div  class="fieldHead">Author:</div> <div>{{data.author}}</div>
+                       </div>
+                       <div
+                       class="section"
+                       style="
+                       display:flex;
+                       grid-gap: 10px;
+                       ">
+                           <div  class="fieldHead">Votes:</div> <div>{{data?.stats?.vote}}</div>
+                       </div>
+                       <div
+                       class="section"
+                       >
+                           <div class="fieldHead">Voting Countries:</div>
+                                <div *ngFor="let country of data?.stats?.location">
+                                     {{country}}
+                                </div>
+                       </div>
+                    </div>
+
+                </p-tabPanel>
+                <p-tabPanel header="Milestone">
+                    <p-timeline [value]="milestones" align="alternate" styleClass="customized-timeline">
+                        <ng-template pTemplate="marker" let-event>
+                            <span class="custom-marker shadow-2">
+                                <i class="fas fa-smile"></i>
+                            </span>
+                        </ng-template>
+                        <ng-template pTemplate="content" let-event>
+                            <p-card [header]="event.status" [subheader]="event.date">
+                                <p>
+                                    This is a sample milestone...<br>
+                                    Below buttons are just sample..
+                                </p>
+                                <div style="display: flex;">
+                                    <div class="button" >Edit</div>
+                                    <div class="button" >Fund</div>
+                                </div>
+                            </p-card>
+                        </ng-template>
+                    </p-timeline>
+                </p-tabPanel>
+            </p-tabView>
         </div>
         <div *ngIf="expand" class="menuBtns fullMenuContainer">
             <div (click)="closeEditMenu()" class="close">
