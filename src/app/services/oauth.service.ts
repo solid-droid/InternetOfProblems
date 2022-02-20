@@ -6,5 +6,6 @@ import { Injectable } from '@angular/core';
 export class OAuthService {
   validUser = false;
   userDetails:any = {};
+  userRecord:any = {};
   constructor() { }
 }

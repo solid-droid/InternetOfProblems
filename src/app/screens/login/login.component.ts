@@ -3,6 +3,7 @@ import { SharedDataService } from 'src/app/services/shared-data.service';
 import { SocialAuthService } from "angularx-social-login";
 import { GoogleLoginProvider } from "angularx-social-login";
 import { OAuthService } from 'src/app/services/oauth.service';
+import { ApiCallsService } from 'src/app/services/api-calls.service';
 
 @Component({
   selector: 'app-login',
@@ -15,6 +16,7 @@ export class LoginComponent implements OnInit {
     private readonly sharedData : SharedDataService,
     private authService: SocialAuthService,
     private OAuth :  OAuthService,
+    private readonly apiService : ApiCallsService
   ) { }
 
   ngOnInit(): void {
@@ -29,9 +31,29 @@ export class LoginComponent implements OnInit {
       if(res.email && res.email.includes('@')){
         this.OAuth.userDetails = res;
         this.OAuth.validUser = true;
-        this.hidePopup();
+        this.getLocation(async (position:any)=>{
+          const location = await this.apiService.getCountry(position.coords.latitude,position.coords.longitude);
+          const options = {
+            email: res.email, 
+            name: res.name, 
+            picture: res.photoUrl,
+            location
+          };
+          this.OAuth.userRecord = (await this.apiService.createUser(options)).data[0];
+          this.OAuth.userRecord.location = location || this.OAuth.userRecord.location;
+        });
       }
+      this.hidePopup();
     })
   }
+
+  getLocation(callback:any) {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(callback);
+    } else {
+      callback({coords:{latitude:null,longitude:null}});
+    }
+  }
+  
 
 }
