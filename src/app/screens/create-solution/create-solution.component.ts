@@ -3,6 +3,7 @@ import { ApiCallsService } from 'src/app/services/api-calls.service';
 import { MapBuilderService } from 'src/app/services/map-builder.service';
 import { OAuthService } from 'src/app/services/oauth.service';
 import { SharedDataService } from 'src/app/services/shared-data.service';
+import { UtilsService } from 'src/app/services/utils.service';
 
 @Component({
   selector: 'app-create-solution',
@@ -33,6 +34,7 @@ export class CreateSolutionComponent implements OnInit {
     private readonly apiService : ApiCallsService,
     private readonly mapBuilder : MapBuilderService,
     private readonly OAuth: OAuthService,
+    private readonly utils: UtilsService
   ) {}
 
   closePopup() {
@@ -63,6 +65,7 @@ export class CreateSolutionComponent implements OnInit {
 }
 
 async addSolution(){
+  this.utils.notifications.saving();
   const solution = {
     description: this.description,
     tldr: this.tldr,
@@ -76,7 +79,8 @@ async addSolution(){
   };
   //saving solution
   const responce:any = await this.apiService.addRecord(solution);
-
+  this.OAuth.userRecord.creator.push(responce.data.refID);
+  await this.apiService.updateUser();
   //updating parent relation
   const parent = this.mapBuilder.filteredMapData[solution.z]
                  .mapObjectData[solution.parents[0]];
@@ -89,5 +93,6 @@ async addSolution(){
   this.mapBuilder.clearMap();
   await this.mapBuilder.getMapData();
   this.mapBuilder.updateMap();
+  this.utils.notifications.saveSuccess();
 }
 }

@@ -8,4 +8,5 @@ export class OAuthService {
   userDetails:any = {};
   userRecord:any = {};
   constructor() { }
+
 }

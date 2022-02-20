@@ -87,10 +87,20 @@ export class EditComponent implements OnInit, OnDestroy, OnChanges {
     this.data.tags = this.selectedTags;
     this.record.tldr = this.tldr;
     this.record.tags = this.selectedTags;
+    this.utils.notifications.saving();
+    if(
+      !this.OAuth.userRecord.creator.find((id:any) => id === this.data.refID)
+      && 
+      !this.OAuth.userRecord.contributer.find((id:any) => id === this.data.refID)
+      ){
+        this.OAuth.userRecord.contributer.push(this.data.refID);
+        await this.apiService.updateUser();
+    }
     await this.apiService.updateRecord(this.data);
     await this.mapBuilder.getMapData();
     this.mapBuilder.updateMap();
     this.allowEdit = false;
+    this.utils.notifications.saveSuccess();
   }
 
   discard(){
