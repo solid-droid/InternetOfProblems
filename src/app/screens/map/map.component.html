@@ -66,7 +66,7 @@
         </div>
         <div *ngIf="item.related && item.related.length" class="relatedList" (touchend)="disableMenu()" (click)="disableMenu()">
             <div class="relatedHead">
-               <div> Related problems : </div>
+               <div> Related records : </div>
                <div class="icon" (click)="toggleRelativeList(item.controls)" (touchend)="toggleRelativeList(item.controls)">
                     <i  *ngIf="item.controls.relatedOpen" class="fas fa-chevron-up"></i> 
                     <i  *ngIf="!item.controls.relatedOpen" class="fas fa-chevron-down"></i> 

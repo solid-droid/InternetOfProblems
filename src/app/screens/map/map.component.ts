@@ -405,7 +405,7 @@ export class MapComponent implements OnInit, OnDestroy {
 
     async addRelation(item:any){
       this.updateData = true;
-      console.log(item);
+      this.sharedData.setRelationsPopup({content:{new:false,item}, show:true});
       await new Promise(r => setTimeout(r, 100));
       this.updateData = false;
     }
@@ -413,7 +413,6 @@ export class MapComponent implements OnInit, OnDestroy {
     async openRelative(rel:any){
       this.updateData = true;
       const item:any = await this.mapBuilder.getItem(rel.refID);
-      const {x,y, scale} = this.map.getTransform();
       this.map.zoomAbs(0, 0, 1);
       this.sharedData.setZoomLevel(item.z);
       this.map.moveTo(100-(item.x*400), -(item.y*300));

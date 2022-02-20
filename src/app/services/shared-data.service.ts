@@ -25,6 +25,9 @@ export class SharedDataService {
   private readonly Observable_solutionPopup = new BehaviorSubject({show: false , content:{}});
   getSolutionPopup = this.Observable_solutionPopup.asObservable();
 
+  private readonly Observable_relationsPopup = new BehaviorSubject({show: false , content:{}});
+  getRelationsPopup = this.Observable_relationsPopup.asObservable();
+
   public setZoomLevel(zoomLevel: number) {
     this.Observable_zoomLevel.next(zoomLevel);
   }
@@ -47,6 +50,10 @@ export class SharedDataService {
 
   public setSolutionPopup(editOptions: any){
     this.Observable_solutionPopup.next(editOptions);
+  }
+
+  public setRelationsPopup(editOptions: any){
+    this.Observable_relationsPopup.next(editOptions);
   }
 
 }

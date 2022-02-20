@@ -1,0 +1,59 @@
+<div class="mask">
+    <div class="container">
+        <div style="
+            overflow: hidden;
+            height: 100%;
+            padding-top: 20px;
+            ">
+            <div>Link related problems/solutions:</div>
+            <div>
+                <div style="
+                    display: grid; 
+                    width: 100%;
+                    grid-template-columns: 1fr 40px;
+                    grid-gap: 10px;
+                    padding-top: 10px;
+                    padding-bottom: 10px;
+                    align-items: center;
+                    ">
+                    <input type="text" pInputText placeholder="Enter ID of a problem" [(ngModel)]="linkID"/>
+                    <div class="close linkProblem" (click)="linkProblem()">
+                        <!-- + icon -->
+                        <i class="fas fa-plus"></i>
+                    </div>
+                </div>
+
+                <p-listbox 
+                [options]="linkedItems" 
+                [readonly]="true" 
+                optionLabel="refID"
+                emptyMessage="No linked problems"
+                >
+                    <ng-template let-entry pTemplate="item">
+                        <div style="
+                                display: grid;
+                                width: 100%;
+                                grid-template-columns: 20px 1fr 100px 20px;
+                                border-bottom: solid 1px #e0e0e0;
+                            ">
+                            <div>
+                                <i class="fas fa-link"></i>
+                            </div>
+                            <div style="padding-left:10px;">
+                                {{entry.refID}}
+                            </div>
+                            <div style="font-size: 14px;">
+                                {{entry.catagory}}
+                            </div>
+                            <div (click)="removeLink(entry)">
+                                <!-- bin icon -->
+                                <i class="fas fa-trash"></i>
+                            </div>
+                        </div>
+                    </ng-template>
+                </p-listbox>
+            </div>
+        </div>
+        <div class="close" (click)="hidePopup()"> <i class="fas fa-times"></i></div>
+    </div>
+</div>

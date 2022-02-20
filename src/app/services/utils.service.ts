@@ -14,6 +14,7 @@ export class UtilsService {
     saveSuccess: (msg:string = 'Record Saved!') => this.successMessage(msg),
     error: (msg:string = 'Something went wrong, try again') => this.errorMessage(msg),
     greetings: (msg:string = `Welcome ${this.OAuth.userRecord.name}`) => this.successMessage(msg, `Login Successful`),
+    dev: (msg:string = '') => this.warningMessage(msg , 'Under Development'),
   }
   constructor(
     private messageService: MessageService,
@@ -37,6 +38,13 @@ export class UtilsService {
   private errorMessage(msg:string , header:string = 'Info') {
     this.messageService.add({
       severity:'error', 
+      summary: header, 
+      detail: msg});
+  }
+
+  private warningMessage(msg:string , header:string = 'Info') {
+    this.messageService.add({
+      severity:'warn', 
       summary: header, 
       detail: msg});
   }

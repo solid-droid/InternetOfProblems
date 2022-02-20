@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { SharedDataService } from 'src/app/services/shared-data.service';
+import { UtilsService } from 'src/app/services/utils.service';
+import { Output, EventEmitter } from '@angular/core';
+import { OAuthService } from 'src/app/services/oauth.service';
 
 @Component({
   selector: 'app-header',
@@ -7,9 +10,11 @@ import { SharedDataService } from 'src/app/services/shared-data.service';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
-
+  @Output() sideMenu = new EventEmitter<string>();
   constructor(
-    private readonly sharedData : SharedDataService
+    private readonly sharedData : SharedDataService,
+    private readonly utils : UtilsService,
+    private readonly OAuth : OAuthService
   ) { }
 
   ngOnInit(): void {
@@ -20,4 +25,21 @@ export class HeaderComponent implements OnInit {
       new:true
     }})
   }
+  findBounty(){
+    this.utils.notifications.dev('Bounty Search is under development');
+  }
+
+  exposedAPIs(){
+    this.sideMenu.emit('docs');
+  }
+
+  userDetails(){
+    if(this.OAuth.validUser){
+      this.sideMenu.emit('user');
+    } else{
+      this.sharedData.setLoginPopup(true);
+    }
+
+  }
+ 
 }

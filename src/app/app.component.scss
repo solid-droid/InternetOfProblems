@@ -17,3 +17,21 @@
         grid-template-rows: 100px;
     }
 }
+
+
+::ng-deep{
+    .p-sidebar{
+        max-width: 100vw!important;
+        width: 500px!important;
+    .p-sidebar-content {
+        padding: 10px;
+        position: absolute;
+        width: 100%;
+        height: calc(100vh - 20px);
+    }
+    .p-sidebar-header .p-sidebar-close, .p-sidebar .p-sidebar-header .p-sidebar-icon {
+        position: fixed;
+        z-index: 5;
+    }
+    }
+}
