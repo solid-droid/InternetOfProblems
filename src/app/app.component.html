@@ -1,7 +1,7 @@
 
 <div class="container">
     <div class="header">
-        <app-header></app-header>
+        <app-header (sideMenu)="showSideMenu($event)"></app-header>
     </div>
     <div class="body">
         <app-home></app-home>
@@ -9,3 +9,7 @@
     </div>
 </div>
 <p-toast></p-toast>
+<p-sidebar [(visible)]="sideMenu" position="right" [baseZIndex]="10000">
+    <app-docs *ngIf="menuContent === 'docs'"></app-docs>
+    <app-user-details *ngIf="menuContent === 'user'"></app-user-details>
+</p-sidebar>

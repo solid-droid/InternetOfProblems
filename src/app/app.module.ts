@@ -32,6 +32,10 @@ import { SocialLoginModule, SocialAuthServiceConfig } from 'angularx-social-logi
 import { GoogleLoginProvider} from 'angularx-social-login';
 import { RoutingComponent } from './components/routing/routing.component';
 import {ToastModule} from 'primeng/toast';
+import { CreateRelationsComponent } from './screens/create-relations/create-relations.component';
+import {SidebarModule} from 'primeng/sidebar';
+import { UserDetailsComponent } from './screens/user-details/user-details.component';
+import { DocsComponent } from './screens/docs/docs.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +51,10 @@ import {ToastModule} from 'primeng/toast';
     CreateProblemComponent,
     CreateSolutionComponent,
     LoginComponent,
-    RoutingComponent
+    RoutingComponent,
+    CreateRelationsComponent,
+    UserDetailsComponent,
+    DocsComponent
   ],
   imports: [
     NgxSliderModule,
@@ -63,7 +70,8 @@ import {ToastModule} from 'primeng/toast';
     ListboxModule,
     InputTextModule,
     SocialLoginModule,
-    ToastModule
+    ToastModule,
+    SidebarModule
   ],
   providers: [ 
     {

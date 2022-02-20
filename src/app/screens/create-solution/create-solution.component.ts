@@ -17,7 +17,7 @@ export class CreateSolutionComponent implements OnInit {
   problemDesc= '';
   tldr = '';
   selectedTags: any[] = [];
-  tagList: any = [{name:'test'},{name:'test2'},{name:'test3'}];
+  tagList: any = [];
   filteredTags: any[] = [];
   catagoryList = [
     {name:'General'},
@@ -36,7 +36,9 @@ export class CreateSolutionComponent implements OnInit {
     private readonly mapBuilder : MapBuilderService,
     private readonly OAuth: OAuthService,
     private readonly utils: UtilsService
-  ) {}
+  ) {
+    this.tagList = this.utils.tags;
+  }
 
   closePopup() {
     this.sharedData.setSolutionPopup({show: false , content:{}});

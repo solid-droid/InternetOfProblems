@@ -12,3 +12,4 @@
 <app-create-problem [solution]="solution" *ngIf="showProblemPopup"></app-create-problem>
 <app-create-solution [problem]="problem" *ngIf="showSolutionPopup"></app-create-solution>
 <app-login *ngIf="showLogin"></app-login>
+<app-create-relations *ngIf="showRelationsPopup" [problem]="problem"></app-create-relations>

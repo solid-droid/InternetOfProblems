@@ -1,0 +1,24 @@
+<div class="container">
+    <div class="header">
+        <div class="imageWrapper">
+            <img [src]="this.UserDetails.picture" alt="">
+        </div>
+         <div>
+            {{this.UserDetails.name}} 
+        </div>
+    </div>
+    <div class="email">
+        {{this.UserDetails.email}}
+    </div>
+    <div class="wallet">
+        Wallet Not Linked
+    </div>
+    <div class="contributions">
+        <div style="
+        font-size: 20px;
+        font-weight: 500;
+        margin-bottom: 5px;
+         ">My Creations</div>
+        <div>RefID: {{this.UserDetails.creator}}</div>
+    </div>
+</div>

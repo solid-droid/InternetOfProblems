@@ -1,0 +1,53 @@
+$small: 400px;
+$medium: 900px;
+
+.mask{
+    position: fixed;
+    z-index: 5;
+    top:0;
+    left:0;
+    background: rgba(0, 0, 0, 0.171);
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    backdrop-filter: blur(1px);
+    .container{
+        width: 300px;
+        height: 500px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: whitesmoke;
+        border-radius: 22px;
+        padding: 15px;
+        padding-top: 10px;
+    }
+}
+
+
+.close{
+    position: absolute;
+    cursor: pointer;
+    height: 25px;
+    width: 25px;
+    margin-top: -472px;
+    margin-right: -269px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+    border-radius: 50%;
+    transition:0.5s;
+    padding: 5px;
+    box-shadow: inset -1px -3px 7px 2px #cbcbcb;
+    &:hover{
+        box-shadow: inset 3px -3px 7px 1px rgb(190, 190, 190);
+    }
+}
+
+.linkProblem{
+    margin-top: -3px;
+    margin-left: 265px;
+}

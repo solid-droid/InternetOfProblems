@@ -12,6 +12,7 @@ export class HomeComponent implements OnInit {
   showEdit = false;
   showProblemPopup = false;
   showSolutionPopup = false;
+  showRelationsPopup = false;
   solution = null;
   problem = null;
   showLogin = false;
@@ -42,6 +43,7 @@ export class HomeComponent implements OnInit {
         this.showProblemPopup = options.show;
         if(this.showProblemPopup){
           this.showSolutionPopup = false;
+          this.showRelationsPopup = false;
           this.solution = options.content.item;
           this.sharedData.setEditMenu({show: false , content:{}});
         }
@@ -56,6 +58,21 @@ export class HomeComponent implements OnInit {
           if( this.showSolutionPopup){
             this.problem = options.content.item;
             this.showProblemPopup = false;
+            this.showRelationsPopup = false;
+            this.sharedData.setEditMenu({show: false , content:{}});
+          }
+      } else if(options.show){
+        this.showLogin = true;
+      }
+    });
+
+    this.sharedData.getRelationsPopup.subscribe((options:any) => {
+      if(this.OAuth.validUser){
+          this.showRelationsPopup = options.show;
+          if( this.showRelationsPopup){
+            this.problem = options.content.item;
+            this.showProblemPopup = false;
+            this.showSolutionPopup = false;
             this.sharedData.setEditMenu({show: false , content:{}});
           }
       } else if(options.show){
