@@ -20,7 +20,7 @@ import {InputTextModule} from 'primeng/inputtext';
 import {AutoCompleteModule} from 'primeng/autocomplete';
 import {DropdownModule} from 'primeng/dropdown';
 import {ListboxModule} from 'primeng/listbox';
-
+import {MessageService} from 'primeng/api';
 import { MapComponent } from './screens/map/map.component';
 import { EditComponent } from './screens/edit/edit.component';
 import { CounterPipe } from './pipes/counter.pipe';
@@ -31,6 +31,7 @@ import { LoginComponent } from './screens/login/login.component';
 import { SocialLoginModule, SocialAuthServiceConfig } from 'angularx-social-login';
 import { GoogleLoginProvider} from 'angularx-social-login';
 import { RoutingComponent } from './components/routing/routing.component';
+import {ToastModule} from 'primeng/toast';
 
 @NgModule({
   declarations: [
@@ -61,9 +62,11 @@ import { RoutingComponent } from './components/routing/routing.component';
     DropdownModule,
     ListboxModule,
     InputTextModule,
-    SocialLoginModule
+    SocialLoginModule,
+    ToastModule
   ],
-  providers: [ {
+  providers: [ 
+    {
     provide: 'SocialAuthServiceConfig',
     useValue: {
       autoLogin: false,
@@ -76,7 +79,9 @@ import { RoutingComponent } from './components/routing/routing.component';
         },
       ]
     } as SocialAuthServiceConfig,
-  }],
+  },
+  MessageService
+],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

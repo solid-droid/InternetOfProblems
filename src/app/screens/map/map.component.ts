@@ -1,7 +1,9 @@
 import { animate, style, transition, trigger } from '@angular/animations';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { ApiCallsService } from 'src/app/services/api-calls.service';
 import { MapBuilderService } from 'src/app/services/map-builder.service';
+import { OAuthService } from 'src/app/services/oauth.service';
 import { SharedDataService } from 'src/app/services/shared-data.service';
 import { UtilsService } from 'src/app/services/utils.service';
 declare const panzoom:any;
@@ -41,7 +43,9 @@ export class MapComponent implements OnInit, OnDestroy {
     private readonly sharedData : SharedDataService,
     public readonly mapBuilder : MapBuilderService,
     private readonly router : Router,
-    private readonly utils : UtilsService
+    private readonly utils : UtilsService,
+    private readonly OAuth : OAuthService,
+    private readonly apiService: ApiCallsService
   ) { }
   ngOnDestroy() {
     this.$subscription1.unsubscribe();
@@ -134,6 +138,7 @@ export class MapComponent implements OnInit, OnDestroy {
     const topMap = this.map.getTransform().y;
     const leftMap = this.map.getTransform().x;
     let headerOffset = 125;
+    let leftOffset = 0;
     for (const x of $('.leader-line')) {
 			const leftArrow = parseFloat($(x).css('left').split('px')[0]);
 			const topArrow = parseFloat($(x).css('top').split('px')[0]);
@@ -143,10 +148,11 @@ export class MapComponent implements OnInit, OnDestroy {
         (window.innerWidth < 700 && window.innerHeight < 400)
         ){
           headerOffset = 155;
+          leftOffset = 5;
       }
 			$(x).css({
 				top: String((topArrow - topMap - headerOffset)) + 'px',
-				left: String((leftArrow - leftMap)) + 'px'
+				left: String((leftArrow - leftMap - leftOffset)) + 'px'
 			});
 		}
   }
@@ -353,10 +359,29 @@ export class MapComponent implements OnInit, OnDestroy {
   //Data updates
   async updateVote(item:any, vote:number){
     this.updateData = true;
-    item.stats.vote += vote;
+    if(this.OAuth.validUser){
+      const stats = this.OAuth.userRecord.stats.find((stat:any) => stat.refID === item.refID);
+      if(stats){
+        if(stats.vote !== vote){
+          item.stats.vote += vote;
+          stats.vote = vote;
+        }
+      } else{
+        item.stats.vote += vote;
+        this.OAuth.userRecord.stats.push({refID: item.refID, vote});
+      }
+      if(!item.stats.location.find((location:string) => location === this.OAuth.userRecord.location)){
+        item.stats.location.push(this.OAuth.userRecord.location);
+      }
+      await this.apiService.updateUser();
+      await this.apiService.updateRecord(item);
+    } else{
+      this.sharedData.setLoginPopup(true);
+    }
     await new Promise(r => setTimeout(r, 15));
     this.updateData = false;
   }
+
 
     async addConnection(item:any){
       //add solution or problem
@@ -374,6 +399,13 @@ export class MapComponent implements OnInit, OnDestroy {
       //add problem
       this.updateData = true;
       this.sharedData.setProblemPopup({content:{new:false,item}, show:true});
+      await new Promise(r => setTimeout(r, 100));
+      this.updateData = false;
+    }
+
+    async addRelation(item:any){
+      this.updateData = true;
+      console.log(item);
       await new Promise(r => setTimeout(r, 100));
       this.updateData = false;
     }

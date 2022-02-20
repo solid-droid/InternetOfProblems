@@ -14,22 +14,24 @@
             <!-- <i class="fas fa-dollar-sign"></i> -->
              Funded
         </div>
-        <div class="verified">
-            <i class="fas fa-check-circle"></i>
+        <div class="verified" *ngIf="item.verified">
+            <div>Verified</div> 
+            <div>
+                <i class="fas fa-check-circle"></i>
+            </div>
         </div>
         <div 
-        *ngIf="item.type == 'Solution'"
         id="{{item.type == 'Solution' ? 'start' : 'end' }}{{item.refID}}" 
-        class="addProblem pos{{item.type}}"
-        (click) = "item.type == 'Solution' ? addConnection(item) : addChild(item)"
-        (touchend)= "item.type == 'Solution' ? addConnection(item) : addChild(item)"
+        class="addProblem pos{{item.type}} desktop"
+        (click) = "item.type == 'Solution' ? addConnection(item) : addRelation(item)"
+        (touchend)= "item.type == 'Solution' ? addConnection(item) : addRelation(item)"
         >
             <i class="fas fa-plus-circle"></i>
         </div>
         <div 
         *ngIf="item.type == 'Problem'"
         id="{{item.type == 'Problem' ? 'start' : 'end' }}{{item.refID}}" 
-        class="addSolution pos{{item.type}}"
+        class="addSolution pos{{item.type}} desktop"
         (click) = "item.type == 'Problem' ? addConnection(item) : addChild(item)"
         (touchend)= "item.type == 'Problem' ? addConnection(item) : addChild(item)"
         >

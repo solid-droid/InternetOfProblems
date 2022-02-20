@@ -2,6 +2,8 @@ import { Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output } 
 import { Router } from '@angular/router';
 import { ApiCallsService } from 'src/app/services/api-calls.service';
 import { MapBuilderService } from 'src/app/services/map-builder.service';
+import { OAuthService } from 'src/app/services/oauth.service';
+import { SharedDataService } from 'src/app/services/shared-data.service';
 import { UtilsService } from 'src/app/services/utils.service';
 
 
@@ -28,7 +30,9 @@ export class EditComponent implements OnInit, OnDestroy, OnChanges {
     private readonly apiService : ApiCallsService,
     private readonly mapBuilder : MapBuilderService,
     private readonly router : Router,
-    private readonly utils: UtilsService
+    private readonly utils: UtilsService,
+    private readonly OAuth : OAuthService,
+    private readonly sharedData : SharedDataService
   ) { }
   async ngOnChanges(changes: any) {
     if (changes.selection.currentValue) {
@@ -53,6 +57,14 @@ export class EditComponent implements OnInit, OnDestroy, OnChanges {
     this.router.navigate(['/']);
   }
 
+  enableEdit(){
+    if(this.OAuth.validUser){
+      this.allowEdit=true;
+    }else{
+      this.sharedData.setLoginPopup(true);
+    }
+  }
+
   expandMenu() {
     this.expand = true;
   } 
@@ -75,10 +87,20 @@ export class EditComponent implements OnInit, OnDestroy, OnChanges {
     this.data.tags = this.selectedTags;
     this.record.tldr = this.tldr;
     this.record.tags = this.selectedTags;
+    this.utils.notifications.saving();
+    if(
+      !this.OAuth.userRecord.creator.find((id:any) => id === this.data.refID)
+      && 
+      !this.OAuth.userRecord.contributer.find((id:any) => id === this.data.refID)
+      ){
+        this.OAuth.userRecord.contributer.push(this.data.refID);
+        await this.apiService.updateUser();
+    }
     await this.apiService.updateRecord(this.data);
     await this.mapBuilder.getMapData();
     this.mapBuilder.updateMap();
     this.allowEdit = false;
+    this.utils.notifications.saveSuccess();
   }
 
   discard(){

@@ -39,7 +39,8 @@ export class CreateProblemComponent implements OnInit {
     private readonly sharedData : SharedDataService,
     private readonly apiService : ApiCallsService,
     private readonly OAuth: OAuthService,
-    private readonly mapBuilder: MapBuilderService
+    private readonly mapBuilder: MapBuilderService,
+    private readonly utils: UtilsService,
   ) {}
 
   closePopup() {
@@ -94,6 +95,8 @@ export class CreateProblemComponent implements OnInit {
 }
 
 async addProblem(){
+  this.closePopup();
+  this.utils.notifications.saving();
   const problem ={
     description: this.description,
     tldr: this.tldr,
@@ -107,7 +110,8 @@ async addProblem(){
     author: this.OAuth.userDetails.email,
   }
   const responce = await this.apiService.addRecord(problem);
-
+  this.OAuth.userRecord.creator.push(responce.data.refID);
+  await this.apiService.updateUser();
   if(this.solution){
   const parent = this.mapBuilder.filteredMapData[problem.z]
                                 .mapObjectData[problem.parents[0]];
@@ -120,5 +124,7 @@ async addProblem(){
   this.mapBuilder.clearMap();
   await this.mapBuilder.getMapData();
   this.mapBuilder.updateMap();
+
+  this.utils.notifications.saveSuccess();
   }
 }
