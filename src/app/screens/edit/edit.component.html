@@ -1,5 +1,5 @@
 <div class="container {{expand ? 'fullContainer' : ''}}">
-    <div>
+    <div class="desktop">
         <div class="head {{expand ? 'fullHead' : ''}}" >
             <div class="summary">
                 <div class="sectionHead"> 
@@ -77,8 +77,10 @@
             </div>
         </div>
     </div>
-    <div *ngIf="expand">
-        extra Stuff
+    <div class="desktop" *ngIf="expand">
+        <div>
+            extra stuff
+        </div>
         <div *ngIf="expand" class="menuBtns fullMenuContainer">
             <div (click)="closeEditMenu()" class="close">
                 <i class="fas fa-times"></i>
@@ -88,6 +90,27 @@
                     style="transform: rotateY(180deg);"
                 ></i>
             </div>
+        </div>
+    </div>
+    <div class = "mobile">
+        <div (click)="closeEditMenu()" class="close" style="
+            position: absolute;
+            right: 5px;
+            z-index: 5;
+            top: 5px;">
+            <i class="fas fa-times"></i>
+        </div>
+        <div style="margin-top: 10px;">
+            Problem Description :
+        </div>
+        <div style="
+            height: calc(100% - 20px);
+            width: 90vw;
+            margin-top: 9px;
+            ">
+            <p-editor [(ngModel)]="description" 
+            [readonly]="!allowEdit" 
+            [styleClass]="!allowEdit ? 'removeToolbar':'editorClass'"></p-editor>
         </div>
     </div>
 </div>

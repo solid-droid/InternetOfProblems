@@ -95,6 +95,7 @@ export class CreateProblemComponent implements OnInit {
 }
 
 async addProblem(){
+  this.closePopup();
   this.utils.notifications.saving();
   const problem ={
     description: this.description,

@@ -14,6 +14,7 @@ export class CreateSolutionComponent implements OnInit {
 
   allowEdit = true;
   description = '';
+  problemDesc= '';
   tldr = '';
   selectedTags: any[] = [];
   tagList: any = [{name:'test'},{name:'test2'},{name:'test3'}];
@@ -42,7 +43,9 @@ export class CreateSolutionComponent implements OnInit {
   }
 
 
-  ngOnInit(): void {
+ async ngOnInit() {
+    const details = (await this.apiService.getDetails(this.problem.refID)).data[0];
+    this.problemDesc = details.desc;
 
   }
 
@@ -65,6 +68,7 @@ export class CreateSolutionComponent implements OnInit {
 }
 
 async addSolution(){
+  this.closePopup();
   this.utils.notifications.saving();
   const solution = {
     description: this.description,

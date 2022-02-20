@@ -138,6 +138,7 @@ export class MapComponent implements OnInit, OnDestroy {
     const topMap = this.map.getTransform().y;
     const leftMap = this.map.getTransform().x;
     let headerOffset = 125;
+    let leftOffset = 0;
     for (const x of $('.leader-line')) {
 			const leftArrow = parseFloat($(x).css('left').split('px')[0]);
 			const topArrow = parseFloat($(x).css('top').split('px')[0]);
@@ -147,10 +148,11 @@ export class MapComponent implements OnInit, OnDestroy {
         (window.innerWidth < 700 && window.innerHeight < 400)
         ){
           headerOffset = 155;
+          leftOffset = 5;
       }
 			$(x).css({
 				top: String((topArrow - topMap - headerOffset)) + 'px',
-				left: String((leftArrow - leftMap)) + 'px'
+				left: String((leftArrow - leftMap - leftOffset)) + 'px'
 			});
 		}
   }
@@ -397,6 +399,13 @@ export class MapComponent implements OnInit, OnDestroy {
       //add problem
       this.updateData = true;
       this.sharedData.setProblemPopup({content:{new:false,item}, show:true});
+      await new Promise(r => setTimeout(r, 100));
+      this.updateData = false;
+    }
+
+    async addRelation(item:any){
+      this.updateData = true;
+      console.log(item);
       await new Promise(r => setTimeout(r, 100));
       this.updateData = false;
     }

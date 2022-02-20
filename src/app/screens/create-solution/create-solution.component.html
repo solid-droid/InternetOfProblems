@@ -21,10 +21,11 @@
                     </div>
                 </div>
                 <div class="desc_prob">
-                    <div>Description :</div>
-                    <div>
-                        {{problem.desc}}
-                    </div>
+                        <p-editor [(ngModel)]="problemDesc" [readonly]="true" styleClass="createEditorClass">
+                            <ng-template pTemplate="header">
+                                Description :
+                            </ng-template>
+                        </p-editor>
                 </div>
             </div>
             <div class="right">

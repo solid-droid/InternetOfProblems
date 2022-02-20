@@ -68,14 +68,17 @@
     }
 }
 .mobile{
-display: none;
+display: none !important;
 }
+
+
 .timeline{
     // height: 100%;
     display: grid;
     overflow: hidden;
     grid-template-columns: 13.5% 65% 23%;
 }
+
 
 @media screen and (max-width: 1165px){
     .topbar{
@@ -88,32 +91,25 @@ display: none;
     
 }
 
+.desktop{
+    display: flex !important;
+}
+
 @media screen and (max-width: 700px){
     .container{
         grid-template-rows: 55% 45%;
     }
     .topbar{
-        grid-template-columns:100px auto;
-        .menuBtns{
-            padding-right: 15px;
-            .icon{
-                padding: 7px;
-                margin-left: 15px;
-                width: 25px;
-                height: 25px;
-                font-size: 22px;
-              }
-    }
-
+        grid-template-columns: auto;
     }
     .timeline{
         display: none;
     }
     .desktop{
-        display: none;
+        display: none !important;
     }
     .mobile{
-        display: block;
+        display: flex !important;
     }
     .search.mobile{
         width: 100%;
