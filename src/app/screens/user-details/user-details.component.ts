@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { OAuthService } from 'src/app/services/oauth.service';
 
 @Component({
   selector: 'app-user-details',
@@ -7,9 +8,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UserDetailsComponent implements OnInit {
 
-  constructor() { }
+  UserDetails:any = {};
+
+constructor(
+    private readonly OAuth: OAuthService,
+  ) { }
 
   ngOnInit(): void {
+    this.UserDetails = this.OAuth.userRecord;
   }
 
 }

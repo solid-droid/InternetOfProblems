@@ -1,1 +1,54 @@
-<p>docs works!</p>
+<div class="container">
+    <div class="header">
+        <div style="
+        font-size: 34px;
+        padding-top: 20px;
+        ">
+            Reference Material
+        </div>
+    </div>
+    <div class="AboutUs">
+        <div style="
+        padding-top: 25px;
+        padding-bottom: 25px;
+        display: flex;
+        text-align: left;
+        padding-right: 30px;
+        overflow: hidden;
+        ">
+            Internet Of Problems is an open-sourced web-application to create network of problems and solutions
+            with the help of croudsourcing and crowdfunding.
+        </div>
+    </div>
+    <div class="Github">
+        <div style="
+        font-size: 20px;
+        font-weight: bold;
+        margin-bottom: 10px;
+        ">
+            Source Code
+        </div>
+        <div class="selection" (click)="openLink('FrontEnd')" title="{{this.linkURL['FrontEnd']}}">
+            <i class="fab fa-github"></i> Front End
+        </div>
+        <div class="selection" (click)="openLink('BackEnd')" title="{{this.linkURL['BackEnd']}}">
+            <i class="fab fa-github"></i> Backend End
+        </div>
+    </div>
+    <div class="ExposedAPIs">
+        <div style="
+            font-size: 20px;
+            font-weight: bold;
+        ">
+            Free JSON APIs
+        </div>
+        <div *ngFor="let item of apis" class="APIitem">
+            <div class="APIname">
+                {{item.name}}
+            </div>
+            <div class="APIsample">
+                {{item.sample}}
+            </div>
+        </div>
+    </div>
+</div>

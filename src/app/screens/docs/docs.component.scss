@@ -1,0 +1,28 @@
+.APIitem{
+    margin-top: 10px;
+    .APIname{
+        font-size: 18px;
+        font-weight: 500;
+        margin-bottom: 10px;
+    }
+    .APIsample{
+        background: whitesmoke;
+        font-size: 11px;
+        color: #4e4ee6;
+    }
+}
+
+.Github{
+    margin-top: 10px;
+    .selection{
+        cursor: pointer;
+        transition: 0.2s;
+        &:hover{
+            color: #4e4ee6;
+        }
+    }
+}
+
+.ExposedAPIs{
+    margin-top: 40px;
+}
