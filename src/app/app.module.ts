@@ -36,6 +36,9 @@ import { CreateRelationsComponent } from './screens/create-relations/create-rela
 import {SidebarModule} from 'primeng/sidebar';
 import { UserDetailsComponent } from './screens/user-details/user-details.component';
 import { DocsComponent } from './screens/docs/docs.component';
+import {TabViewModule} from 'primeng/tabview';
+import {TimelineModule} from 'primeng/timeline';
+import {CardModule} from 'primeng/card';
 
 @NgModule({
   declarations: [
@@ -71,7 +74,10 @@ import { DocsComponent } from './screens/docs/docs.component';
     InputTextModule,
     SocialLoginModule,
     ToastModule,
-    SidebarModule
+    SidebarModule,
+    TabViewModule,
+    TimelineModule,
+    CardModule
   ],
   providers: [ 
     {

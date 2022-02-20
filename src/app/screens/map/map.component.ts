@@ -364,7 +364,7 @@ export class MapComponent implements OnInit, OnDestroy {
       if(stats){
         if(stats.vote !== vote){
           item.stats.vote += vote;
-          stats.vote = vote;
+          stats.vote += vote;
         }
       } else{
         item.stats.vote += vote;
