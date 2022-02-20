@@ -19,7 +19,7 @@ export class CreateProblemComponent implements OnInit {
   disableCatagory = false;
   solutionX = 0;
   selectedTags: any[] = [];
-  tagList: any = [{name:'test'},{name:'test2'},{name:'test3'}];
+  tagList: any = [];
   filteredTags: any[] = [];
   linkedItems: any[] = [];
   catagoryList = [
@@ -41,7 +41,9 @@ export class CreateProblemComponent implements OnInit {
     private readonly OAuth: OAuthService,
     private readonly mapBuilder: MapBuilderService,
     private readonly utils: UtilsService,
-  ) {}
+  ) {
+    this.tagList = this.utils.tags;
+  }
 
   closePopup() {
     this.sharedData.setProblemPopup({show: false , content:{}})

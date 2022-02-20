@@ -19,7 +19,7 @@ export class EditComponent implements OnInit, OnDestroy, OnChanges {
   tldr = '';
   description: string = `Hello World!`;
   selectedTags: any[] = [];
-  tagList: any = [{name:'test'},{name:'test2'},{name:'test3'}];
+  tagList: any = [];
   filteredTags: any[] = [];
   data:any = {};
   record:any = {};
@@ -33,7 +33,9 @@ export class EditComponent implements OnInit, OnDestroy, OnChanges {
     private readonly utils: UtilsService,
     private readonly OAuth : OAuthService,
     private readonly sharedData : SharedDataService
-  ) { }
+  ) {
+    this.tagList = this.utils.tags;
+   }
   async ngOnChanges(changes: any) {
     if (changes.selection.currentValue) {
       if(!changes.selection.currentValue.router){
