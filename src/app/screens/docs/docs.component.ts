@@ -9,9 +9,9 @@ export class DocsComponent implements OnInit {
 
   constructor() { }
   apis:any =[
-    {name:'Search TLDR', sample:'http://internet-of-problems-backend.herokuapp.com/api/searchTLDR/<Your Email>/<text>'},
-    {name:'Search Description', sample:'http://internet-of-problems-backend.herokuapp.com/api/searchDetails/<Your Email>/<text>'},
-    {name:'Get Record by refID', sample:'http://internet-of-problems-backend.herokuapp.com/api/getRecordByID/<Your Email>/<refID>'}
+    {name:'Search TLDR', sample:'http://internet-of-problems-backend.herokuapp.com/api/searchTLDR/<UniqueID>/<text>'},
+    {name:'Search Description', sample:'http://internet-of-problems-backend.herokuapp.com/api/searchDetails/<UniqueID>/<text>'},
+    {name:'Get Record by refID', sample:'http://internet-of-problems-backend.herokuapp.com/api/getRecordByID/<UniqueID>/<refID>'}
   ];
 
   linkURL:any = {

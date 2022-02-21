@@ -8,17 +8,20 @@
         </div>
     </div>
     <div class="email">
-        {{this.UserDetails.email}}
+       UniqueID : {{this.UserDetails._id}}
+    </div>
+    <div class="email">
+      Email :  {{this.UserDetails.email}}
     </div>
     <div class="wallet">
-        Wallet Not Linked
+      Wallet :  Wallet Not Linked
     </div>
     <div class="contributions">
         <div style="
         font-size: 20px;
         font-weight: 500;
         margin-bottom: 5px;
-         ">My Creations</div>
-        <div>RefID: {{this.UserDetails.creator}}</div>
+         ">My Creations(RefID) :</div>
+        <div>{{this.UserDetails.creator}}</div>
     </div>
 </div>
