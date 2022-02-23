@@ -25,12 +25,14 @@ export class ApiCallsService {
   }
 
   async updateRecord(record: any) {
+    const {next, prev, ...rest} = record;
+    console.log(rest);
     const responce = await (await fetch(this.url + 'updateRecord', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
-      body: JSON.stringify(record)  
+      body: JSON.stringify(rest)  
     })).json();
     return responce;
   }

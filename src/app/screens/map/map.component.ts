@@ -363,8 +363,8 @@ export class MapComponent implements OnInit, OnDestroy {
       const stats = this.OAuth.userRecord.stats.find((stat:any) => stat.refID === item.refID);
       if(stats){
         if(stats.vote !== vote){
-          item.stats.vote += vote;
           stats.vote += vote;
+          item.stats.vote += vote;
         }
       } else{
         item.stats.vote += vote;
